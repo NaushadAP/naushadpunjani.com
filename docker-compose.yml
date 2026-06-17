@@ -1,11 +1,10 @@
 # Local SvelteKit dev environment in a container.
-# No Node, npm, or anything else installed on your host.
+# Loads env vars from .env in the project root.
 #
 # Usage:
 #   docker compose up         # start dev server
 #   Ctrl+C                    # stop
 #   docker compose down       # remove container
-#   docker compose exec dev npm install <package>   # add a dependency
 
 services:
   dev:
@@ -15,10 +14,10 @@ services:
     ports:
       - "5173:5173"
     volumes:
-      # Mount your project folder into /app inside the container
       - .:/app
-      # Keep node_modules inside a named volume (fast, avoids Windows FS quirks)
       - node_modules:/app/node_modules
+    env_file:
+      - .env
     environment:
       - HOST=0.0.0.0
       - CHOKIDAR_USEPOLLING=true

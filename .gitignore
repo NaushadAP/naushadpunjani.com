@@ -3,7 +3,9 @@ node_modules
 /build
 /dist
 /.vercel
+.DS_Store
+
+# Env files — never commit, ever
 .env
 .env.*
 !.env.example
-.DS_Store
