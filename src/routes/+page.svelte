@@ -1,13 +1,20 @@
 <script>
-  const featured = [
-    {
-      name: 'job-portal',
-      description: 'Laravel-based job board with employer and candidate flows, email notifications, and applicant tracking.',
-      stack: ['Laravel', 'MySQL', 'Tailwind', 'Blade'],
-      href: 'https://github.com/NaushadAP/job-portal',
-      demo: null
-    }
-  ];
+  /** @type {import('./$types').PageData} */
+  export let data;
+
+  $: featured = data.featured;
+
+  function formatRelativeDate(iso) {
+    if (!iso) return '';
+    const date = new Date(iso);
+    const now = new Date();
+    const diffDays = Math.floor((now - date) / (1000 * 60 * 60 * 24));
+    if (diffDays === 0) return 'today';
+    if (diffDays === 1) return 'yesterday';
+    if (diffDays < 30) return `${diffDays} days ago`;
+    if (diffDays < 365) return `${Math.floor(diffDays / 30)} months ago`;
+    return `${Math.floor(diffDays / 365)} years ago`;
+  }
 </script>
 
 <svelte:head>
@@ -47,19 +54,34 @@
   <div class="mt-8 grid gap-6">
     {#each featured as project}
       <article class="border border-ink-200 rounded-lg p-6 hover:border-ink-400 transition-colors">
-        <h3 class="font-semibold text-lg">
-          <a href={project.href} class="hover:text-ink-700">{project.name}</a>
-        </h3>
-        <p class="mt-2 text-ink-600 leading-relaxed">{project.description}</p>
-        <div class="mt-4 flex flex-wrap gap-2">
-          {#each project.stack as tech}
-            <span class="text-xs px-2 py-1 bg-ink-100 text-ink-700 rounded font-mono">{tech}</span>
-          {/each}
+        <div class="flex items-start justify-between gap-4">
+          <h3 class="font-semibold text-lg">
+            <a href={project.url} class="hover:text-ink-700">{project.name}</a>
+          </h3>
+          <div class="flex items-center gap-3 text-xs text-ink-500 font-mono whitespace-nowrap">
+            {#if project.stars > 0}
+              <span>★ {project.stars}</span>
+            {/if}
+            {#if project.pushed_at}
+              <span>updated {formatRelativeDate(project.pushed_at)}</span>
+            {/if}
+          </div>
         </div>
+
+        <p class="mt-2 text-ink-600 leading-relaxed">{project.description}</p>
+
+        {#if project.stack && project.stack.length > 0}
+          <div class="mt-4 flex flex-wrap gap-2">
+            {#each project.stack as tech}
+              <span class="text-xs px-2 py-1 bg-ink-100 text-ink-700 rounded font-mono">{tech}</span>
+            {/each}
+          </div>
+        {/if}
+
         <div class="mt-4 flex gap-4 text-sm">
-          <a href={project.href} class="link">GitHub</a>
-          {#if project.demo}
-            <a href={project.demo} class="link">Live demo</a>
+          <a href={project.url} class="link">GitHub</a>
+          {#if project.homepage}
+            <a href={project.homepage} class="link">Live demo</a>
           {/if}
         </div>
       </article>
