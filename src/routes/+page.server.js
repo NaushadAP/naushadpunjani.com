@@ -10,11 +10,13 @@ const FEATURED_REPOS = [
 
 const MANUAL = {
   'job-portal': {
-    short: 'Laravel-based job board with employer and candidate flows, email notifications, and applicant tracking.',
+    short:
+      'Laravel-based job board with employer and candidate flows, email notifications, and applicant tracking.',
     stack: ['Laravel', 'MySQL', 'Tailwind', 'Blade']
   },
   'api-contract-monitor': {
-    short: 'Self-hosted service for catching when vendor APIs drift from their documented contracts.',
+    short:
+      'Self-hosted service for catching when vendor APIs drift from their documented contracts.',
     stack: ['Laravel', 'React', 'Docker', 'Nginx']
   },
   'laravel-production-stack': {
@@ -22,12 +24,12 @@ const MANUAL = {
     stack: ['Laravel', 'Docker', 'Nginx', 'GitHub Actions']
   },
   'ai-augmented-workflow': {
-    short: 'How I actually use Claude Code and Cursor: configs, prompts, custom commands, MCP setups.',
+    short:
+      'How I actually use Claude Code and Cursor: configs, prompts, custom commands, MCP setups.',
     stack: ['Documentation', 'Configs']
   }
 };
 
-/** @type {import('./$types').PageServerLoad} */
 export async function load({ fetch, setHeaders }) {
   setHeaders({
     'cache-control': 'public, max-age=0, s-maxage=3600'
