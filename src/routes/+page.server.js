@@ -1,6 +1,8 @@
 import { fetchRepos } from '$lib/github.js';
+import { fetchArticles } from '$lib/devto.js';
 
 const FEATURED_REPOS = [
+  'wso2-integrator-cheatsheet',
   'job-portal'
   // Add as repos ship:
   // 'api-contract-monitor',
@@ -9,18 +11,24 @@ const FEATURED_REPOS = [
 ];
 
 const MANUAL = {
+  'wso2-integrator-cheatsheet': {
+    short:
+      'A practical reference for WSO2 EI and Micro Integrator. Patterns, gotchas, and recipes from telecom production.',
+    stack: ['wso2', 'integration', 'docs']
+  },
   'job-portal': {
     short:
-      'Laravel-based job board with employer and candidate flows, email notifications, and applicant tracking.',
-    stack: ['Laravel', 'MySQL', 'Tailwind', 'Blade']
+      'Laravel job board with employer and candidate flows, email notifications, and applicant tracking.',
+    stack: ['Laravel', 'MySQL', 'Tailwind']
   },
   'api-contract-monitor': {
     short:
-      'Self-hosted service for catching when vendor APIs drift from their documented contracts.',
+      'Self-hosted service that catches when vendor APIs drift from their documented contracts.',
     stack: ['Laravel', 'React', 'Docker', 'Nginx']
   },
   'laravel-production-stack': {
-    short: 'Opinionated Docker + Nginx + CI setup for shipping Laravel apps that hold up.',
+    short:
+      'Opinionated Docker + Nginx + CI setup for shipping Laravel apps that hold up.',
     stack: ['Laravel', 'Docker', 'Nginx', 'GitHub Actions']
   },
   'ai-augmented-workflow': {
@@ -35,7 +43,11 @@ export async function load({ fetch, setHeaders }) {
     'cache-control': 'public, max-age=0, s-maxage=3600'
   });
 
-  const repos = await fetchRepos(fetch, FEATURED_REPOS);
+  // Fetch both in parallel
+  const [repos, articleData] = await Promise.all([
+    fetchRepos(fetch, FEATURED_REPOS),
+    fetchArticles(fetch)
+  ]);
 
   const featured = repos.map((repo) => ({
     ...repo,
@@ -43,5 +55,7 @@ export async function load({ fetch, setHeaders }) {
     stack: MANUAL[repo.name]?.stack || (repo.language ? [repo.language] : [])
   }));
 
-  return { featured };
+  const lastPost = articleData.posts && articleData.posts.length > 0 ? articleData.posts[0] : null;
+
+  return { featured, lastPost };
 }

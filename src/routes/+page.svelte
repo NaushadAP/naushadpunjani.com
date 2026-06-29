@@ -1,8 +1,15 @@
 <script>
-  /** @type {import('./$types').PageData} */
-  export let data;
+  import { config } from '$lib/config.js';
 
+  export let data;
   $: featured = data.featured;
+
+  // Easily editable "this week" status — change one line and the home updates.
+  const thisWeek = {
+    text: 'Writing a WSO2 cheatsheet from years of production scars.',
+    highlight: 'WSO2 cheatsheet',
+    updatedAgo: '2h ago'
+  };
 
   function formatRelativeDate(iso) {
     if (!iso) return '';
@@ -11,84 +18,140 @@
     const diffDays = Math.floor((now - date) / (1000 * 60 * 60 * 24));
     if (diffDays === 0) return 'today';
     if (diffDays === 1) return 'yesterday';
-    if (diffDays < 30) return `${diffDays} days ago`;
-    if (diffDays < 365) return `${Math.floor(diffDays / 30)} months ago`;
-    return `${Math.floor(diffDays / 365)} years ago`;
+    if (diffDays < 30) return `${diffDays}d ago`;
+    if (diffDays < 365) return `${Math.floor(diffDays / 30)}mo ago`;
+    return `${Math.floor(diffDays / 365)}y ago`;
   }
+
+  function splitHighlight(text, phrase) {
+    if (!phrase) return [{ t: text, h: false }];
+    const i = text.indexOf(phrase);
+    if (i < 0) return [{ t: text, h: false }];
+    return [
+      { t: text.slice(0, i), h: false },
+      { t: phrase, h: true },
+      { t: text.slice(i + phrase.length), h: false }
+    ];
+  }
+
+  $: nowParts = splitHighlight(thisWeek.text, thisWeek.highlight);
 </script>
 
 <svelte:head>
   <title>Naushad Punjani — Full-stack engineer</title>
   <meta
     name="description"
-    content="Full-stack engineer with 5+ years building production systems. Currently at Jazz, Pakistan's largest telecom."
+    content="Full-stack engineer at Jazz. Five years deep in Laravel, Node, and the in-between."
   />
 </svelte:head>
 
-<section class="container-prose">
-  <h1 class="text-4xl sm:text-5xl font-bold tracking-tight text-ink-900 leading-tight">
-    Full-stack engineer<br />
-    shipping production systems.
-  </h1>
+<!-- ─── Hero ─────────────────────────────────────────────────────────────── -->
+<section class="container-prose pt-16 pb-8">
+  <div class="grid gap-8 items-start" style="grid-template-columns: minmax(0, 1fr) 240px;">
+    <div>
+      <div class="label-mono mb-4">
+        <span class="status-dot"></span>currently at jazz telecom, islamabad
+      </div>
 
-  <p class="mt-6 text-lg text-ink-600 leading-relaxed max-w-2xl">
-    I'm Naushad — 5+ years building and operating real systems across Laravel, Node, React, and Linux.
-    Currently at <a class="link" href="https://jazz.com.pk">Jazz</a>, Pakistan's largest telecom,
-    where I own integrations that touch millions of subscribers.
-  </p>
+      <h1 class="font-serif" style="font-size: 46px; line-height: 1.05; margin: 0 0 6px; font-weight: 500;">
+        Engineer at Jazz. Five years deep in <span class="marker">Laravel, Node</span>, and the in-between.
+      </h1>
 
-  <div class="mt-8 flex flex-wrap gap-3">
-    <a href="/projects" class="btn">See projects</a>
-    <a href="mailto:napunjani@gmail.com" class="btn-outline">Get in touch</a>
+      <div class="font-hand" style="color: var(--accent); font-size: 22px; margin: 6px 0 24px; transform: rotate(-1.5deg); display: inline-block;">
+        ...and a 1987 Honda Civic, on weekends.
+      </div>
+
+      <p style="font-size: 16px; line-height: 1.7; max-width: 540px;">
+        I build and operate the systems that move money, messages, and minutes through Pakistan's largest telecom. The interesting work is usually in the integration layer — between teams, between vendors, between what the spec says and what the network actually does. That's where I live.
+      </p>
+
+      <div class="flex gap-4 mt-7 font-mono" style="font-size: 13px;">
+        <a href="/projects" class="link">see the work →</a>
+        <a href="mailto:{config.contact.email}" class="link">say hi</a>
+      </div>
+    </div>
+
+    <!-- this-week card -->
+    <div class="hidden md:block mt-8">
+      <div class="now-card">
+        <div class="now-pin"></div>
+        <div class="label-mono mb-2 mt-1">this week</div>
+        <div style="font-size: 13px; line-height: 1.55;">
+          {#each nowParts as p}{#if p.h}<span class="marker">{p.t}</span>{:else}{p.t}{/if}{/each}
+        </div>
+        <div class="font-mono mt-2" style="font-size: 10px; color: var(--muted);">
+          updated {thisWeek.updatedAgo}
+        </div>
+      </div>
+    </div>
   </div>
 </section>
 
-<section class="container-prose mt-20">
-  <div class="flex items-baseline justify-between">
-    <h2 class="text-2xl font-semibold tracking-tight">Featured work</h2>
-    <a href="/projects" class="text-sm text-ink-500 hover:text-ink-900 transition-colors">
-      All projects →
-    </a>
-  </div>
+<div class="container-prose">
+  <div style="height: 1px; background: var(--line);"></div>
+</div>
 
-  <div class="mt-8 grid gap-6">
+<!-- ─── Featured work ────────────────────────────────────────────────────── -->
+<section class="container-prose py-12">
+  <div class="flex items-baseline justify-between mb-2">
+    <h2 class="font-serif" style="font-size: 24px; font-weight: 500;">Things I've shipped</h2>
+    <a href="/projects" class="nav-link">all of it →</a>
+  </div>
+  <div class="font-hand mb-6" style="color: var(--muted); font-size: 18px;">selected · recent first</div>
+
+  <div class="grid gap-4">
     {#each featured as project}
-      <article class="border border-ink-200 rounded-lg p-6 hover:border-ink-400 transition-colors">
-        <div class="flex items-start justify-between gap-4">
-          <h3 class="font-semibold text-lg">
-            <a href={project.url} class="hover:text-ink-700">{project.name}</a>
-          </h3>
-          <div class="flex items-center gap-3 text-xs text-ink-500 font-mono whitespace-nowrap">
-            {#if project.stars > 0}
-              <span>★ {project.stars}</span>
-            {/if}
-            {#if project.pushed_at}
-              <span>updated {formatRelativeDate(project.pushed_at)}</span>
-            {/if}
+      <a href={project.url} class="card block" style="text-decoration: none; color: inherit;">
+        <div class="flex items-baseline justify-between gap-3">
+          <div class="flex items-baseline gap-2.5 min-w-0">
+            <span class="font-serif" style="font-size: 17px; font-weight: 500;">{project.name}</span>
           </div>
+          <span class="font-mono whitespace-nowrap" style="font-size: 11px; color: var(--muted);">
+            {#if project.stars > 0}★ {project.stars} · {/if}
+            {formatRelativeDate(project.pushed_at)}
+          </span>
         </div>
 
-        <p class="mt-2 text-ink-600 leading-relaxed">{project.description}</p>
+        <p style="font-size: 14px; line-height: 1.6; color: var(--muted); margin: 6px 0 10px;">
+          {project.description}
+        </p>
 
         {#if project.stack && project.stack.length > 0}
-          <div class="mt-4 flex flex-wrap gap-2">
+          <div class="flex flex-wrap gap-1.5">
             {#each project.stack as tech}
-              <span class="text-xs px-2 py-1 bg-ink-100 text-ink-700 rounded font-mono">{tech}</span>
+              <span class="tag">{tech}</span>
             {/each}
           </div>
         {/if}
-
-        <div class="mt-4 flex gap-4 text-sm">
-          <a href={project.url} class="link">GitHub</a>
-          {#if project.homepage}
-            <a href={project.homepage} class="link">Live demo</a>
-          {/if}
-        </div>
-      </article>
+      </a>
     {/each}
   </div>
-
-  <p class="mt-8 text-sm text-ink-500 italic">
-    More repos shipping over the coming weeks — API contract monitor, production-ready Laravel stack, and AI-augmented workflow guide.
-  </p>
 </section>
+
+<div class="container-prose">
+  <div style="height: 1px; background: var(--line);"></div>
+</div>
+
+<!-- ─── Last writing ────────────────────────────────────────────────────── -->
+{#if data.lastPost}
+  <section class="container-prose py-10">
+    <div class="label-mono mb-4">last thing I wrote</div>
+    <a href={data.lastPost.url} class="block" style="text-decoration: none; color: inherit;">
+      <div class="flex items-baseline justify-between gap-6">
+        <div class="flex-1 min-w-0">
+          <div class="font-serif mb-1.5" style="font-size: 19px; line-height: 1.3; font-weight: 500;">
+            {data.lastPost.title}
+          </div>
+          <div class="font-mono" style="font-size: 11px; color: var(--muted);">
+            {#if data.lastPost.published_at}{new Date(data.lastPost.published_at).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })} · {/if}
+            {#if data.lastPost.reading_time_minutes}{data.lastPost.reading_time_minutes} min read{/if}
+            {#if data.lastPost.tag_list && data.lastPost.tag_list.length}
+              · {data.lastPost.tag_list.slice(0, 3).map((t) => '#' + t).join(' ')}
+            {/if}
+          </div>
+        </div>
+        <span class="font-mono whitespace-nowrap" style="font-size: 12px; color: var(--accent);">read →</span>
+      </div>
+    </a>
+  </section>
+{/if}

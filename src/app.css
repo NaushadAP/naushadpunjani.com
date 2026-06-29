@@ -2,26 +2,209 @@
 @tailwind components;
 @tailwind utilities;
 
+/* ─── Theme variables ────────────────────────────────────────────────────── */
+:root,
+:root[data-theme='light'] {
+  --bg: #f7f4ec;
+  --bg-card: #fffbf2;
+  --ink: #1f1c17;
+  --muted: #7a7268;
+  --line: #d9d3c2;
+  --accent: #c2410c;
+  --accent-soft: #fde7d3;
+  --noise-blend: multiply;
+  --noise-opacity: 0.5;
+}
+
+:root[data-theme='dark'] {
+  --bg: #14110d;
+  --bg-card: #1c1813;
+  --ink: #f1ebe0;
+  --muted: #8a8174;
+  --line: #2d2820;
+  --accent: #ea8a3e;
+  --accent-soft: #3a2618;
+  --noise-blend: screen;
+  --noise-opacity: 0.25;
+}
+
+/* ─── Base ───────────────────────────────────────────────────────────────── */
 @layer base {
   html {
     scroll-behavior: smooth;
+    background: var(--bg);
   }
   body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: 'Inter', system-ui, sans-serif;
     font-feature-settings: 'cv02', 'cv03', 'cv04', 'cv11';
+    transition: background 0.2s ease, color 0.2s ease;
+    position: relative;
+  }
+
+  /* Paper-grain texture overlay across the whole page */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+    opacity: var(--noise-opacity);
+    mix-blend-mode: var(--noise-blend);
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' /%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.08'/%3E%3C/svg%3E");
+  }
+
+  /* Make sure interactive content sits above the noise */
+  body > div {
+    position: relative;
+    z-index: 1;
   }
 }
 
+/* ─── Components ─────────────────────────────────────────────────────────── */
 @layer components {
   .container-prose {
     @apply mx-auto max-w-3xl px-6;
   }
+
+  /* Typography helpers */
+  .font-serif {
+    font-family: 'Fraunces', Georgia, serif;
+    letter-spacing: -0.02em;
+  }
+  .font-mono {
+    font-family: 'JetBrains Mono', ui-monospace, monospace;
+  }
+  .font-hand {
+    font-family: 'Caveat', cursive;
+  }
+
+  /* Inline link with hairline underline */
   .link {
-    @apply text-ink-900 underline decoration-ink-300 underline-offset-4 hover:decoration-ink-900 transition-colors;
+    color: var(--ink);
+    text-decoration: none;
+    border-bottom: 1.5px solid var(--line);
+    padding-bottom: 1px;
+    transition: border-color 0.15s ease;
   }
-  .btn {
-    @apply inline-flex items-center gap-2 rounded-md bg-ink-900 px-4 py-2 text-sm font-medium text-ink-50 hover:bg-ink-700 transition-colors;
+  .link:hover {
+    border-color: var(--accent);
   }
-  .btn-outline {
-    @apply inline-flex items-center gap-2 rounded-md border border-ink-300 px-4 py-2 text-sm font-medium text-ink-900 hover:bg-ink-100 transition-colors;
+
+  /* Highlighter effect on key phrases */
+  .marker {
+    background-image: linear-gradient(transparent 60%, var(--accent-soft) 60%);
+    padding: 0 2px;
+  }
+
+  /* Project card */
+  .card {
+    background: var(--bg-card);
+    border: 0.5px solid var(--line);
+    border-radius: 8px;
+    padding: 1.125rem 1.25rem;
+    transition: border-color 0.2s ease, transform 0.2s ease;
+  }
+  .card:hover {
+    border-color: var(--accent);
+    transform: translateY(-1px);
+  }
+
+  /* Tag chip */
+  .tag {
+    font-family: 'JetBrains Mono', ui-monospace, monospace;
+    font-size: 11px;
+    padding: 2px 8px;
+    border: 0.5px solid var(--line);
+    border-radius: 3px;
+    color: var(--muted);
+    display: inline-block;
+  }
+  .tag-accent {
+    background: var(--accent-soft);
+    border-color: var(--accent);
+    color: var(--accent);
+  }
+
+  /* Uppercase mono label */
+  .label-mono {
+    font-family: 'JetBrains Mono', ui-monospace, monospace;
+    font-size: 11px;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+
+  /* Nav link */
+  .nav-link {
+    color: var(--muted);
+    font-family: 'JetBrains Mono', ui-monospace, monospace;
+    font-size: 13px;
+    text-decoration: none;
+    transition: color 0.15s ease;
+  }
+  .nav-link:hover,
+  .nav-link.active {
+    color: var(--ink);
+  }
+
+  /* Mode toggle button */
+  .mode-toggle {
+    background: transparent;
+    border: 0.5px solid var(--line);
+    color: var(--ink);
+    width: 32px;
+    height: 32px;
+    border-radius: 6px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: border-color 0.15s ease;
+  }
+  .mode-toggle:hover {
+    border-color: var(--accent);
+  }
+
+  /* Status dot (blinking) */
+  .status-dot {
+    display: inline-block;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--accent);
+    margin-right: 8px;
+    vertical-align: middle;
+    animation: blink 1.6s ease-in-out infinite;
+  }
+
+  @keyframes blink {
+    0%,
+    100% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0.35;
+    }
+  }
+
+  /* Pinned note ("this week" card) */
+  .now-card {
+    background: var(--bg-card);
+    border: 0.5px solid var(--line);
+    border-radius: 8px;
+    padding: 14px 16px;
+    position: relative;
+  }
+  .now-pin {
+    position: absolute;
+    top: -8px;
+    left: 16px;
+    width: 14px;
+    height: 14px;
+    background: var(--accent);
+    border-radius: 50%;
+    box-shadow: 0 1px 0 rgba(0, 0, 0, 0.15) inset;
   }
 }
