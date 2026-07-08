@@ -1,7 +1,12 @@
-<svelte:head>
-  <title>About — Naushad Punjani</title>
-  <meta name="description" content="About Naushad Punjani — remote full-stack engineer and digital solutions provider based in Islamabad, Pakistan." />
-</svelte:head>
+<script>
+  import Seo from '$lib/Seo.svelte';
+</script>
+
+<Seo
+  title="About — Naushad Punjani"
+  description="About Naushad Punjani — remote full-stack engineer and digital solutions provider based in Islamabad, Pakistan."
+  path="/about"
+/>
 
 <section class="container-prose">
   <h1 class="text-3xl sm:text-4xl font-bold tracking-tight">About</h1>

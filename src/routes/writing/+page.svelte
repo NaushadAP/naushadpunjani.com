@@ -1,4 +1,6 @@
 <script>
+  import Seo from '$lib/Seo.svelte';
+
   /** @type {import('./$types').PageData} */
   export let data;
 
@@ -16,10 +18,11 @@
   }
 </script>
 
-<svelte:head>
-  <title>Writing — Naushad Punjani</title>
-  <meta name="description" content="Essays and notes on engineering, architecture, and shipping software." />
-</svelte:head>
+<Seo
+  title="Writing — Naushad Punjani"
+  description="Essays and notes on engineering, architecture, and shipping software."
+  path="/writing"
+/>
 
 <section class="container-prose">
   <h1 class="text-3xl sm:text-4xl font-bold tracking-tight">Writing</h1>

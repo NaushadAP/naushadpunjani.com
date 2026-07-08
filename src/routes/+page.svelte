@@ -1,5 +1,6 @@
 <script>
   import { config } from '$lib/config.js';
+  import Seo from '$lib/Seo.svelte';
 
   export let data;
   $: featured = data.featured;
@@ -37,13 +38,11 @@
   $: nowParts = splitHighlight(thisWeek.text, thisWeek.highlight);
 </script>
 
-<svelte:head>
-  <title>Naushad Punjani — Full-stack engineer &amp; digital solutions provider</title>
-  <meta
-    name="description"
-    content="Remote full-stack engineer and digital solutions provider. Five years deep in Laravel, Node, and the in-between, building SaaS products for clients worldwide."
-  />
-</svelte:head>
+<Seo
+  title="Naushad Punjani — Full-stack engineer & digital solutions provider"
+  description="Remote full-stack engineer and digital solutions provider. Five years deep in Laravel, Node, and the in-between, building SaaS products for clients worldwide."
+  path="/"
+/>
 
 <!-- ─── Hero ─────────────────────────────────────────────────────────────── -->
 <section class="container-prose pt-16 pb-8">

@@ -12,7 +12,21 @@
   ];
 
   $: currentPath = $page.url.pathname;
+
+  const personSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'Person',
+    name: config.site.name,
+    url: config.site.url,
+    jobTitle: 'Full-stack Engineer & Digital Solutions Provider',
+    email: `mailto:${config.contact.email}`,
+    sameAs: [config.github.profileUrl, config.contact.linkedinUrl, config.devto.profileUrl]
+  };
 </script>
+
+<svelte:head>
+  {@html `<script type="application/ld+json">${JSON.stringify(personSchema).replace(/</g, '\\u003c')}<\/script>`}
+</svelte:head>
 
 <div class="min-h-screen flex flex-col">
   <header style="border-bottom: 0.5px solid var(--line);">
