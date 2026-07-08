@@ -38,10 +38,10 @@
 </script>
 
 <svelte:head>
-  <title>Naushad Punjani — Full-stack engineer</title>
+  <title>Naushad Punjani — Full-stack engineer &amp; digital solutions provider</title>
   <meta
     name="description"
-    content="Full-stack engineer at Jazz. Five years deep in Laravel, Node, and the in-between."
+    content="Remote full-stack engineer and digital solutions provider. Five years deep in Laravel, Node, and the in-between, building SaaS products for clients worldwide."
   />
 </svelte:head>
 
@@ -50,11 +50,11 @@
   <div class="grid gap-8 items-start" style="grid-template-columns: minmax(0, 1fr) 240px;">
     <div>
       <div class="label-mono mb-4">
-        <span class="status-dot"></span>currently at jazz telecom, islamabad
+        <span class="status-dot"></span>available for remote work · saas &amp; digital solutions
       </div>
 
       <h1 class="font-serif" style="font-size: 46px; line-height: 1.05; margin: 0 0 6px; font-weight: 500;">
-        Engineer at Jazz. Five years deep in <span class="marker">Laravel, Node</span>, and the in-between.
+        Full-stack engineer &amp; digital solutions provider. Five years deep in <span class="marker">Laravel, Node</span>, and the in-between.
       </h1>
 
       <div class="font-hand" style="color: var(--accent); font-size: 22px; margin: 6px 0 24px; transform: rotate(-1.5deg); display: inline-block;">
@@ -62,7 +62,7 @@
       </div>
 
       <p style="font-size: 16px; line-height: 1.7; max-width: 540px;">
-        I build and operate the systems that move money, messages, and minutes through Pakistan's largest telecom. The interesting work is usually in the integration layer — between teams, between vendors, between what the spec says and what the network actually does. That's where I live.
+        I build and ship SaaS products and digital solutions for teams that need things to work in production, not just in the demo. Day-to-day, that means backend systems, API integrations, and the connective tissue between what a spec promises and what the software actually does — for remote clients as much as for the enterprise systems I work on by day. That's where I live.
       </p>
 
       <div class="flex gap-4 mt-7 font-mono" style="font-size: 13px;">
