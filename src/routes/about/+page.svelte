@@ -1,24 +1,30 @@
-<svelte:head>
-  <title>About — Naushad Punjani</title>
-  <meta name="description" content="About Naushad Punjani — full-stack engineer based in Islamabad, Pakistan." />
-</svelte:head>
+<script>
+  import Seo from '$lib/Seo.svelte';
+</script>
+
+<Seo
+  title="About — Naushad Punjani"
+  description="About Naushad Punjani — remote full-stack engineer and digital solutions provider based in Islamabad, Pakistan."
+  path="/about"
+/>
 
 <section class="container-prose">
   <h1 class="text-3xl sm:text-4xl font-bold tracking-tight">About</h1>
 
   <div class="mt-8 space-y-6 text-[color:var(--muted)] leading-relaxed">
     <p>
-      I'm a full-stack engineer based in Islamabad, Pakistan, with 5+ years of experience across
-      telecom and software roles. My work tends to sit at the intersection of code, integration,
-      and operations — building features, owning vendor relationships, and making sure things stay
-      up after the demo.
+      I'm a full-stack engineer and digital solutions provider based in Islamabad, Pakistan, with
+      5+ years of experience building and shipping software for teams that need things to actually
+      work in production. I work remotely with clients on SaaS products, internal tools, and the
+      API integrations that hold everything together.
     </p>
 
     <p>
-      Currently at <a class="link" href="https://jazz.com.pk">Jazz</a>, Pakistan's largest telecom,
-      where I work on digital products and services that touch millions of subscribers. Day-to-day
-      that means API integrations via WSO2, vendor coordination, and turning messy enterprise
-      requirements into systems that actually ship.
+      By day, I work at <a class="link" href="https://jazz.com.pk">Jazz</a>, Pakistan's largest
+      telecom, where enterprise-scale systems and vendor integrations have taught me what breaks
+      at volume and why. Outside of that, I take on remote and freelance work — building SaaS
+      products, digital solutions, and the kind of software that has to hold up without a dedicated
+      ops team behind it.
     </p>
 
     <p>
@@ -29,11 +35,12 @@
 
     <h2 class="text-xl font-semibold pt-4">What I'm good at</h2>
     <ul class="list-disc list-inside space-y-1">
+      <li>Building and shipping SaaS products and digital solutions end-to-end</li>
       <li>Laravel and Node back-end development</li>
       <li>React and Vue front-ends</li>
-      <li>REST API design and vendor integration</li>
+      <li>REST API design and third-party integration</li>
       <li>Linux, Nginx, Docker — the deploy-and-operate side</li>
-      <li>Cross-team coordination and stakeholder communication</li>
+      <li>Remote-first collaboration across time zones</li>
     </ul>
 
     <h2 class="text-xl font-semibold pt-4">Outside work</h2>
@@ -46,7 +53,8 @@
     <h2 class="text-xl font-semibold pt-4">Get in touch</h2>
     <p>
       I'm open to remote full-stack and backend roles, freelance Laravel/Node/React projects, and
-      conversations on API architecture or vendor risk. The fastest way to reach me is
+      building SaaS products or digital solutions for teams that need something shipped and
+      maintained properly. The fastest way to reach me is
       <a class="link" href="mailto:napunjani@gmail.com">napunjani@gmail.com</a> or
       <a class="link" href="https://www.linkedin.com/in/naushad-punjani-a3b014129/">LinkedIn</a>.
     </p>

@@ -13,7 +13,7 @@ const FEATURED_REPOS = [
 const MANUAL = {
   'wso2-integrator-cheatsheet': {
     short:
-      'A practical reference for WSO2 EI and Micro Integrator. Patterns, gotchas, and recipes from telecom production.',
+      'A practical reference for WSO2 EI and Micro Integrator. Patterns, gotchas, and recipes from real production use.',
     stack: ['wso2', 'integration', 'docs']
   },
   'job-portal': {

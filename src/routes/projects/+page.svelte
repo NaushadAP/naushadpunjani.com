@@ -1,4 +1,6 @@
 <script>
+  import Seo from '$lib/Seo.svelte';
+
   const projects = [
     {
       name: 'job-portal',
@@ -41,10 +43,11 @@
   };
 </script>
 
-<svelte:head>
-  <title>Projects — Naushad Punjani</title>
-  <meta name="description" content="Projects and open-source work by Naushad Punjani." />
-</svelte:head>
+<Seo
+  title="Projects — Naushad Punjani"
+  description="SaaS products and open-source work by Naushad Punjani, including Sauda, an offline-first retail POS."
+  path="/projects"
+/>
 
 <section class="container-prose">
   <h1 class="text-3xl sm:text-4xl font-bold tracking-tight">Projects</h1>
