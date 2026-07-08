@@ -1,6 +1,6 @@
 import { config } from '$lib/config.js';
 
-const routes = ['/', '/about', '/projects', '/writing'];
+const routes = ['/', '/about', '/projects', '/work', '/writing'];
 
 export async function GET() {
   const body = `<?xml version="1.0" encoding="UTF-8"?>

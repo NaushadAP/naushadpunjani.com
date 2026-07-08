@@ -65,7 +65,7 @@
       </p>
 
       <div class="flex gap-4 mt-7 font-mono" style="font-size: 13px;">
-        <a href="/projects" class="link">see the work →</a>
+        <a href="/work" class="link">see the work →</a>
         <a href="mailto:{config.contact.email}" class="link">say hi</a>
       </div>
     </div>
@@ -94,7 +94,7 @@
 <section class="container-prose py-12">
   <div class="flex items-baseline justify-between mb-2">
     <h2 class="font-serif" style="font-size: 24px; font-weight: 500;">Things I've shipped</h2>
-    <a href="/projects" class="nav-link">all of it →</a>
+    <a href="/work" class="nav-link">all of it →</a>
   </div>
   <div class="font-hand mb-6" style="color: var(--muted); font-size: 18px;">selected · recent first</div>
 
