@@ -9,3 +9,6 @@ node_modules
 .env
 .env.*
 !.env.example
+
+# Claude Code local machine settings
+.claude/settings.local.json
