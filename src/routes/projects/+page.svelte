@@ -48,17 +48,17 @@
 
 <section class="container-prose">
   <h1 class="text-3xl sm:text-4xl font-bold tracking-tight">Projects</h1>
-  <p class="mt-4 text-ink-600">
+  <p class="mt-4 text-[color:var(--muted)]">
     A mix of shipped work and current builds. Some are extractions from real production problems; others are sandboxes for ideas worth exploring.
   </p>
 
   <div class="mt-12 grid gap-6">
     {#each projects as project}
-      <article class="border border-ink-200 rounded-lg p-6 hover:border-ink-400 transition-colors">
+      <article class="card">
         <div class="flex items-start justify-between gap-4">
           <h2 class="font-semibold text-xl">
             {#if project.href}
-              <a href={project.href} class="hover:text-ink-700">{project.name}</a>
+              <a href={project.href} class="hover:text-[color:var(--accent)]">{project.name}</a>
             {:else}
               {project.name}
             {/if}
@@ -67,10 +67,10 @@
             {project.status}
           </span>
         </div>
-        <p class="mt-2 text-ink-600 leading-relaxed">{project.description}</p>
+        <p class="mt-2 text-[color:var(--muted)] leading-relaxed">{project.description}</p>
         <div class="mt-4 flex flex-wrap gap-2">
           {#each project.stack as tech}
-            <span class="text-xs px-2 py-1 bg-ink-100 text-ink-700 rounded font-mono">{tech}</span>
+            <span class="tag">{tech}</span>
           {/each}
         </div>
         {#if project.href || project.demo}

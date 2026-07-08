@@ -6,7 +6,7 @@
 <section class="container-prose">
   <h1 class="text-3xl sm:text-4xl font-bold tracking-tight">About</h1>
 
-  <div class="mt-8 space-y-6 text-ink-700 leading-relaxed">
+  <div class="mt-8 space-y-6 text-[color:var(--muted)] leading-relaxed">
     <p>
       I'm a full-stack engineer based in Islamabad, Pakistan, with 5+ years of experience across
       telecom and software roles. My work tends to sit at the intersection of code, integration,
