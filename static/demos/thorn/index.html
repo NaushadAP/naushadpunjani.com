@@ -1,0 +1,1155 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Thorn EX-1 — Electric Enduro</title>
+<meta name="description" content="Thorn is a concept site for a fictional electric enduro motorcycle brand. Portfolio demonstration built by Naushad Punjani." />
+<meta name="robots" content="noindex" />
+<meta name="theme-color" content="#08090a" />
+<style>
+@font-face{font-family:'IBM Plex Mono';font-style:normal;font-weight:400;font-display:swap;src:url('fonts/th-IBMPlexMono-400-normal.woff2') format('woff2')}
+@font-face{font-family:'IBM Plex Mono';font-style:normal;font-weight:600;font-display:swap;src:url('fonts/th-IBMPlexMono-600-normal.woff2') format('woff2')}
+@font-face{font-family:'Oswald';font-style:normal;font-weight:500;font-display:swap;src:url('fonts/th-Oswald-500-normal.woff2') format('woff2')}
+@font-face{font-family:'Oswald';font-style:normal;font-weight:700;font-display:swap;src:url('fonts/th-Oswald-700-normal.woff2') format('woff2')}
+
+:root{
+  --void:#08090a;
+  --pit:#0b0d0f;
+  --slab:#101315;
+  --slab-2:#15191c;
+  --edge:rgba(255,255,255,.11);
+  --edge-2:rgba(255,255,255,.055);
+  --fg:#eef1ee;
+  --fg-70:rgba(238,241,238,.70);
+  --fg-48:rgba(238,241,238,.48);
+  --fg-32:rgba(238,241,238,.32);
+  --acid:#d5ff00;
+  --acid-dim:rgba(213,255,0,.42);
+  --acid-ghost:rgba(213,255,0,.10);
+  --display:'Oswald','Arial Narrow',Impact,sans-serif;
+  --mono:'IBM Plex Mono',ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  --gut:clamp(20px,4.2vw,64px);
+}
+
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth;background:var(--void)}
+body{
+  background:var(--void);color:var(--fg);
+  font-family:var(--mono);font-weight:400;font-size:14px;line-height:1.72;
+  -webkit-font-smoothing:antialiased;overflow-x:hidden;
+}
+img,svg{display:block;max-width:100%}
+::selection{background:var(--acid);color:#000}
+
+/* ── reveal gating ─────────────────────────────────────────────────────────
+   Reveal targets are visible by default. They are only pre-hidden once the
+   inline gate has confirmed motion is wanted, and the class is stripped again
+   if GSAP never turns up — so a failed script can never blank a section. */
+.js-anim .rev{opacity:0;transform:translateY(26px)}
+.js-anim .rev-x{opacity:0;transform:translateX(-18px)}
+
+a{color:inherit}
+:focus-visible{outline:2px solid var(--acid);outline-offset:3px}
+.skip{position:absolute;left:-9999px;top:0;z-index:200;background:var(--acid);color:#000;padding:12px 18px;font-family:var(--mono);font-size:12px;letter-spacing:.14em;text-transform:uppercase;text-decoration:none}
+.skip:focus{left:0}
+
+.wrap{max-width:1440px;margin:0 auto;padding:0 var(--gut);width:100%}
+.mono{font-family:var(--mono)}
+.acid{color:var(--acid)}
+
+.eyebrow{
+  font-family:var(--mono);font-size:11px;font-weight:600;letter-spacing:.3em;
+  text-transform:uppercase;color:var(--fg-48);line-height:1.5;
+}
+.sec-tag{
+  display:flex;align-items:center;gap:14px;
+  font-family:var(--mono);font-size:11px;font-weight:600;letter-spacing:.3em;
+  text-transform:uppercase;color:var(--acid);margin-bottom:26px;
+}
+.sec-tag::after{content:"";flex:1;height:1px;background:var(--edge)}
+h1,h2,h3,.dsp{font-family:var(--display);font-weight:700;text-transform:uppercase;line-height:.86;letter-spacing:-.005em}
+h2{font-size:clamp(38px,6.4vw,86px)}
+h3{font-size:clamp(19px,1.5vw,23px);line-height:1.02;letter-spacing:.005em}
+p{max-width:62ch}
+.lede{font-size:15px;line-height:1.78;color:var(--fg-70)}
+small,.fine{font-size:11.5px;line-height:1.7;color:var(--fg-48);letter-spacing:.02em}
+
+/* ── buttons ─────────────────────────────────────────────────────────────── */
+.btn{
+  font-family:var(--mono);font-size:12px;font-weight:600;letter-spacing:.18em;
+  text-transform:uppercase;padding:13px 22px;border:1px solid var(--edge);
+  background:transparent;color:var(--fg);cursor:pointer;text-decoration:none;
+  display:inline-flex;align-items:center;gap:10px;line-height:1;
+  transition:background .18s ease,color .18s ease,border-color .18s ease;
+}
+.btn:hover{border-color:var(--fg);background:var(--fg);color:var(--void)}
+.btn-acid{background:var(--acid);border-color:var(--acid);color:#000}
+.btn-acid:hover{background:#fff;border-color:#fff;color:#000}
+.btn-inv{background:#000;border-color:#000;color:var(--acid)}
+.btn-inv:hover{background:#fff;border-color:#fff;color:#000}
+.btn svg{width:11px;height:11px;flex:none}
+
+/* ── header ──────────────────────────────────────────────────────────────── */
+header{
+  position:fixed;inset:0 0 auto 0;z-index:80;
+  display:flex;justify-content:space-between;align-items:center;
+  gap:20px;padding:16px var(--gut);
+  border-bottom:1px solid transparent;
+  transition:background .3s ease,border-color .3s ease,backdrop-filter .3s ease;
+}
+header.stuck{background:rgba(8,9,10,.86);border-bottom-color:var(--edge-2);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px)}
+.mark{display:flex;align-items:center;gap:11px;text-decoration:none}
+.mark svg{width:19px;height:19px;fill:var(--acid);flex:none}
+.mark b{font-family:var(--display);font-weight:700;font-size:21px;letter-spacing:.24em;text-transform:uppercase;line-height:1}
+nav{display:flex;align-items:center;gap:clamp(14px,2.2vw,34px)}
+nav a{
+  font-family:var(--mono);font-size:11px;font-weight:600;letter-spacing:.2em;
+  text-transform:uppercase;text-decoration:none;color:var(--fg-48);
+  padding:6px 0;position:relative;transition:color .2s ease;
+}
+nav a::after{content:"";position:absolute;left:0;right:100%;bottom:0;height:1px;background:var(--acid);transition:right .28s ease}
+nav a:hover{color:var(--fg)}
+nav a:hover::after{right:0}
+header .btn{padding:11px 18px}
+@media(max-width:820px){nav a:not(.btn){display:none}}
+
+/* ── hero ────────────────────────────────────────────────────────────────── */
+.hero{
+  position:relative;min-height:100svh;display:flex;flex-direction:column;
+  justify-content:flex-end;overflow:hidden;isolation:isolate;
+  background:
+    radial-gradient(58% 40% at 74% 43%, rgba(213,255,0,.13) 0%, rgba(213,255,0,0) 72%),
+    radial-gradient(150% 78% at 60% 44%, #14181b 0%, #08090a 60%);
+}
+.hero-bg{position:absolute;inset:0;z-index:-1}
+/* Keeps the headline, lede and stat rail legible over whatever the terrain
+   is doing, while leaving the right of the frame open for the ridge lines. */
+.hero-scrim{
+  position:absolute;inset:0;pointer-events:none;z-index:1;
+  background:
+    linear-gradient(96deg, rgba(8,9,10,.96) 0%, rgba(8,9,10,.9) 26%, rgba(8,9,10,.5) 50%, rgba(8,9,10,.06) 72%, rgba(8,9,10,0) 100%),
+    linear-gradient(to top, rgba(8,9,10,.94) 0%, rgba(8,9,10,.6) 12%, rgba(8,9,10,0) 32%),
+    linear-gradient(to bottom, rgba(8,9,10,.8) 0%, rgba(8,9,10,0) 16%);
+}
+#terrain{position:absolute;inset:0;width:100%;height:100%;opacity:0;transition:opacity .7s ease}
+.hero.webgl #terrain{opacity:1}
+.hero.webgl .fallback{opacity:0}
+
+/* CSS-only stand-in: shown by default, faded out once WebGL confirms a frame */
+.fallback{position:absolute;inset:0;transition:opacity .5s ease}
+.fb-ridge{position:absolute;left:0;width:100%;display:block}
+.fb-r1{bottom:34%;height:22%;opacity:.5}
+.fb-r2{bottom:22%;height:24%;opacity:.75}
+.fb-r3{bottom:0;height:32%}
+.fb-grid{
+  position:absolute;left:-60%;right:-60%;bottom:0;height:40%;
+  background:
+    repeating-linear-gradient(90deg, rgba(213,255,0,.30) 0 1px, transparent 1px 60px),
+    repeating-linear-gradient(0deg, rgba(213,255,0,.20) 0 1px, transparent 1px 44px);
+  transform:perspective(300px) rotateX(70deg);transform-origin:50% 100%;
+  -webkit-mask-image:linear-gradient(to top,#000 4%,transparent 76%);
+  mask-image:linear-gradient(to top,#000 4%,transparent 76%);
+}
+
+.hero-inner{padding-top:124px;padding-bottom:36px;position:relative}
+.hero-rule{width:56px;height:3px;background:var(--acid);margin-bottom:22px}
+.hero h1{
+  font-size:clamp(56px,10.8vw,152px);line-height:.83;letter-spacing:-.012em;
+  margin:16px 0 24px;
+}
+.hero h1 em{font-style:normal;color:var(--acid)}
+.hero .lede{max-width:44ch;font-size:14.5px}
+.hero-cta{display:flex;flex-wrap:wrap;gap:12px;margin-top:30px}
+
+.hero-stats{
+  position:relative;display:grid;grid-template-columns:repeat(4,1fr);
+  border-top:1px solid var(--edge);
+  padding-top:0;padding-bottom:0;margin-bottom:0;
+}
+.hero-stats .hs{
+  padding:20px 0 26px;border-right:1px solid var(--edge-2);
+  padding-right:16px;
+}
+.hero-stats .hs:last-child{border-right:0}
+.hs .v{font-family:var(--display);font-weight:700;font-size:clamp(30px,4.1vw,52px);line-height:.9;color:var(--acid);letter-spacing:-.01em;display:flex;align-items:baseline;gap:6px}
+.hs .v i{font-style:normal;font-family:var(--mono);font-weight:600;font-size:12px;letter-spacing:.08em;color:var(--fg-48)}
+.hs .k{font-family:var(--mono);font-size:10.5px;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:var(--fg-48);margin-top:9px}
+@media(max-width:760px){
+  .hero-stats{grid-template-columns:repeat(2,1fr)}
+  .hero-stats .hs:nth-child(2n){border-right:0}
+  .hero-stats .hs:nth-child(-n+2){border-bottom:1px solid var(--edge-2)}
+}
+.cue{
+  position:absolute;right:var(--gut);bottom:38px;
+  display:flex;align-items:center;gap:12px;
+  font-family:var(--mono);font-size:10px;font-weight:600;letter-spacing:.26em;
+  text-transform:uppercase;color:var(--fg-48);
+}
+.cue span{width:1px;height:30px;background:linear-gradient(to bottom,var(--acid),transparent);animation:cueDrop 1.9s ease-in-out infinite}
+@keyframes cueDrop{0%,100%{transform:scaleY(.35);transform-origin:top}50%{transform:scaleY(1);transform-origin:top}}
+@media(max-width:1100px){.cue{display:none}}
+
+/* ── ticker ──────────────────────────────────────────────────────────────── */
+.ticker{
+  background:var(--acid);color:#000;overflow:hidden;white-space:nowrap;
+  border-block:1px solid var(--acid);position:relative;
+}
+.ticker-in{display:inline-flex;animation:tick 34s linear infinite;will-change:transform}
+.ticker span{
+  font-family:var(--mono);font-size:11.5px;font-weight:600;letter-spacing:.24em;
+  text-transform:uppercase;padding:11px 0;display:inline-block;
+}
+.ticker span b{font-weight:400;opacity:.42;padding:0 26px;font-size:10px}
+@keyframes tick{to{transform:translateX(-50%)}}
+
+/* ── generic section ─────────────────────────────────────────────────────── */
+section{position:relative}
+.pad{padding-block:clamp(72px,9.5vw,150px)}
+.rule-t{border-top:1px solid var(--edge-2)}
+
+/* ── machine / schematic ─────────────────────────────────────────────────── */
+.machine-head{display:grid;grid-template-columns:1.15fr .85fr;gap:clamp(24px,5vw,80px);align-items:end}
+@media(max-width:900px){.machine-head{grid-template-columns:1fr;align-items:start}}
+.machine-head h2{max-width:12ch}
+.schematic{
+  margin-top:clamp(34px,5vw,68px);border:1px solid var(--edge-2);
+  background:linear-gradient(180deg,#0c0f11,#090b0c);
+  padding:clamp(10px,2vw,26px);position:relative;
+}
+.schematic::before,.schematic::after{
+  content:"";position:absolute;width:9px;height:9px;border:1px solid var(--acid-dim);
+}
+.schematic::before{left:10px;top:10px;border-right:0;border-bottom:0}
+.schematic::after{right:10px;bottom:10px;border-left:0;border-top:0}
+.schematic svg{width:100%;height:auto}
+.sch-grid{stroke:rgba(255,255,255,.032);stroke-width:1}
+.sch-line{fill:none;stroke:#7f8a8f;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
+.sch-thin{fill:none;stroke:#5a6469;stroke-width:1.3;stroke-linecap:round;stroke-linejoin:round}
+.sch-hair{fill:none;stroke:rgba(255,255,255,.14);stroke-width:1}
+.sch-fill{fill:#12161a;stroke:#6d777c;stroke-width:2;stroke-linejoin:round}
+.sch-acid{fill:none;stroke:var(--acid);stroke-width:2.2;stroke-linejoin:round;stroke-linecap:round}
+.sch-acid-f{fill:rgba(213,255,0,.09);stroke:var(--acid);stroke-width:2.2;stroke-linejoin:round}
+.sch-lead{fill:none;stroke:var(--acid-dim);stroke-width:1}
+.sch-dot{fill:var(--acid)}
+.sch-t{font-family:var(--mono);font-size:12px;font-weight:600;letter-spacing:.14em;fill:var(--acid)}
+.sch-s{font-family:var(--mono);font-size:10.5px;font-weight:400;letter-spacing:.08em;fill:rgba(238,241,238,.5)}
+.sch-d{font-family:var(--mono);font-size:10.5px;font-weight:400;letter-spacing:.1em;fill:rgba(238,241,238,.38)}
+
+/* ── spec ────────────────────────────────────────────────────────────────── */
+.big5{display:grid;grid-template-columns:repeat(5,1fr);border-top:1px solid var(--edge);border-left:1px solid var(--edge-2);margin-bottom:clamp(34px,5vw,64px)}
+.big5 .b{border-right:1px solid var(--edge-2);border-bottom:1px solid var(--edge-2);padding:24px 18px 26px;background:linear-gradient(180deg,rgba(255,255,255,.014),transparent)}
+.big5 .b .v{font-family:var(--display);font-weight:700;font-size:clamp(32px,3.7vw,50px);line-height:.9;letter-spacing:-.01em;display:flex;align-items:baseline;gap:5px}
+.big5 .b .v i{font-style:normal;font-family:var(--mono);font-weight:600;font-size:11.5px;letter-spacing:.08em;color:var(--acid)}
+.big5 .b .k{font-family:var(--mono);font-size:10px;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:var(--fg-48);margin-top:11px}
+@media(max-width:980px){.big5{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:430px){.big5{grid-template-columns:1fr}}
+
+.sheet{display:grid;grid-template-columns:1fr 1fr;gap:0 clamp(28px,5vw,72px)}
+@media(max-width:900px){.sheet{grid-template-columns:1fr}}
+.row{display:flex;justify-content:space-between;align-items:baseline;gap:18px;padding:13px 0;border-bottom:1px solid var(--edge-2)}
+.row dt{font-family:var(--mono);font-size:11px;font-weight:400;letter-spacing:.16em;text-transform:uppercase;color:var(--fg-48);flex:none}
+.row dd{font-family:var(--mono);font-size:13px;font-weight:600;letter-spacing:.02em;text-align:right;color:var(--fg)}
+.row dd em{font-style:normal;color:var(--acid)}
+
+/* ── capabilities ────────────────────────────────────────────────────────── */
+.caps{display:grid;grid-template-columns:repeat(12,1fr);border-top:1px solid var(--edge);border-left:1px solid var(--edge-2)}
+.cap{
+  grid-column:span 4;border-right:1px solid var(--edge-2);border-bottom:1px solid var(--edge-2);
+  padding:clamp(22px,2.4vw,34px) clamp(20px,2vw,30px) clamp(28px,3vw,42px);
+  position:relative;overflow:hidden;background:transparent;transition:background .3s ease;
+}
+.cap:nth-child(n+4){grid-column:span 3}
+.cap::after{content:"";position:absolute;left:0;bottom:-1px;height:2px;width:0;background:var(--acid);transition:width .45s cubic-bezier(.2,.7,.2,1)}
+.cap:hover{background:rgba(255,255,255,.018)}
+.cap:hover::after{width:100%}
+.cap .ix{font-family:var(--mono);font-size:10.5px;font-weight:600;letter-spacing:.2em;color:var(--acid)}
+.cap .ic{margin:18px 0 20px;color:var(--acid)}
+.cap .ic svg{width:30px;height:30px;fill:none;stroke:currentColor;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
+.cap h3{margin-bottom:11px}
+.cap p{font-size:12.5px;line-height:1.72;color:var(--fg-48);max-width:34ch}
+.cap .mt{margin-top:16px;font-family:var(--mono);font-size:10.5px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--fg-32)}
+@media(max-width:1040px){.cap,.cap:nth-child(n+4){grid-column:span 6}}
+@media(max-width:660px){.cap,.cap:nth-child(n+4){grid-column:span 12}}
+
+/* ── ride modes ──────────────────────────────────────────────────────────── */
+.modes{overflow:hidden}
+.modes.pinned{min-height:100svh;display:flex;flex-direction:column;justify-content:center;padding-block:0}
+.modes-head{display:flex;justify-content:space-between;align-items:flex-end;gap:30px;flex-wrap:wrap;margin-bottom:clamp(26px,3.4vw,48px)}
+.modes-vp{overflow-x:auto;overflow-y:hidden;scroll-snap-type:x mandatory;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+.modes-vp::-webkit-scrollbar{display:none}
+.modes.pinned .modes-vp{overflow:hidden;scroll-snap-type:none}
+.modes-track{display:flex;gap:2px;padding:0 var(--gut);width:max-content}
+.mode{
+  flex:0 0 min(80vw,392px);scroll-snap-align:start;
+  border:1px solid var(--edge-2);background:linear-gradient(180deg,#0d1012,#0a0c0d);
+  padding:clamp(22px,2.2vw,32px);min-height:min(60vh,430px);
+  display:flex;flex-direction:column;position:relative;overflow:hidden;
+}
+.mode::before{
+  content:"";position:absolute;inset:0;opacity:.06;pointer-events:none;
+  background:repeating-linear-gradient(-45deg,var(--acid) 0 1px,transparent 1px 11px);
+}
+.mode.hot{background:linear-gradient(180deg,rgba(213,255,0,.10),rgba(213,255,0,.02));border-color:var(--acid-dim)}
+.mode .ix{font-family:var(--mono);font-size:10.5px;font-weight:600;letter-spacing:.24em;color:var(--acid);position:relative}
+.mode .nm{font-family:var(--display);font-weight:700;text-transform:uppercase;font-size:clamp(38px,4.4vw,60px);line-height:.88;margin:14px 0 4px;position:relative}
+.mode .sub{font-family:var(--mono);font-size:10.5px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--fg-32);position:relative}
+.mode p{font-size:12.5px;line-height:1.74;color:var(--fg-48);margin:18px 0 auto;max-width:32ch;position:relative}
+.mode dl{margin-top:24px;border-top:1px solid var(--edge-2);position:relative}
+.mode .mrow{display:flex;justify-content:space-between;gap:12px;padding:8px 0;border-bottom:1px solid var(--edge-2)}
+.mode .mrow dt{font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--fg-32)}
+.mode .mrow dd{font-family:var(--mono);font-size:11px;font-weight:600;letter-spacing:.06em;color:var(--fg)}
+.mode.hot .mrow dd{color:var(--acid)}
+.modes-hint{margin-top:20px;display:flex;align-items:center;gap:12px;color:var(--fg-32);font-family:var(--mono);font-size:10.5px;font-weight:600;letter-spacing:.22em;text-transform:uppercase}
+.modes-hint i{display:block;width:44px;height:1px;background:var(--edge)}
+
+/* ── CTA ─────────────────────────────────────────────────────────────────── */
+.cta{background:var(--acid);color:#000}
+.cta ::selection{background:#000;color:var(--acid)}
+.cta .sec-tag{color:rgba(0,0,0,.55)}
+.cta .sec-tag::after{background:rgba(0,0,0,.2)}
+.cta-grid{display:grid;grid-template-columns:1.25fr .75fr;gap:clamp(28px,5vw,80px);align-items:end}
+@media(max-width:900px){.cta-grid{grid-template-columns:1fr}}
+.cta h2{font-size:clamp(44px,8.4vw,124px);line-height:.82;letter-spacing:-.015em}
+.cta .lede{color:rgba(0,0,0,.72);max-width:44ch;margin-top:20px;font-size:14px}
+.price{border-top:2px solid #000;padding-top:20px}
+.price .p{font-family:var(--display);font-weight:700;font-size:clamp(48px,6.4vw,84px);line-height:.88;letter-spacing:-.02em}
+.price .pk{font-family:var(--mono);font-size:10.5px;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:rgba(0,0,0,.55);margin-bottom:12px}
+.price .pn{font-family:var(--mono);font-size:11.5px;color:rgba(0,0,0,.62);margin-top:12px;line-height:1.65}
+.cta-actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:24px;align-items:center}
+.cta .btn{border-color:rgba(0,0,0,.35);color:#000}
+.cta .btn:hover{background:#000;color:var(--acid);border-color:#000}
+.note{
+  font-family:var(--mono);font-size:11px;letter-spacing:.1em;color:rgba(0,0,0,.62);
+  border-left:2px solid #000;padding-left:12px;max-width:34ch;
+  opacity:0;transform:translateY(-4px);transition:opacity .3s ease,transform .3s ease;
+}
+.note.on{opacity:1;transform:none}
+.cta-strip{display:grid;grid-template-columns:repeat(4,1fr);border-top:2px solid #000;margin-top:clamp(40px,5vw,72px)}
+.cta-strip div{padding:18px 16px 0;border-right:1px solid rgba(0,0,0,.2)}
+.cta-strip div:last-child{border-right:0}
+.cta-strip b{font-family:var(--display);font-weight:700;text-transform:uppercase;font-size:20px;display:block;line-height:1}
+.cta-strip span{font-family:var(--mono);font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:rgba(0,0,0,.58);display:block;margin-top:7px}
+@media(max-width:760px){.cta-strip{grid-template-columns:repeat(2,1fr)}.cta-strip div:nth-child(2n){border-right:0}.cta-strip div:nth-child(-n+2){border-bottom:1px solid rgba(0,0,0,.2);padding-bottom:16px}}
+
+/* ── footer ──────────────────────────────────────────────────────────────── */
+footer{background:var(--void);padding-block:clamp(52px,6vw,84px) 30px}
+.f-grid{display:grid;grid-template-columns:1.4fr repeat(3,.9fr);gap:36px}
+@media(max-width:860px){.f-grid{grid-template-columns:1fr 1fr;gap:30px}}
+@media(max-width:520px){.f-grid{grid-template-columns:1fr}}
+.f-grid h4{font-family:var(--mono);font-size:10.5px;font-weight:600;letter-spacing:.24em;text-transform:uppercase;color:var(--acid);margin-bottom:16px}
+.f-grid ul{list-style:none}
+.f-grid li{margin-bottom:9px}
+.f-grid li a{font-size:12.5px;color:var(--fg-48);text-decoration:none;transition:color .2s ease}
+.f-grid li a:hover{color:var(--fg)}
+.f-mark{display:flex;align-items:center;gap:11px;margin-bottom:16px}
+.f-mark svg{width:22px;height:22px;fill:var(--acid)}
+.f-mark b{font-family:var(--display);font-weight:700;font-size:24px;letter-spacing:.24em;text-transform:uppercase;line-height:1}
+.f-bar{
+  margin-top:clamp(40px,5vw,70px);padding-top:22px;border-top:1px solid var(--edge-2);
+  display:flex;justify-content:space-between;gap:18px;flex-wrap:wrap;
+  font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--fg-32);
+}
+.f-bar strong{font-weight:600;color:var(--fg-48)}
+
+@media (prefers-reduced-motion: reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{animation-duration:.001ms !important;animation-iteration-count:1 !important;transition-duration:.001ms !important}
+  .ticker-in{animation:none}
+}
+</style>
+</head>
+<body>
+<script>
+  /* Gate the pre-hidden reveal styles on motion being wanted at all. */
+  if (!matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    document.documentElement.classList.add('js-anim');
+  }
+  window.__thornReady = false;
+</script>
+
+<a class="skip" href="#main">Skip to content</a>
+
+<header id="site-head">
+  <a class="mark" href="#top" aria-label="Thorn — home">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M1.6 22.6 13.4 1.2l-2.1 9.9 10.9-3.1L1.6 22.6Z"/></svg>
+    <b>Thorn</b>
+  </a>
+  <nav aria-label="Primary">
+    <a href="#machine">Machine</a>
+    <a href="#spec">Spec</a>
+    <a href="#capability">Capability</a>
+    <a href="#modes">Modes</a>
+    <button class="btn btn-acid" data-goto="#preorder" type="button">Pre-order</button>
+  </nav>
+</header>
+
+<main id="main">
+
+<!-- ══ HERO ════════════════════════════════════════════════════════════════ -->
+<section class="hero" id="top">
+  <div class="hero-bg" aria-hidden="true">
+    <div class="fallback">
+      <svg class="fb-ridge fb-r1" viewBox="0 0 1440 200" preserveAspectRatio="none"><path d="M0 148 L118 96 L246 140 L392 74 L548 132 L706 82 L864 138 L1012 88 L1166 142 L1308 96 L1440 138 L1440 200 L0 200Z" fill="#0a0c0e" stroke="rgba(213,255,0,.32)" stroke-width="2"/></svg>
+      <svg class="fb-ridge fb-r2" viewBox="0 0 1440 200" preserveAspectRatio="none"><path d="M0 160 L92 108 L214 156 L360 86 L470 148 L622 92 L768 152 L920 100 L1078 158 L1224 104 L1350 154 L1440 118 L1440 200 L0 200Z" fill="#090b0d" stroke="rgba(213,255,0,.46)" stroke-width="2"/></svg>
+      <svg class="fb-ridge fb-r3" viewBox="0 0 1440 200" preserveAspectRatio="none"><path d="M0 130 L140 62 L250 128 L400 54 L520 136 L640 78 L720 150 L800 78 L920 136 L1050 56 L1180 130 L1310 66 L1440 126 L1440 200 L0 200Z" fill="#08090a" stroke="rgba(213,255,0,.62)" stroke-width="2"/></svg>
+      <div class="fb-grid"></div>
+    </div>
+    <canvas id="terrain" aria-hidden="true"></canvas>
+    <div class="hero-scrim"></div>
+  </div>
+
+  <div class="wrap hero-inner">
+    <div class="hero-rule"></div>
+    <p class="eyebrow">Thorn EX-1 &nbsp;/&nbsp; Electric Enduro &nbsp;/&nbsp; MY2027</p>
+    <h1>The trail<br>goes <em>quiet</em></h1>
+    <p class="lede">One motor. One gear. No exhaust note to hide behind. The EX-1 puts 118&nbsp;Nm on the ground from a standstill and weighs less than the four-stroke it replaces &mdash; so the only thing you hear on the climb is the ground giving way.</p>
+    <div class="hero-cta">
+      <button class="btn btn-acid" data-goto="#preorder" type="button">Reserve &mdash; &euro;500<svg viewBox="0 0 12 12" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M1 6h10M7 2l4 4-4 4"/></svg></button>
+      <a class="btn" href="#spec">Technical data</a>
+    </div>
+    <div class="cue" aria-hidden="true"><span></span>Scroll</div>
+  </div>
+
+  <div class="wrap hero-stats">
+    <div class="hs"><div class="v"><span class="num" data-count="118">118</span><i>Nm</i></div><div class="k">Peak torque</div></div>
+    <div class="hs"><div class="v"><span class="num" data-count="140">140</span><i>km</i></div><div class="k">Trail range</div></div>
+    <div class="hs"><div class="v"><span class="num" data-count="96">96</span><i>kg</i></div><div class="k">Dry weight</div></div>
+    <div class="hs"><div class="v"><span class="num" data-count="42">42</span><i>min</i></div><div class="k">10&ndash;80% DC</div></div>
+  </div>
+</section>
+
+<!-- ══ TICKER ══════════════════════════════════════════════════════════════ -->
+<div class="ticker" aria-hidden="true">
+  <div class="ticker-in">
+    <span>Thorn EX-1<b>&#9679;</b>Swappable 8.4&nbsp;kWh pack<b>&#9679;</b>52&nbsp;dB at 30&nbsp;km/h<b>&#9679;</b>Belt final drive<b>&#9679;</b>320&nbsp;mm travel<b>&#9679;</b>Hand-built in Ravenna<b>&#9679;</b>First 300 units<b>&#9679;</b></span>
+    <span>Thorn EX-1<b>&#9679;</b>Swappable 8.4&nbsp;kWh pack<b>&#9679;</b>52&nbsp;dB at 30&nbsp;km/h<b>&#9679;</b>Belt final drive<b>&#9679;</b>320&nbsp;mm travel<b>&#9679;</b>Hand-built in Ravenna<b>&#9679;</b>First 300 units<b>&#9679;</b></span>
+  </div>
+</div>
+
+<!-- ══ MACHINE ═════════════════════════════════════════════════════════════ -->
+<section id="machine" class="pad">
+  <div class="wrap">
+    <p class="sec-tag rev">01 &nbsp;&mdash;&nbsp; The machine</p>
+    <div class="machine-head">
+      <h2 class="rev">Built around<br>the battery,<br>not despite it</h2>
+      <div class="rev">
+        <p class="lede">We started with a 21&nbsp;kg pack and drew a chassis around it. The mass sits low and central where a fuel tank never could, which is why a 96&nbsp;kg bike feels like an 80&nbsp;kg one the moment it leans.</p>
+        <p class="lede" style="margin-top:16px">Everything above the swingarm pivot is either structure or serviceable in under ten minutes with the tool roll that ships in the tail.</p>
+      </div>
+    </div>
+
+    <div class="schematic rev">
+      <svg viewBox="0 0 1000 540" role="img" aria-labelledby="schTitle schDesc">
+        <title id="schTitle">Thorn EX-1 side elevation</title>
+        <desc id="schDesc">Technical line drawing of the EX-1 showing the swappable battery pack, mid-mounted motor and long-travel front suspension.</desc>
+
+        <!-- faint drafting grid -->
+        <g class="sch-grid">
+          <path d="M0 60H1000M0 120H1000M0 180H1000M0 240H1000M0 300H1000M0 360H1000M0 420H1000M0 480H1000"/>
+          <path d="M60 0V540M160 0V540M260 0V540M360 0V540M460 0V540M560 0V540M660 0V540M760 0V540M860 0V540M960 0V540"/>
+        </g>
+
+        <!-- ground -->
+        <path class="sch-hair" d="M40 474H960" stroke-dasharray="2 7"/>
+
+        <!-- wheels -->
+        <g>
+          <circle cx="250" cy="340" r="132" class="sch-thin"/>
+          <circle cx="250" cy="340" r="122" class="sch-line"/>
+          <circle cx="250" cy="340" r="86" class="sch-thin"/>
+          <circle cx="250" cy="340" r="22" class="sch-line"/>
+          <g class="sch-hair">
+            <path d="M250 340 264 256M250 340 320 296M250 340 328 372M250 340 274 420M250 340 210 422M250 340 176 366M250 340 180 300M250 340 234 258"/>
+          </g>
+          <circle cx="760" cy="336" r="138" class="sch-thin"/>
+          <circle cx="760" cy="336" r="128" class="sch-line"/>
+          <circle cx="760" cy="336" r="90" class="sch-thin"/>
+          <circle cx="760" cy="336" r="22" class="sch-line"/>
+          <g class="sch-hair">
+            <path d="M760 336 776 248M760 336 836 292M760 336 842 372M760 336 786 420M760 336 718 420M760 336 682 368M760 336 688 292M760 336 742 248"/>
+          </g>
+        </g>
+
+        <!-- rear sprocket + belt -->
+        <circle cx="250" cy="340" r="46" class="sch-thin"/>
+        <path class="sch-thin" d="M398 288 254 300M398 376 252 384"/>
+
+        <!-- swingarm -->
+        <path class="sch-fill" d="M446 306 262 320 260 356 446 340Z"/>
+
+        <!-- shock -->
+        <path class="sch-line" d="M432 238 352 316"/>
+        <g class="sch-hair"><path d="M420 244 408 232M406 258 394 246M392 272 380 260M378 286 366 274"/></g>
+
+        <!-- motor -->
+        <circle cx="398" cy="330" r="54" class="sch-acid"/>
+        <circle cx="398" cy="330" r="27" class="sch-thin"/>
+        <path class="sch-thin" d="M398 276v-16M398 400v16M344 330h-16M452 330h16"/>
+
+        <!-- frame -->
+        <path class="sch-line" d="M666 158 392 198"/>
+        <path class="sch-line" d="M662 174 552 308"/>
+        <path class="sch-thin" d="M392 198 404 292M392 198 446 306"/>
+
+        <!-- battery pack -->
+        <path class="sch-acid-f" d="M410 200 636 176 650 238 610 314 476 324 408 264Z"/>
+        <g class="sch-acid" stroke-width="1.1" opacity=".55">
+          <path d="M424 232 640 210M430 264 622 244M446 294 606 278"/>
+        </g>
+        <g class="sch-acid" stroke-width="1.6" opacity=".8">
+          <path d="M596 190v22M612 188v22M628 186v22"/>
+        </g>
+
+        <!-- seat / tail -->
+        <path class="sch-fill" d="M228 200 424 182 432 208 320 242 236 240Z"/>
+        <path class="sch-thin" d="M196 208 232 198 224 224 190 230Z"/>
+
+        <!-- fork -->
+        <path class="sch-line" d="M770 330 682 145M750 340 662 155"/>
+        <path class="sch-line" d="M658 160 698 142"/>
+        <path class="sch-thin" d="M672 132 706 116"/>
+        <path class="sch-line" d="M614 100 700 122"/>
+        <path class="sch-thin" d="M608 96 630 102M686 118 708 124"/>
+
+        <!-- headlight mask + front fender -->
+        <path class="sch-fill" d="M690 128 730 144 722 176 688 158Z"/>
+        <path class="sch-fill" d="M632 200 C668 168 720 160 750 172 L744 190 C716 178 676 186 642 214Z"/>
+
+        <!-- footpeg -->
+        <path class="sch-line" d="M414 392h30"/>
+
+        <!-- callout 01 : pack -->
+        <circle cx="470" cy="230" r="3.5" class="sch-dot"/>
+        <path class="sch-lead" d="M470 230 470 92 552 92"/>
+        <text class="sch-t" x="562" y="97">01 &mdash; SWAPPABLE PACK</text>
+        <text class="sch-s" x="562" y="115">8.4 kWh &middot; 21 kg &middot; 40-second swap</text>
+
+        <!-- callout 02 : motor -->
+        <circle cx="398" cy="330" r="3.5" class="sch-dot"/>
+        <path class="sch-lead" d="M398 330 330 432 216 432"/>
+        <text class="sch-t" x="206" y="437" text-anchor="end">02 &mdash; MID-MOUNT MOTOR</text>
+        <text class="sch-s" x="206" y="455" text-anchor="end">118 Nm &middot; belt final drive</text>
+
+        <!-- callout 03 : fork -->
+        <circle cx="726" cy="252" r="3.5" class="sch-dot"/>
+        <path class="sch-lead" d="M726 252 880 186 960 186"/>
+        <text class="sch-t" x="960" y="152" text-anchor="end">03 &mdash; 320 MM TRAVEL</text>
+        <text class="sch-s" x="960" y="170" text-anchor="end">48 mm closed cartridge</text>
+
+        <!-- wheelbase dimension -->
+        <path class="sch-lead" d="M250 494h510M250 486v16M760 486v16"/>
+        <rect x="452" y="482" width="106" height="22" fill="#0a0c0d"/>
+        <text class="sch-d" x="505" y="498" text-anchor="middle">1 512 MM</text>
+
+        <!-- title block -->
+        <g>
+          <path class="sch-hair" d="M40 500h230v34H40Z"/>
+          <text class="sch-d" x="52" y="522">THORN EX-1 &middot; SIDE ELEVATION &middot; REV C</text>
+        </g>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<!-- ══ SPEC ════════════════════════════════════════════════════════════════ -->
+<section id="spec" class="pad rule-t">
+  <div class="wrap">
+    <p class="sec-tag rev">02 &nbsp;&mdash;&nbsp; Technical data</p>
+    <h2 class="rev" style="margin-bottom:clamp(30px,4vw,54px);max-width:16ch">Numbers, before adjectives</h2>
+
+    <div class="big5">
+      <div class="b rev"><div class="v"><span class="num" data-count="140">140</span><i>km</i></div><div class="k">Range &mdash; trail loop</div></div>
+      <div class="b rev"><div class="v"><span class="num" data-count="118">118</span><i>Nm</i></div><div class="k">Peak torque</div></div>
+      <div class="b rev"><div class="v"><span class="num" data-count="96">96</span><i>kg</i></div><div class="k">Dry weight</div></div>
+      <div class="b rev"><div class="v"><span class="num" data-count="42">42</span><i>min</i></div><div class="k">Charge 10&ndash;80%</div></div>
+      <div class="b rev"><div class="v"><span class="num" data-count="8.4" data-dp="1">8.4</span><i>kWh</i></div><div class="k">Battery &mdash; swappable</div></div>
+    </div>
+
+    <div class="sheet">
+      <dl class="rev">
+        <div class="row"><dt>Battery</dt><dd>8.4 kWh &middot; 96&nbsp;V &middot; <em>swappable</em></dd></div>
+        <div class="row"><dt>Cell chemistry</dt><dd>NMC pouch, liquid-damped</dd></div>
+        <div class="row"><dt>Pack mass</dt><dd>21.0 kg</dd></div>
+        <div class="row"><dt>Motor</dt><dd>Mid-mount PMSM, oil-cooled</dd></div>
+        <div class="row"><dt>Peak power</dt><dd>42 kW <em>(56 hp)</em></dd></div>
+        <div class="row"><dt>Continuous power</dt><dd>24 kW</dd></div>
+        <div class="row"><dt>Peak torque</dt><dd>118 Nm from 0 rpm</dd></div>
+        <div class="row"><dt>Final drive</dt><dd>Reinforced belt, single ratio</dd></div>
+        <div class="row"><dt>Top speed</dt><dd>122 km/h <em>(limited)</em></dd></div>
+      </dl>
+      <dl class="rev">
+        <div class="row"><dt>Charge &mdash; DC</dt><dd>42 min, 10&ndash;80%</dd></div>
+        <div class="row"><dt>Charge &mdash; AC 3.3 kW</dt><dd>3 h 10, 0&ndash;100%</dd></div>
+        <div class="row"><dt>Suspension &mdash; front</dt><dd>320 mm, 48 mm cartridge</dd></div>
+        <div class="row"><dt>Suspension &mdash; rear</dt><dd>315 mm, linkage monoshock</dd></div>
+        <div class="row"><dt>Wheels</dt><dd>21&Prime; front / 18&Prime; rear</dd></div>
+        <div class="row"><dt>Seat height</dt><dd>940 mm</dd></div>
+        <div class="row"><dt>Ground clearance</dt><dd>355 mm</dd></div>
+        <div class="row"><dt>Sound &mdash; 30 km/h</dt><dd><em>52 dB(A)</em></dd></div>
+        <div class="row"><dt>Ingress protection</dt><dd>IP67 &mdash; pack &amp; motor</dd></div>
+      </dl>
+    </div>
+  </div>
+</section>
+
+<!-- ══ CAPABILITY ══════════════════════════════════════════════════════════ -->
+<section id="capability" class="pad rule-t">
+  <div class="wrap">
+    <p class="sec-tag rev">03 &nbsp;&mdash;&nbsp; Capability</p>
+    <div class="machine-head" style="margin-bottom:clamp(30px,4vw,56px)">
+      <h2 class="rev">Seven things<br>it does<br>differently</h2>
+      <p class="lede rev">None of these are firsts on their own. Putting all seven on one 96&nbsp;kg chassis, in a bike you can ride to the trailhead and back, is the part nobody had done.</p>
+    </div>
+  </div>
+  <div class="wrap"><div class="caps">
+
+    <article class="cap rev">
+      <div class="ix">01</div>
+      <div class="ic"><svg viewBox="0 0 32 32" aria-hidden="true"><rect x="4" y="11" width="18" height="13" rx="1"/><path d="M22 15h3v5h-3"/><path d="M9 8l5-4v8z"/><path d="M14 4h4a5 5 0 0 1 5 5"/></svg></div>
+      <h3>Swappable battery</h3>
+      <p>Two latches, no tools, one pack out and another in. A depleted EX-1 becomes a fresh one in the time it takes to drink something.</p>
+      <div class="mt">40&nbsp;s &middot; 21&nbsp;kg</div>
+    </article>
+
+    <article class="cap rev">
+      <div class="ix">02</div>
+      <div class="ic"><svg viewBox="0 0 32 32" aria-hidden="true"><path d="M19 3 9 18h6l-2 11 10-15h-6z"/></svg></div>
+      <h3>Instant torque</h3>
+      <p>All 118&nbsp;Nm available at zero rpm, metered by the throttle map rather than by a clutch hand and a flywheel.</p>
+      <div class="mt">0&ndash;30 km/h in 1.6&nbsp;s</div>
+    </article>
+
+    <article class="cap rev">
+      <div class="ix">03</div>
+      <div class="ic"><svg viewBox="0 0 32 32" aria-hidden="true"><path d="M6 12h5l6-5v18l-6-5H6z"/><path d="M22 11l7 10M29 11l-7 10"/></svg></div>
+      <h3>Near-silent</h3>
+      <p>52&nbsp;dB(A) at 30&nbsp;km/h &mdash; quiet enough for land access that closed to combustion bikes a decade ago.</p>
+      <div class="mt">Belt drive &middot; no exhaust</div>
+    </article>
+
+    <article class="cap rev">
+      <div class="ix">04</div>
+      <div class="ic"><svg viewBox="0 0 32 32" aria-hidden="true"><path d="M16 5l4 3 5-1 1 5 3 4-3 4 1 5-5 1-4 3-4-3-5 1-1-5-3-4 3-4-1-5 5 1z"/><path d="M12 16l3 3 6-6"/></svg></div>
+      <h3>Low maintenance</h3>
+      <p>No oil, no filters, no valve shims, no chain to adjust after every wet lap. Service is a belt tension check and a firmware pull.</p>
+      <div class="mt">6 000 km intervals</div>
+    </article>
+
+    <article class="cap rev">
+      <div class="ix">05</div>
+      <div class="ic"><svg viewBox="0 0 32 32" aria-hidden="true"><path d="M5 12h22v14H5z"/><path d="M5 12l3-6h16l3 6"/><path d="M13 18h6"/></svg></div>
+      <h3>Sealed storage</h3>
+      <p>Six litres of dry, lockable volume where the airbox used to live. Tube, tool roll, jacket &mdash; on the bike, not on your back.</p>
+      <div class="mt">6 L &middot; IP65</div>
+    </article>
+
+    <article class="cap rev">
+      <div class="ix">06</div>
+      <div class="ic"><svg viewBox="0 0 32 32" aria-hidden="true"><path d="M4 9h24M4 16h24M4 23h24"/><circle cx="11" cy="9" r="3"/><circle cx="21" cy="16" r="3"/><circle cx="15" cy="23" r="3"/></svg></div>
+      <h3>Configurable</h3>
+      <p>Power delivery, regen strength and traction slip are three separate dials on the bar switch. Change them mid-climb, gloves on.</p>
+      <div class="mt">5 modes &middot; 3 axes</div>
+    </article>
+
+    <article class="cap rev">
+      <div class="ix">07</div>
+      <div class="ic"><svg viewBox="0 0 32 32" aria-hidden="true"><path d="M2 25l7-9 5 5 6-11 10 15z"/><path d="M2 25h28"/><circle cx="24" cy="7" r="3"/></svg></div>
+      <h3>Trail-ready</h3>
+      <p>320&nbsp;mm of front travel, 355&nbsp;mm of clearance, and a pack rated to sit in a river crossing without an argument.</p>
+      <div class="mt">IP67 &middot; 21&Prime;/18&Prime;</div>
+    </article>
+
+  </div></div>
+</section>
+
+<!-- ══ MODES ═══════════════════════════════════════════════════════════════ -->
+<section id="modes" class="pad">
+  <div class="wrap modes-head">
+    <div>
+      <p class="sec-tag rev">04 &nbsp;&mdash;&nbsp; Ride modes</p>
+      <h2 class="rev" style="max-width:14ch">Five bikes,<br>one chassis</h2>
+    </div>
+    <p class="lede rev" style="max-width:38ch">Each mode rewrites the torque curve, the regen ramp and the traction threshold together. Switch on the move; the pack does not care.</p>
+  </div>
+
+  <div class="modes-vp" id="modesVp">
+    <div class="modes-track" id="modesTrack">
+
+      <article class="mode">
+        <div class="ix">MODE 01</div>
+        <div class="nm">Trail</div>
+        <div class="sub">Default &middot; all conditions</div>
+        <p>The one you will leave it in. Full torque, softened over the first ten degrees of throttle so the rear tyre gets a say.</p>
+        <dl>
+          <div class="mrow"><dt>Power</dt><dd>80%</dd></div>
+          <div class="mrow"><dt>Regen</dt><dd>Medium</dd></div>
+          <div class="mrow"><dt>Traction</dt><dd>Level 3</dd></div>
+          <div class="mrow"><dt>Top speed</dt><dd>105 km/h</dd></div>
+        </dl>
+      </article>
+
+      <article class="mode hot">
+        <div class="ix">MODE 02</div>
+        <div class="nm">Enduro</div>
+        <div class="sub">Competition &middot; closed course</div>
+        <p>Everything the motor has, delivered the instant you ask. Regen backed off so the bike coasts into corners instead of dragging.</p>
+        <dl>
+          <div class="mrow"><dt>Power</dt><dd>100%</dd></div>
+          <div class="mrow"><dt>Regen</dt><dd>Low</dd></div>
+          <div class="mrow"><dt>Traction</dt><dd>Level 1</dd></div>
+          <div class="mrow"><dt>Top speed</dt><dd>122 km/h</dd></div>
+        </dl>
+      </article>
+
+      <article class="mode">
+        <div class="ix">MODE 03</div>
+        <div class="nm">Creep</div>
+        <div class="sub">Technical &middot; rock &amp; root</div>
+        <p>Capped at walking pace with the torque curve flattened to a plateau. Feet up through sections that used to mean a dab.</p>
+        <dl>
+          <div class="mrow"><dt>Power</dt><dd>35%</dd></div>
+          <div class="mrow"><dt>Regen</dt><dd>Hold</dd></div>
+          <div class="mrow"><dt>Traction</dt><dd>Level 5</dd></div>
+          <div class="mrow"><dt>Top speed</dt><dd>8 km/h</dd></div>
+        </dl>
+      </article>
+
+      <article class="mode">
+        <div class="ix">MODE 04</div>
+        <div class="nm">Transit</div>
+        <div class="sub">Road legal &middot; range max</div>
+        <p>For the tarmac between trailheads. Maximum regen, softened delivery, and roughly forty extra kilometres out of the same pack.</p>
+        <dl>
+          <div class="mrow"><dt>Power</dt><dd>60%</dd></div>
+          <div class="mrow"><dt>Regen</dt><dd>High</dd></div>
+          <div class="mrow"><dt>Traction</dt><dd>Level 4</dd></div>
+          <div class="mrow"><dt>Range</dt><dd>180 km</dd></div>
+        </dl>
+      </article>
+
+      <article class="mode">
+        <div class="ix">MODE 05</div>
+        <div class="nm">Raw</div>
+        <div class="sub">Unassisted &middot; rider beware</div>
+        <p>Traction control off, regen off, no throttle smoothing whatsoever. Requires a long press and an acknowledgement every single time.</p>
+        <dl>
+          <div class="mrow"><dt>Power</dt><dd>100%</dd></div>
+          <div class="mrow"><dt>Regen</dt><dd>Off</dd></div>
+          <div class="mrow"><dt>Traction</dt><dd>Off</dd></div>
+          <div class="mrow"><dt>Top speed</dt><dd>122 km/h</dd></div>
+        </dl>
+      </article>
+
+    </div>
+  </div>
+
+  <div class="wrap"><div class="modes-hint" id="modesHint"><i></i>Scroll to cycle modes</div></div>
+</section>
+
+<!-- ══ PRE-ORDER ═══════════════════════════════════════════════════════════ -->
+<section id="preorder" class="cta pad">
+  <div class="wrap">
+    <p class="sec-tag rev">05 &nbsp;&mdash;&nbsp; Pre-order</p>
+    <div class="cta-grid">
+      <div>
+        <h2 class="rev">First<br>300 units</h2>
+        <p class="lede rev">Series One leaves Ravenna in March 2027, numbered 001 to 300, each with the build sheet of the person who assembled it. Deposits are fully refundable until the frame is welded.</p>
+      </div>
+      <div class="price rev">
+        <div class="pk">Thorn EX-1 &mdash; Series One</div>
+        <div class="p">&euro;14,900</div>
+        <div class="pn">Incl. VAT &middot; one 8.4&nbsp;kWh pack &middot; charger &middot; tool roll.<br>Second pack &euro;2,750. Delivery across the EU.</div>
+        <div class="cta-actions">
+          <button class="btn btn-inv" id="reserveBtn" type="button">Reserve &mdash; &euro;500<svg viewBox="0 0 12 12" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M1 6h10M7 2l4 4-4 4"/></svg></button>
+          <a class="btn" href="#spec">Full spec</a>
+        </div>
+        <p class="note" id="reserveNote" role="status">Concept site. No orders are taken and no payment details are collected.</p>
+      </div>
+    </div>
+
+    <div class="cta-strip">
+      <div class="rev"><b>March 2027</b><span>First deliveries</span></div>
+      <div class="rev"><b>&euro;500</b><span>Refundable deposit</span></div>
+      <div class="rev"><b>300</b><span>Series One units</span></div>
+      <div class="rev"><b>5 years</b><span>Pack warranty</span></div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- ══ FOOTER ══════════════════════════════════════════════════════════════ -->
+<footer>
+  <div class="wrap">
+    <div class="f-grid">
+      <div>
+        <div class="f-mark">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M1.6 22.6 13.4 1.2l-2.1 9.9 10.9-3.1L1.6 22.6Z"/></svg>
+          <b>Thorn</b>
+        </div>
+        <p class="fine" style="max-width:32ch">Electric enduro motorcycles, assembled in Ravenna. Quiet enough to be welcome, quick enough to be worth it.</p>
+      </div>
+      <div>
+        <h4>Machine</h4>
+        <ul>
+          <li><a href="#machine">EX-1 overview</a></li>
+          <li><a href="#spec">Technical data</a></li>
+          <li><a href="#capability">Capability</a></li>
+          <li><a href="#modes">Ride modes</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Ownership</h4>
+        <ul>
+          <li><a href="#preorder">Pre-order</a></li>
+          <li><a href="#preorder">Deposit terms</a></li>
+          <li><a href="#preorder">Pack warranty</a></li>
+          <li><a href="#preorder">Service network</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Company</h4>
+        <ul>
+          <li><a href="#top">About Thorn</a></li>
+          <li><a href="#top">Land access</a></li>
+          <li><a href="#top">Press kit</a></li>
+          <li><a href="#top">Contact</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="f-bar">
+      <span>&copy; 2027 Thorn Motorcycles &mdash; fictional brand</span>
+      <span><strong>Concept site &mdash; portfolio demonstration</strong></span>
+      <span>Built by Naushad Punjani</span>
+    </div>
+  </div>
+</footer>
+
+<script src="/demos/_vendor/gsap/gsap.min.js"></script>
+<script src="/demos/_vendor/gsap/ScrollTrigger.min.js"></script>
+<script>
+  /* Belt and braces: if GSAP never arrived, or the module below never runs,
+     strip the gate so nothing stays invisible. */
+  if (!window.gsap) document.documentElement.classList.remove('js-anim');
+  setTimeout(function () {
+    if (!window.__thornReady) document.documentElement.classList.remove('js-anim');
+  }, 1400);
+</script>
+<script type="module">
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* ── header state + in-page nav ─────────────────────────────────────────── */
+  const head = document.getElementById('site-head');
+  const onScroll = () => head.classList.toggle('stuck', scrollY > 40);
+  onScroll();
+  addEventListener('scroll', onScroll, { passive: true });
+
+  document.querySelectorAll('[data-goto]').forEach((b) => {
+    b.addEventListener('click', () => {
+      const t = document.querySelector(b.dataset.goto);
+      if (t) t.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'start' });
+    });
+  });
+
+  const rBtn = document.getElementById('reserveBtn');
+  const rNote = document.getElementById('reserveNote');
+  if (rBtn && rNote) rBtn.addEventListener('click', () => rNote.classList.add('on'));
+
+  /* ── GSAP: reveals, count-ups, pinned mode carousel ─────────────────────── */
+  if (window.gsap && window.ScrollTrigger) {
+    gsap.registerPlugin(ScrollTrigger);
+    gsap.ticker.lagSmoothing(0);
+    window.__thornReady = true;
+
+    // Deep links land mid-page before ScrollTrigger has measured anything;
+    // re-measure once fonts have settled so already-passed triggers fire.
+    addEventListener('load', () => ScrollTrigger.refresh());
+
+    if (reduce) {
+      gsap.set('.rev, .rev-x', { opacity: 1, x: 0, y: 0 });
+    } else {
+      document.querySelectorAll('section, footer').forEach((sec) => {
+        const items = sec.querySelectorAll('.rev');
+        if (!items.length) return;
+        gsap.to(items, {
+          opacity: 1, y: 0, duration: .8, ease: 'power3.out', stagger: .06,
+          scrollTrigger: { trigger: sec, start: 'top 78%', once: true }
+        });
+      });
+      // The hero is already in view at load — reveal it on a timeline instead.
+      gsap.set('.hero .rev', { opacity: 1, y: 0 });
+    }
+
+    // Count-ups. Markup already carries the final value, so a failure is a no-op.
+    document.querySelectorAll('.num').forEach((el) => {
+      const end = parseFloat(el.dataset.count);
+      const dp = parseInt(el.dataset.dp || '0', 10);
+      if (!isFinite(end)) return;
+      if (reduce) { el.textContent = end.toFixed(dp); return; }
+      const o = { v: 0 };
+      gsap.to(o, {
+        v: end, duration: 1.5, ease: 'power2.out',
+        onUpdate() { el.textContent = o.v.toFixed(dp); },
+        onComplete() { el.textContent = end.toFixed(dp); },
+        scrollTrigger: { trigger: el, start: 'top 92%', once: true }
+      });
+    });
+
+    // Pinned horizontal ride-modes track. Falls back to the native
+    // overflow-x scroller everywhere this media query does not hold.
+    const modes = document.getElementById('modes');
+    const track = document.getElementById('modesTrack');
+    const hint = document.getElementById('modesHint');
+    if (modes && track) {
+      const mm = gsap.matchMedia();
+      mm.add('(min-width: 900px) and (prefers-reduced-motion: no-preference)', () => {
+        modes.classList.add('pinned');
+        const dist = () => Math.max(0, track.scrollWidth - innerWidth + 48);
+        const tw = gsap.to(track, {
+          x: () => -dist(), ease: 'none',
+          scrollTrigger: {
+            trigger: modes, start: 'top top', end: () => '+=' + (dist() + 200),
+            pin: true, scrub: .55, invalidateOnRefresh: true, anticipatePin: 1
+          }
+        });
+        if (hint) hint.firstElementChild.style.background = 'var(--acid)';
+        return () => {
+          tw.scrollTrigger && tw.scrollTrigger.kill();
+          tw.kill();
+          gsap.set(track, { clearProps: 'transform' });
+          modes.classList.remove('pinned');
+        };
+      });
+    }
+  }
+
+  /* ── Three.js: procedural terrain fly-through ───────────────────────────── */
+  const hero = document.getElementById('top');
+  const canvas = document.getElementById('terrain');
+
+  try {
+    const THREE = await import('/demos/_vendor/three/three.module.min.js');
+
+    const VOID = 0x08090a;
+    const scene = new THREE.Scene();
+    scene.fog = new THREE.Fog(VOID, 110, 430);
+
+    const CAM_Y = 40, CAM_Z = 250;
+    const camera = new THREE.PerspectiveCamera(56, 1, 1, 900);
+    camera.position.set(0, CAM_Y, CAM_Z);
+
+    const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true, powerPreference: 'high-performance' });
+    renderer.setPixelRatio(Math.min(devicePixelRatio, 1.75));
+    renderer.setClearColor(VOID, 0);
+
+    /* ---- cheap value noise: one table lookup per corner, zero trig -------- */
+    const TBL = new Float32Array(65536);
+    let seed = 1337;
+    for (let i = 0; i < 65536; i++) {
+      // xorshift32 — deterministic, and far cheaper than Math.sin hashing
+      seed ^= seed << 13; seed |= 0;
+      seed ^= seed >>> 17;
+      seed ^= seed << 5; seed |= 0;
+      TBL[i] = (seed >>> 0) / 4294967296;
+    }
+    const h2 = (xi, zi) => TBL[(((xi & 255) << 8) | (zi & 255))];
+
+    function vnoise(x, z) {
+      const xi = Math.floor(x), zi = Math.floor(z);
+      const xf = x - xi, zf = z - zi;
+      const u = xf * xf * (3 - 2 * xf), v = zf * zf * (3 - 2 * zf);
+      const a = h2(xi, zi), b = h2(xi + 1, zi), c = h2(xi, zi + 1), d = h2(xi + 1, zi + 1);
+      return a + (b - a) * u + (c - a) * v + (a - b - c + d) * u * v;
+    }
+
+    // The ridable line wanders as it recedes, and sits right of centre so it
+    // runs clear of the headline rather than under it.
+    const trailX = (z) => 88 + Math.sin(z * 0.0058) * 36 + Math.sin(z * 0.0018 + 1.9) * 24;
+
+    const S = 0.0105;
+    function elev(x, z) {
+      let h = vnoise(x * S, z * S) * 40;
+      h += vnoise(x * S * 2.4 + 5.2, z * S * 2.4 + 1.3) * 24;
+      h += vnoise(x * S * 5.7 + 11.7, z * S * 5.7 + 7.9) * 12;
+      const dx = x - trailX(z);
+      const cut = Math.exp(-(dx * dx) / 1700);      // carve the ridable line
+      return (h - 42) * (1 - cut * 0.9) - cut * 6;
+    }
+
+    /* ---- geometry: one plane, displaced in place every frame ------------- */
+    const geo = new THREE.PlaneGeometry(660, 560, 92, 104);
+    geo.rotateX(-Math.PI / 2);
+    const pos = geo.attributes.position;
+    const N = pos.count;
+    const baseX = new Float32Array(N), baseZ = new Float32Array(N);
+    // How far ahead of the camera each row sits — used to fade the huge
+    // foreground triangles out instead of letting them swamp the frame.
+    const nearFade = new Float32Array(N);
+    for (let i = 0; i < N; i++) {
+      baseX[i] = pos.getX(i);
+      baseZ[i] = pos.getZ(i);
+      const d = CAM_Z - baseZ[i];
+      nearFade[i] = d <= 40 ? 0 : d >= 160 ? 1 : (d - 40) / 120;
+    }
+
+    const wireCol = new Float32Array(N * 3);
+    const fillCol = new Float32Array(N * 3);
+    const wireAttr = new THREE.BufferAttribute(wireCol, 3);
+    const fillAttr = new THREE.BufferAttribute(fillCol, 3);
+
+    // Second geometry shares the position buffer, so the displacement is
+    // uploaded once and drawn twice — solid body first, then the wire on top.
+    geo.setAttribute('color', wireAttr);
+    const solid = new THREE.BufferGeometry();
+    solid.setAttribute('position', pos);
+    solid.setAttribute('color', fillAttr);
+    solid.setIndex(geo.index);
+
+    const fillMat = new THREE.MeshBasicMaterial({
+      vertexColors: true, fog: true,
+      polygonOffset: true, polygonOffsetFactor: 1.5, polygonOffsetUnits: 1
+    });
+    const wireMat = new THREE.MeshBasicMaterial({ wireframe: true, vertexColors: true, fog: true });
+
+    scene.add(new THREE.Mesh(solid, fillMat));
+    scene.add(new THREE.Mesh(geo, wireMat));
+
+    /* ---- acid marker posts down the ridable line ------------------------- */
+    const POSTS = 12, POST_SPAN = 460, POST_FAR = -300;
+    const postMat = new THREE.MeshBasicMaterial({ color: 0xd5ff00, fog: true });
+    const postGeo = new THREE.BoxGeometry(0.9, 13, 0.9);
+    postGeo.translate(0, 6.5, 0);   // pivot at the base, so scale.y grows upward
+    const posts = [];
+    for (let i = 0; i < POSTS; i++) {
+      const m = new THREE.Mesh(postGeo, postMat);
+      posts.push(m); scene.add(m);
+    }
+
+    /* ---- per-frame displacement ------------------------------------------ */
+    const C_LOW = [0.028, 0.036, 0.040];
+    const C_MID = [0.115, 0.145, 0.152];
+    const C_ACID = [0.835, 1.0, 0.0];
+
+    function displace(off) {
+      const arr = pos.array;
+      for (let i = 0; i < N; i++) {
+        // Sampling at (z - off) walks the noise field toward the camera.
+        const x = baseX[i], z = baseZ[i] - off;
+        const y = elev(x, z);
+        arr[i * 3 + 1] = y;
+
+        let t = (y + 38) / 72;
+        t = t < 0 ? 0 : t > 1 ? 1 : t;
+        const k = t * t * t;                     // keep the acid to ridge tops
+        const j = i * 3;
+        let r, g, b;
+        if (t < 0.66) {
+          const m = t / 0.66;
+          r = C_LOW[0] + (C_MID[0] - C_LOW[0]) * m;
+          g = C_LOW[1] + (C_MID[1] - C_LOW[1]) * m;
+          b = C_LOW[2] + (C_MID[2] - C_LOW[2]) * m;
+        } else {
+          const m = (t - 0.66) / 0.34;
+          const mm = m * m;                      // hard, late bloom into acid
+          r = C_MID[0] + (C_ACID[0] - C_MID[0]) * mm;
+          g = C_MID[1] + (C_ACID[1] - C_MID[1]) * mm;
+          b = C_MID[2] * (1 - mm);
+        }
+        r += k * .20; g += k * .26;
+
+        // A defined glow along the ridable line itself.
+        const dx = x - trailX(z);
+        if (dx * dx < 729) {
+          const gl = (1 - Math.abs(dx) / 27) * .42;
+          r += gl * .70; g += gl; b += gl * .04;
+        }
+
+        const f = nearFade[i];
+        wireCol[j] = r * f; wireCol[j + 1] = g * f; wireCol[j + 2] = b * f;
+        // The solid body is a much darker cast of the same ramp, so ridges
+        // read as faceted low-poly mass rather than floating line work.
+        fillCol[j] = r * f * .17 + .006;
+        fillCol[j + 1] = g * f * .17 + .008;
+        fillCol[j + 2] = b * f * .17 + .009;
+      }
+      pos.needsUpdate = true;
+      wireAttr.needsUpdate = true;
+      fillAttr.needsUpdate = true;
+
+      for (let i = 0; i < POSTS; i++) {
+        // Locked to the noise field, so they march in with the terrain.
+        const zz = (((i * (POST_SPAN / POSTS) + off) % POST_SPAN) + POST_SPAN) % POST_SPAN;
+        const zWorld = POST_FAR + zz;
+        const zn = zWorld - off;
+        const xw = trailX(zn) + (i % 2 ? 15 : -15);
+        // Shrink into the ground as it passes the camera, matching the way the
+        // near rows of terrain fade — nothing ever pops out at the lens.
+        let s = (CAM_Z - zWorld - 70) / 90;
+        s = s < 0 ? 0 : s > 1 ? 1 : s;
+        posts[i].position.set(xw, elev(xw, zn) - 1.5, zWorld);
+        posts[i].scale.y = s;
+        posts[i].visible = s > 0.02;
+      }
+    }
+
+    function resize() {
+      const w = canvas.clientWidth, h = canvas.clientHeight;
+      if (!w || !h) return;
+      renderer.setSize(w, h, false);
+      camera.aspect = w / h;
+      camera.fov = w < 760 ? 68 : 56;
+      camera.updateProjectionMatrix();
+    }
+    resize();
+    addEventListener('resize', resize);
+
+    let off = 0, last = performance.now(), visible = true, raf = 0;
+
+    function frame(now) {
+      raf = requestAnimationFrame(frame);
+      const dt = Math.min((now - last) / 1000, 0.05);
+      last = now;
+      off += dt * 34;
+      displace(off);
+      const t = now / 1000;
+      camera.position.x = Math.sin(t * 0.19) * 6;
+      camera.position.y = CAM_Y + Math.sin(t * 0.31) * 1.6;
+      camera.lookAt(camera.position.x * 0.4, -8, -140);
+      camera.rotation.z = Math.sin(t * 0.13) * 0.009;   // roll after lookAt, which resets it
+      renderer.render(scene, camera);
+    }
+
+    camera.lookAt(0, -8, -140);
+
+    // Land on a composed frame rather than fading in on noise seed zero.
+    displace(220);
+    renderer.render(scene, camera);
+    hero.classList.add('webgl');
+    off = 220;
+
+    if (reduce) {
+      // Static composition only — one frame, no loop.
+    } else {
+      raf = requestAnimationFrame(frame);
+      if ('IntersectionObserver' in window) {
+        new IntersectionObserver((es) => {
+          es.forEach((e) => {
+            if (e.isIntersecting && !visible) { visible = true; last = performance.now(); raf = requestAnimationFrame(frame); }
+            else if (!e.isIntersecting && visible) { visible = false; cancelAnimationFrame(raf); }
+          });
+        }, { threshold: 0 }).observe(hero);
+      }
+      addEventListener('visibilitychange', () => {
+        if (document.hidden) { cancelAnimationFrame(raf); }
+        else if (visible) { last = performance.now(); raf = requestAnimationFrame(frame); }
+      });
+    }
+  } catch (err) {
+    // No WebGL, no module, no problem — the CSS ridge stand-in is already up.
+    if (canvas) canvas.style.display = 'none';
+    hero.classList.remove('webgl');
+  }
+</script>
+</body>
+</html>

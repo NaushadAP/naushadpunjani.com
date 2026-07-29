@@ -1,0 +1,1134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex" />
+<title>Slow Play Society — Small-batch golf apparel &amp; lifestyle goods</title>
+<meta name="description" content="Slow Play Society is a fictional boutique golf apparel brand. Small-batch clothing for people who think five hours is a perfectly reasonable way to spend an afternoon." />
+<style>
+/* ---------------------------------------------------------------- fonts */
+@font-face{font-family:'DM Serif Display';font-style:italic;font-weight:400;font-display:swap;src:url('fonts/sp-DMSerifDisplay-400-italic.woff2') format('woff2')}
+@font-face{font-family:'DM Serif Display';font-style:normal;font-weight:400;font-display:swap;src:url('fonts/sp-DMSerifDisplay-400-normal.woff2') format('woff2')}
+@font-face{font-family:'Grand Hotel';font-style:normal;font-weight:400;font-display:swap;src:url('fonts/sp-GrandHotel-400-normal.woff2') format('woff2')}
+@font-face{font-family:'Outfit';font-style:normal;font-weight:300;font-display:swap;src:url('fonts/sp-Outfit-300-normal.woff2') format('woff2')}
+@font-face{font-family:'Outfit';font-style:normal;font-weight:400;font-display:swap;src:url('fonts/sp-Outfit-400-normal.woff2') format('woff2')}
+@font-face{font-family:'Outfit';font-style:normal;font-weight:600;font-display:swap;src:url('fonts/sp-Outfit-600-normal.woff2') format('woff2')}
+
+/* ---------------------------------------------------------------- tokens */
+:root{
+  --cream:#F7F0E4;
+  --cream-2:#F2EADB;
+  --oat:#EBE0CA;
+  --sand:#DCCFB2;
+  --khaki:#C2A878;
+  --khaki-d:#A98F62;
+  --green:#1E4435;
+  --green-2:#2C5C46;
+  --green-d:#16332A;
+  --sage:#D5DCCE;
+  --burgundy:#7B2E37;
+  --burgundy-2:#9A414B;
+  --navy:#3A4E68;
+  --navy-d:#2C3C52;
+  --ink:#241F1A;
+  --ink-soft:#5C5348;
+  --line:rgba(36,31,26,.18);
+  --sans:'Outfit',system-ui,-apple-system,'Segoe UI',Arial,sans-serif;
+  --serif:'DM Serif Display',Georgia,'Times New Roman',serif;
+  --script:'Grand Hotel','Brush Script MT',cursive;
+  --wrap:1200px;
+  --pad:clamp(18px,4vw,34px);
+  --grain:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)' opacity='0.55'/%3E%3C/svg%3E");
+}
+
+/* ---------------------------------------------------------------- reset */
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0;
+  background:var(--cream);
+  color:var(--ink);
+  font-family:var(--sans);
+  font-weight:300;
+  font-size:17px;
+  line-height:1.65;
+  overflow-x:hidden;
+  -webkit-font-smoothing:antialiased;
+}
+body::after{
+  content:"";position:fixed;inset:0;z-index:9999;pointer-events:none;
+  background-image:var(--grain);opacity:.055;mix-blend-mode:multiply;
+}
+img,svg{display:block;max-width:100%}
+h1,h2,h3,h4{font-family:var(--serif);font-weight:400;line-height:1.05;margin:0;letter-spacing:-.01em}
+p{margin:0}
+ul{margin:0;padding:0;list-style:none}
+a{color:inherit;text-decoration:none}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
+:focus-visible{outline:2.5px solid var(--burgundy);outline-offset:3px;border-radius:2px}
+.wrap{width:100%;max-width:var(--wrap);margin-inline:auto;padding-inline:var(--pad)}
+.sr{position:absolute!important;width:1px;height:1px;margin:-1px;padding:0;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
+.skip{position:absolute;left:12px;top:-70px;z-index:1000;background:var(--green);color:var(--cream);
+  padding:12px 20px;border-radius:2px;font-size:14px;letter-spacing:.08em;text-transform:uppercase;transition:top .18s}
+.skip:focus{top:12px}
+
+/* ------------------------------------------------- reveal (JS-gated) */
+/* Scroll reveals ride CSS transitions toggled by IntersectionObserver, not a
+   rAF ticker, so a throttled frame loop can never strand a section at 0. */
+.js-anim .rev{opacity:0;transform:translateY(26px);
+  transition:opacity .7s cubic-bezier(.2,.7,.3,1),transform .7s cubic-bezier(.2,.7,.3,1)}
+.js-anim .rev.in{opacity:1;transform:none}
+/* Hero entrance is pure CSS and never touches opacity, so the hero is legible
+   on the very first painted frame even if a script or the font load stalls. */
+@keyframes heroIn{from{transform:translateY(20px)}to{transform:none}}
+.js-anim .hero-rev{animation:heroIn .65s cubic-bezier(.2,.7,.3,1) both}
+.js-anim .hero-copy .hero-rev:nth-child(1){animation-delay:.04s}
+.js-anim .hero-copy .hero-rev:nth-child(2){animation-delay:.12s}
+.js-anim .hero-copy .hero-rev:nth-child(3){animation-delay:.2s}
+.js-anim .hero-copy .hero-rev:nth-child(4){animation-delay:.28s}
+.js-anim .hero-copy .hero-rev:nth-child(5){animation-delay:.36s}
+.js-anim .crest-wrap{animation-delay:.16s}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important}
+}
+
+/* ---------------------------------------------------------------- bits */
+.eyebrow{
+  font-size:12px;font-weight:600;letter-spacing:.22em;text-transform:uppercase;
+  color:var(--burgundy);display:flex;align-items:center;gap:12px;
+}
+.eyebrow::after{content:"";flex:0 0 44px;height:1px;background:currentColor;opacity:.5}
+.eyebrow.center{justify-content:center}
+.eyebrow.center::before{content:"";flex:0 0 44px;height:1px;background:currentColor;opacity:.5}
+.script{font-family:var(--script);font-weight:400;letter-spacing:0}
+
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:10px;
+  font-family:var(--sans);font-weight:600;font-size:13.5px;letter-spacing:.13em;text-transform:uppercase;
+  padding:15px 28px;border-radius:999px;border:1.5px solid var(--green);
+  background:var(--green);color:var(--cream);
+  transition:background .25s,color .25s,transform .25s,border-color .25s;
+}
+.btn:hover{background:var(--green-d);border-color:var(--green-d);transform:translateY(-2px)}
+.btn.ghost{background:transparent;color:var(--green);border-color:rgba(30,68,53,.4)}
+.btn.ghost:hover{background:rgba(30,68,53,.07);color:var(--green);border-color:var(--green)}
+.btn.wine{background:var(--burgundy);border-color:var(--burgundy)}
+.btn.wine:hover{background:#682630;border-color:#682630}
+.btn .arw{transition:transform .25s}
+.btn:hover .arw{transform:translateX(4px)}
+
+.section{padding:clamp(72px,9vw,124px) 0}
+.sec-head{max-width:640px}
+.sec-title{font-size:clamp(2.1rem,4.4vw,3.5rem);margin-top:18px}
+.sec-lede{margin-top:20px;font-size:clamp(16px,1.6vw,18.5px);color:var(--ink-soft);max-width:56ch}
+
+/* ------------------------------------------------------------ topbar */
+.topbar{background:var(--green);color:var(--cream);overflow:hidden;position:relative;z-index:60}
+.topbar .mq-track{padding:9px 0;font-size:11.5px;letter-spacing:.2em;text-transform:uppercase;font-weight:400}
+
+.mq-track{display:flex;width:max-content;will-change:transform}
+.mq-group{display:flex;align-items:center;flex:0 0 auto;white-space:nowrap}
+.mq-item{display:inline-flex;align-items:center;gap:18px;padding-inline:18px}
+.mq-dot{width:5px;height:5px;border-radius:50%;background:currentColor;opacity:.55;flex:0 0 auto}
+
+/* ------------------------------------------------------------ header */
+.site-head{
+  position:sticky;top:0;z-index:50;
+  background:rgba(247,240,228,.92);backdrop-filter:blur(10px);
+  border-bottom:1px solid var(--line);
+}
+.head-in{display:flex;align-items:center;justify-content:space-between;gap:24px;height:74px}
+.brand{display:flex;align-items:baseline;gap:11px;line-height:1}
+.brand .wm{font-family:var(--script);font-size:38px;color:var(--green);line-height:.9;transform:translateY(2px)}
+.brand .sub{font-size:10px;font-weight:600;letter-spacing:.34em;text-transform:uppercase;color:var(--burgundy)}
+.nav{display:flex;align-items:center;gap:34px}
+.nav a{font-size:13px;font-weight:400;letter-spacing:.1em;text-transform:uppercase;color:var(--ink);position:relative;padding:6px 0}
+.nav a::after{content:"";position:absolute;left:0;right:100%;bottom:2px;height:1.5px;background:var(--burgundy);transition:right .3s}
+.nav a:hover::after{right:0}
+.head-actions{display:flex;align-items:center;gap:14px}
+.bag{
+  display:inline-flex;align-items:center;gap:9px;font-size:12px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;
+  border:1.5px solid rgba(36,31,26,.28);border-radius:999px;padding:10px 18px;transition:border-color .22s,background .22s;
+}
+.bag:hover{border-color:var(--green);background:rgba(30,68,53,.06)}
+.bag .cnt{background:var(--burgundy);color:var(--cream);border-radius:999px;min-width:19px;height:19px;
+  display:inline-flex;align-items:center;justify-content:center;font-size:10.5px;letter-spacing:0}
+.menu-btn{display:none;align-items:center;gap:9px;font-size:12px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;
+  border:1.5px solid rgba(36,31,26,.28);border-radius:999px;padding:10px 16px}
+.menu-btn .bars{display:grid;gap:3.5px}
+.menu-btn .bars i{display:block;width:15px;height:1.5px;background:currentColor}
+.mobile-nav{display:none;border-top:1px solid var(--line);background:var(--cream-2)}
+.mobile-nav ul{display:grid;padding:12px 0 20px}
+.mobile-nav a{display:block;padding:13px 0;font-size:15px;letter-spacing:.06em;border-bottom:1px solid rgba(36,31,26,.09)}
+.mobile-nav[data-open="true"]{display:block}
+
+/* ------------------------------------------------------------ hero */
+.hero{
+  position:relative;display:flex;align-items:center;
+  min-height:clamp(540px,calc(100svh - 106px),880px);
+  padding:56px 0 74px;overflow:hidden;
+  background:
+    repeating-linear-gradient(90deg,rgba(30,68,53,.032) 0 2px,transparent 2px 10px),
+    radial-gradient(115% 88% at 82% 8%,rgba(194,168,120,.34),transparent 62%),
+    radial-gradient(80% 70% at 4% 96%,rgba(123,46,55,.10),transparent 60%),
+    var(--cream);
+}
+.hero-ghost{
+  position:absolute;left:-3%;bottom:-6%;font-family:var(--script);font-size:min(30vw,340px);
+  color:rgba(30,68,53,.045);line-height:.8;pointer-events:none;user-select:none;white-space:nowrap;
+}
+.hero-in{position:relative;display:grid;grid-template-columns:minmax(0,1.02fr) minmax(0,.98fr);gap:clamp(32px,5vw,64px);align-items:center;width:100%}
+.hero-title{font-size:clamp(3rem,6.4vw,5.5rem);line-height:.97;margin-top:24px}
+.hero-title .script{font-size:1.18em;color:var(--burgundy);display:inline-block;transform:rotate(-2.2deg);margin-right:.06em}
+.hero-sub{margin-top:26px;font-size:clamp(16.5px,1.55vw,19px);color:var(--ink-soft);max-width:47ch}
+.hero-cta{display:flex;flex-wrap:wrap;gap:14px;margin-top:34px}
+.hero-notes{display:flex;flex-wrap:wrap;gap:10px 20px;margin-top:36px;padding-top:24px;border-top:1px solid var(--line)}
+.hero-notes li{display:flex;align-items:center;gap:8px;font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-soft);white-space:nowrap}
+.hero-notes svg{flex:0 0 auto}
+
+.crest-wrap{justify-self:center;width:100%;max-width:472px;text-align:center}
+.crest{width:100%;height:auto}
+.crest-cap{margin-top:14px;font-family:var(--serif);font-style:italic;font-size:15px;color:var(--ink-soft)}
+
+/* --------------------------------------------------------- green band */
+.band{position:relative;background:var(--green);color:var(--cream);overflow:hidden}
+.band::before{
+  content:"";position:absolute;top:-11px;left:0;right:0;height:11px;
+  background:radial-gradient(circle at 11px 11px,var(--green) 10.4px,transparent 11px) 0 0/22px 22px repeat-x;
+}
+.band .mq-track{padding:26px 0;align-items:center}
+.band .mq-item{font-family:var(--serif);font-style:italic;font-size:clamp(24px,3.2vw,40px);gap:26px;padding-inline:26px;color:var(--cream)}
+.band .mq-dot{width:9px;height:9px;background:var(--khaki);opacity:1}
+
+/* ------------------------------------------------------ collection */
+.coll-head{display:flex;align-items:flex-end;justify-content:space-between;gap:32px;flex-wrap:wrap}
+.filters{display:flex;gap:9px;flex-wrap:wrap}
+.filters button{
+  border:1.5px solid rgba(36,31,26,.22);border-radius:999px;padding:10px 20px;
+  font-size:12px;font-weight:600;letter-spacing:.13em;text-transform:uppercase;transition:.22s;
+}
+.filters button:hover{border-color:var(--green);background:rgba(30,68,53,.06)}
+.filters button[aria-pressed="true"]{background:var(--green);border-color:var(--green);color:var(--cream)}
+
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(238px,1fr));gap:clamp(20px,2.4vw,32px);margin-top:52px}
+.prod{position:relative}
+.prod[hidden]{display:none}
+.prod-art{
+  position:relative;aspect-ratio:4/5;border-radius:4px;overflow:hidden;
+  background:var(--pb,var(--oat));border:1px solid rgba(36,31,26,.10);
+  transition:border-color .3s,box-shadow .3s,transform .3s;
+}
+.prod-art::before{
+  content:"";position:absolute;inset:0;
+  background-image:radial-gradient(rgba(36,31,26,.11) 1.05px,transparent 1.15px);
+  background-size:9px 9px;opacity:.55;
+}
+.prod-art::after{
+  content:"";position:absolute;inset:0;
+  background:radial-gradient(72% 62% at 50% 34%,rgba(255,255,255,.55),transparent 72%);
+}
+.prod:hover .prod-art,.prod:focus-within .prod-art{border-color:rgba(30,68,53,.45);box-shadow:0 18px 34px -22px rgba(36,31,26,.5);transform:translateY(-4px)}
+.prod-art .g{position:absolute;inset:9% 12%;width:76%;height:82%;z-index:1;transition:transform .4s cubic-bezier(.2,.7,.3,1)}
+.prod:hover .prod-art .g,.prod:focus-within .prod-art .g{transform:translateY(-7px) scale(1.035)}
+.badge{
+  position:absolute;z-index:2;top:12px;left:12px;background:var(--burgundy);color:var(--cream);
+  font-size:9.5px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;padding:6px 11px;border-radius:999px;
+}
+.badge.olive{background:var(--green)}
+.quick{
+  position:absolute;z-index:3;left:0;right:0;bottom:0;
+  background:var(--green);color:var(--cream);
+  padding:15px 16px;font-size:12px;font-weight:600;letter-spacing:.15em;text-transform:uppercase;
+  display:flex;align-items:center;justify-content:center;gap:10px;
+  transform:translateY(101%);transition:transform .34s cubic-bezier(.2,.7,.3,1);
+}
+.prod:hover .quick,.prod:focus-within .quick{transform:translateY(0)}
+.quick:hover{background:var(--green-d)}
+.prod-info{padding-top:17px;display:grid;gap:5px}
+.prod-name{font-size:21px}
+.prod-desc{font-size:13px;letter-spacing:.05em;color:var(--ink-soft)}
+.prod-price{font-family:var(--serif);font-size:18px;color:var(--burgundy);margin-top:3px}
+.coll-foot{margin-top:56px;display:flex;align-items:center;justify-content:center;gap:18px;flex-wrap:wrap;text-align:center}
+.coll-foot p{font-family:var(--serif);font-style:italic;font-size:19px;color:var(--ink-soft)}
+
+/* ------------------------------------------------------- the society */
+.society{background:var(--oat);position:relative;overflow:hidden}
+.society::before{
+  content:"";position:absolute;inset:0;
+  background-image:radial-gradient(rgba(36,31,26,.10) 1.1px,transparent 1.2px);
+  background-size:14px 14px;opacity:.42;
+}
+.soc-in{position:relative;display:grid;grid-template-columns:minmax(0,.92fr) minmax(0,1.08fr);gap:clamp(36px,6vw,80px);align-items:start}
+.soc-story p+p{margin-top:20px}
+.soc-story .pull{
+  font-family:var(--serif);font-style:italic;font-size:clamp(21px,2.4vw,28px);line-height:1.35;color:var(--green);
+  border-left:3px solid var(--burgundy);padding-left:22px;margin-top:28px;
+}
+.sig{margin-top:30px;display:flex;align-items:center;gap:16px}
+.sig .name{font-family:var(--script);font-size:32px;color:var(--green);line-height:1}
+.sig .role{font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-soft)}
+.tenets{display:grid;gap:0;border-top:1px solid rgba(36,31,26,.2)}
+.tenet{display:grid;grid-template-columns:64px 1fr;gap:14px;padding:26px 4px;border-bottom:1px solid rgba(36,31,26,.2);
+  transition:background .28s,padding-left .28s}
+.tenet:hover{background:rgba(247,240,228,.6);padding-left:14px}
+.tenet .num{font-family:var(--serif);font-size:24px;color:var(--burgundy)}
+.tenet h3{font-size:24px;margin-bottom:9px}
+.tenet p{font-size:15.5px;color:var(--ink-soft);line-height:1.6}
+
+/* -------------------------------------------------------- scorecard */
+.score{background:var(--green);color:var(--cream);position:relative;overflow:hidden}
+.score::before{
+  content:"";position:absolute;inset:0;
+  background:repeating-linear-gradient(90deg,rgba(247,240,228,.045) 0 2px,transparent 2px 11px);
+}
+.score-in{position:relative}
+.score .eyebrow{color:var(--khaki)}
+.score .sec-lede{color:rgba(247,240,228,.78)}
+.card{
+  margin-top:52px;background:var(--cream);color:var(--ink);border-radius:5px;
+  box-shadow:0 30px 60px -34px rgba(0,0,0,.6);overflow:hidden;border:1px solid rgba(36,31,26,.14);
+}
+.card-top{display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap;
+  padding:22px clamp(18px,3vw,34px);border-bottom:2px solid var(--green)}
+.card-top .wm{font-family:var(--script);font-size:30px;color:var(--green);line-height:1}
+.card-top .meta{display:flex;gap:26px;flex-wrap:wrap}
+.card-top .meta div{font-size:11px;letter-spacing:.15em;text-transform:uppercase;color:var(--ink-soft)}
+.card-top .meta b{display:block;font-family:var(--serif);font-weight:400;font-size:17px;letter-spacing:0;
+  text-transform:none;color:var(--ink);margin-top:3px}
+.tscroll{overflow-x:auto}
+table{width:100%;border-collapse:collapse;min-width:640px;font-size:15.5px}
+caption{text-align:left;padding:20px clamp(18px,3vw,34px) 6px;font-size:12px;letter-spacing:.16em;
+  text-transform:uppercase;color:var(--ink-soft)}
+thead th{
+  background:var(--green);color:var(--cream);font-family:var(--sans);font-weight:600;
+  font-size:11px;letter-spacing:.17em;text-transform:uppercase;text-align:left;padding:13px clamp(12px,1.6vw,18px);
+}
+tbody th,tbody td{padding:14px clamp(12px,1.6vw,18px);border-bottom:1px solid rgba(36,31,26,.13);vertical-align:middle}
+tbody th{font-family:var(--serif);font-weight:400;font-size:20px;text-align:left;width:76px;color:var(--green)}
+tbody tr:nth-child(odd){background:rgba(194,168,120,.11)}
+tbody tr:hover{background:rgba(123,46,55,.08)}
+.par{display:inline-flex;align-items:center;justify-content:center;width:32px;height:32px;border-radius:50%;
+  border:1.5px solid var(--green);font-family:var(--serif);font-size:16px;color:var(--green)}
+.par.three{border-color:var(--burgundy);color:var(--burgundy)}
+.par.five{border-radius:4px;border-color:var(--khaki-d);color:var(--khaki-d)}
+.rule{font-size:15.5px;line-height:1.5}
+tfoot th,tfoot td{padding:16px clamp(12px,1.6vw,18px);background:var(--sand);font-weight:400}
+tfoot th{font-family:var(--sans);font-size:12px;letter-spacing:.18em;text-transform:uppercase;text-align:left}
+tfoot td{font-family:var(--serif);font-size:19px}
+tfoot .rule{font-family:var(--serif);font-style:italic;font-size:16px;color:var(--ink-soft)}
+.score-note{margin-top:26px;font-size:13.5px;color:rgba(247,240,228,.66);display:flex;gap:10px;align-items:flex-start}
+
+/* ------------------------------------------------------ giving back */
+.giving-in{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,.86fr);gap:clamp(34px,5vw,68px);align-items:center}
+.fund{
+  background:var(--burgundy);color:var(--cream);border-radius:5px;padding:clamp(28px,3.4vw,42px);
+  position:relative;overflow:hidden;
+}
+.fund::before{
+  content:"";position:absolute;inset:0;
+  background-image:radial-gradient(rgba(247,240,228,.16) 1.1px,transparent 1.2px);background-size:11px 11px;
+}
+.fund-grid{position:relative;display:grid;grid-template-columns:1fr 1fr;gap:26px 20px}
+.fund-grid div{border-top:1px solid rgba(247,240,228,.28);padding-top:14px}
+.fund-grid b{display:block;font-family:var(--serif);font-weight:400;font-size:clamp(30px,3.6vw,44px);line-height:1}
+.fund-grid span{display:block;margin-top:6px;font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;opacity:.85}
+.fund-head{position:relative;display:flex;align-items:center;gap:14px;margin-bottom:28px}
+.fund-head .wm{font-family:var(--script);font-size:34px;line-height:1}
+.giving-copy p+p{margin-top:18px}
+.giving-copy .sec-lede{color:var(--ink-soft)}
+
+/* ---------------------------------------------------------- footer */
+.foot{background:var(--green-d);color:var(--cream);position:relative;overflow:hidden}
+.foot::before{
+  content:"";position:absolute;inset:0;
+  background-image:radial-gradient(rgba(247,240,228,.08) 1.1px,transparent 1.2px);background-size:15px 15px;
+}
+.foot-in{position:relative;padding:clamp(60px,7vw,92px) 0 34px}
+.news{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,.9fr);gap:clamp(30px,5vw,64px);align-items:end;
+  padding-bottom:clamp(44px,5vw,64px);border-bottom:1px solid rgba(247,240,228,.2)}
+.news h2{font-size:clamp(2rem,3.8vw,3.1rem);color:var(--cream)}
+.news h2 .script{color:var(--khaki);font-size:1.15em}
+.news p{margin-top:16px;color:rgba(247,240,228,.72);max-width:44ch;font-size:16.5px}
+.news-form{display:flex;gap:10px;flex-wrap:wrap}
+.news-form label{flex:1 1 220px;display:grid;gap:8px}
+.news-form .lab{font-size:11px;letter-spacing:.17em;text-transform:uppercase;color:rgba(247,240,228,.65)}
+.news-form input{
+  width:100%;background:transparent;border:0;border-bottom:1.5px solid rgba(247,240,228,.42);
+  color:var(--cream);font-family:var(--sans);font-size:16px;padding:11px 2px;
+}
+.news-form input::placeholder{color:rgba(247,240,228,.4)}
+.news-form input:focus{outline:none;border-bottom-color:var(--khaki)}
+.news-form .btn{background:var(--khaki);border-color:var(--khaki);color:var(--green-d);align-self:end}
+.news-form .btn:hover{background:#D8BE8D;border-color:#D8BE8D;color:var(--green-d)}
+.news-msg{margin-top:14px;font-size:14px;color:var(--khaki);min-height:20px}
+.foot-cols{display:grid;grid-template-columns:1.4fr repeat(3,1fr);gap:34px;padding:clamp(40px,5vw,58px) 0}
+.foot-brand .wm{font-family:var(--script);font-size:44px;color:var(--cream);line-height:1}
+.foot-brand p{margin-top:12px;color:rgba(247,240,228,.62);font-size:14.5px;max-width:30ch}
+.foot-cols h3{font-family:var(--sans);font-size:11px;font-weight:600;letter-spacing:.19em;text-transform:uppercase;color:var(--khaki)}
+.foot-cols ul{margin-top:16px;display:grid;gap:11px}
+.foot-cols li a{font-size:14.5px;color:rgba(247,240,228,.78);transition:color .2s}
+.foot-cols li a:hover{color:var(--cream);text-decoration:underline;text-underline-offset:4px}
+.foot-base{display:flex;justify-content:space-between;gap:18px;flex-wrap:wrap;
+  padding-top:26px;border-top:1px solid rgba(247,240,228,.18);
+  font-size:12.5px;letter-spacing:.05em;color:rgba(247,240,228,.55)}
+
+/* ------------------------------------------------------ responsive */
+@media (max-width:1080px){
+  .hero-in{grid-template-columns:1fr;gap:44px}
+  .crest-wrap{max-width:400px;order:-1}
+  .hero{min-height:0;padding:48px 0 68px}
+  .soc-in,.giving-in{grid-template-columns:1fr}
+  .news{grid-template-columns:1fr;align-items:start}
+  .foot-cols{grid-template-columns:1fr 1fr}
+}
+@media (max-width:860px){
+  .nav,.head-actions .bag{display:none}
+  .menu-btn{display:inline-flex}
+  .head-in{height:66px}
+}
+@media (max-width:620px){
+  body{font-size:16px}
+  .hero-title{font-size:clamp(2.6rem,10.5vw,3.4rem)}
+  .grid{grid-template-columns:1fr 1fr;gap:16px}
+  .prod-name{font-size:18px}
+  .tenet{grid-template-columns:44px 1fr;padding:20px 2px}
+  .foot-cols{grid-template-columns:1fr}
+  .coll-head{align-items:flex-start}
+  .hero-ghost{display:none}
+}
+@media (max-width:400px){
+  .grid{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+<script>
+  if (!matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    document.documentElement.classList.add('js-anim');
+  }
+</script>
+
+<a class="skip" href="#main">Skip to content</a>
+
+<!-- ============================================================ topbar -->
+<div class="topbar" aria-hidden="true">
+  <div class="mq-track" data-marquee data-speed="34">
+    <div class="mq-group">
+      <span class="mq-item">Free shipping over $150<span class="mq-dot"></span></span>
+      <span class="mq-item">Autumn drop: the Caddie Jacket returns in waxed olive<span class="mq-dot"></span></span>
+      <span class="mq-item">Cut in runs of 200, then never again<span class="mq-dot"></span></span>
+      <span class="mq-item">Members get first look on Thursdays<span class="mq-dot"></span></span>
+    </div>
+    <div class="mq-group">
+      <span class="mq-item">Free shipping over $150<span class="mq-dot"></span></span>
+      <span class="mq-item">Autumn drop: the Caddie Jacket returns in waxed olive<span class="mq-dot"></span></span>
+      <span class="mq-item">Cut in runs of 200, then never again<span class="mq-dot"></span></span>
+      <span class="mq-item">Members get first look on Thursdays<span class="mq-dot"></span></span>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================ header -->
+<header class="site-head">
+  <div class="wrap head-in">
+    <a class="brand" href="#top" aria-label="Slow Play Society — home">
+      <span class="wm">Slow&nbsp;Play</span>
+      <span class="sub">Society</span>
+    </a>
+    <nav class="nav" aria-label="Primary">
+      <a href="#collection">The Collection</a>
+      <a href="#society">The Society</a>
+      <a href="#scorecard">House Rules</a>
+      <a href="#giving">Giving Back</a>
+    </nav>
+    <div class="head-actions">
+      <button class="bag" type="button">Bag <span class="cnt">2</span></button>
+      <button class="menu-btn" type="button" id="menuBtn" aria-expanded="false" aria-controls="mobileNav">
+        <span class="bars" aria-hidden="true"><i></i><i></i><i></i></span> Menu
+      </button>
+    </div>
+  </div>
+  <nav class="mobile-nav" id="mobileNav" data-open="false" aria-label="Mobile">
+    <ul class="wrap">
+      <li><a href="#collection">The Collection</a></li>
+      <li><a href="#society">The Society</a></li>
+      <li><a href="#scorecard">House Rules</a></li>
+      <li><a href="#giving">Giving Back</a></li>
+      <li><a href="#join">Join the Society</a></li>
+    </ul>
+  </nav>
+</header>
+
+<main id="main">
+<!-- ============================================================== hero -->
+<section class="hero" id="top">
+  <span class="hero-ghost" aria-hidden="true">Slow Play</span>
+  <div class="wrap hero-in">
+    <div class="hero-copy">
+      <p class="eyebrow hero-rev">Est. 2019 &middot; Small-batch golf goods</p>
+      <h1 class="hero-title hero-rev">Take your<br /><span class="script">sweet</span> time.</h1>
+      <p class="hero-sub hero-rev">Clothes for people who think five hours is a perfectly reasonable way to spend an afternoon. Around here, slow play isn&rsquo;t a penalty &mdash; it&rsquo;s rather the entire point.</p>
+      <div class="hero-cta hero-rev">
+        <a class="btn" href="#collection">Shop the collection <span class="arw" aria-hidden="true">&rarr;</span></a>
+        <a class="btn ghost" href="#scorecard">Read the house rules</a>
+      </div>
+      <ul class="hero-notes hero-rev">
+        <li>
+          <svg width="15" height="15" viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="8" r="7" fill="none" stroke="#7B2E37" stroke-width="1.4"/><path d="M4.8 8.2 7 10.4l4.2-4.6" fill="none" stroke="#7B2E37" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          Runs of 200
+        </li>
+        <li>
+          <svg width="15" height="15" viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="8" r="7" fill="none" stroke="#7B2E37" stroke-width="1.4"/><path d="M4.8 8.2 7 10.4l4.2-4.6" fill="none" stroke="#7B2E37" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          Free shipping over $150
+        </li>
+        <li>
+          <svg width="15" height="15" viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="8" r="7" fill="none" stroke="#7B2E37" stroke-width="1.4"/><path d="M4.8 8.2 7 10.4l4.2-4.6" fill="none" stroke="#7B2E37" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          2% to public greens
+        </li>
+      </ul>
+    </div>
+
+    <div class="crest-wrap hero-rev">
+      <svg class="crest" viewBox="0 0 520 520" role="img" aria-labelledby="crestTitle">
+        <title id="crestTitle">The Slow Play Society crest: a flagstick on rolling greens beneath a halftone sun</title>
+        <defs>
+          <path id="ringPath" d="M 260 260 m -222 0 a 222 222 0 1 1 444 0 a 222 222 0 1 1 -444 0" />
+          <clipPath id="innerClip"><circle cx="260" cy="260" r="196" /></clipPath>
+          <pattern id="halftone" width="11" height="11" patternUnits="userSpaceOnUse">
+            <circle cx="5.5" cy="5.5" r="2.5" fill="#C2A878" />
+          </pattern>
+          <linearGradient id="skyGrad" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#F4E9D3" />
+            <stop offset="1" stop-color="#EADCBE" />
+          </linearGradient>
+        </defs>
+
+        <!-- inner scene -->
+        <g clip-path="url(#innerClip)">
+          <rect x="52" y="52" width="416" height="416" fill="url(#skyGrad)" />
+          <circle cx="344" cy="184" r="82" fill="url(#halftone)" />
+          <circle cx="344" cy="184" r="44" fill="#D9BE8A" />
+          <!-- distant hill -->
+          <path d="M52 336 C132 292 196 322 262 300 C334 276 402 306 468 282 L468 470 L52 470 Z" fill="#8CA083" />
+          <!-- mid hill -->
+          <path d="M52 372 C140 336 224 366 300 348 C368 332 424 356 468 344 L468 470 L52 470 Z" fill="#2C5C46" />
+          <!-- front hill -->
+          <path d="M52 424 C130 402 214 414 288 408 C372 401 424 414 468 406 L468 470 L52 470 Z" fill="#1E4435" />
+          <!-- mow stripes on front hill -->
+          <g opacity=".26" stroke="#F7F0E4" stroke-width="4" stroke-linecap="round">
+            <path d="M96 470 L112 428" /><path d="M156 470 L166 421" /><path d="M216 470 L222 415" />
+            <path d="M276 470 L278 412" /><path d="M336 470 L334 411" /><path d="M396 470 L390 411" />
+          </g>
+          <!-- flagstick -->
+          <path d="M188 168 L188 376" stroke="#241F1A" stroke-width="4.5" stroke-linecap="round" />
+          <path d="M188 170 L262 192 L188 214 Z" fill="#7B2E37" stroke="#241F1A" stroke-width="4" stroke-linejoin="round" />
+          <ellipse cx="188" cy="378" rx="17" ry="6" fill="#16332A" />
+          <!-- ball -->
+          <circle cx="248" cy="368" r="9" fill="#F7F0E4" stroke="#241F1A" stroke-width="2.4" />
+          <!-- birds -->
+          <g fill="none" stroke="#241F1A" stroke-width="2.6" stroke-linecap="round" opacity=".55">
+            <path d="M126 152 q9 -8 18 0 q9 -8 18 0" />
+            <path d="M158 118 q6.5 -6 13 0 q6.5 -6 13 0" />
+          </g>
+        </g>
+
+        <!-- rings -->
+        <circle cx="260" cy="260" r="196" fill="none" stroke="#1E4435" stroke-width="4" />
+        <circle cx="260" cy="260" r="204" fill="none" stroke="#1E4435" stroke-width="1.4" opacity=".5" />
+        <g class="crest-ring">
+          <circle cx="260" cy="260" r="248" fill="none" stroke="#7B2E37" stroke-width="1.6" stroke-dasharray="3 9" stroke-linecap="round" opacity=".8" />
+        </g>
+        <g transform="rotate(46 260 260)">
+          <text font-family="Outfit, sans-serif" font-size="21" font-weight="600" letter-spacing="6.4" fill="#1E4435">
+            <textPath href="#ringPath" startOffset="1%">SLOW PLAY SOCIETY &middot; TAKE YOUR TIME &middot; PLAY IT AS IT LIES &middot; EST. MMXIX &middot;</textPath>
+          </text>
+        </g>
+      </svg>
+      <p class="crest-cap">Our crest. Drawn by hand, badly, on a scorecard in 2019.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ======================================================= green band -->
+<div class="band" aria-hidden="true">
+  <div class="mq-track" data-marquee data-speed="30">
+    <div class="mq-group">
+      <span class="mq-item">Small batch<span class="mq-dot"></span></span>
+      <span class="mq-item">Made slowly<span class="mq-dot"></span></span>
+      <span class="mq-item">Play it as it lies<span class="mq-dot"></span></span>
+      <span class="mq-item">No dress code, just taste<span class="mq-dot"></span></span>
+    </div>
+    <div class="mq-group">
+      <span class="mq-item">Small batch<span class="mq-dot"></span></span>
+      <span class="mq-item">Made slowly<span class="mq-dot"></span></span>
+      <span class="mq-item">Play it as it lies<span class="mq-dot"></span></span>
+      <span class="mq-item">No dress code, just taste<span class="mq-dot"></span></span>
+    </div>
+  </div>
+</div>
+
+<!-- ======================================================== collection -->
+<section class="section" id="collection">
+  <div class="wrap">
+    <div class="coll-head">
+      <div class="sec-head">
+        <p class="eyebrow rev">Autumn / Winter &mdash; Batch No. 07</p>
+        <h2 class="sec-title rev">The Collection</h2>
+        <p class="sec-lede rev">Eight pieces. Cut in small runs, in fabrics that were doing perfectly well before anyone invented moisture-wicking. Wear them for the round, then wear them to lunch.</p>
+      </div>
+      <div class="filters rev" role="group" aria-label="Filter the collection">
+        <button type="button" data-filter="all" aria-pressed="true">All &mdash; 8</button>
+        <button type="button" data-filter="apparel" aria-pressed="false">Apparel &mdash; 4</button>
+        <button type="button" data-filter="accessories" aria-pressed="false">Accessories &mdash; 4</button>
+      </div>
+    </div>
+
+    <div class="grid" data-stagger>
+
+      <!-- 1 · Caddie Jacket -->
+      <article class="prod rev" data-cat="apparel" style="--pb:#EFE5D2">
+        <div class="prod-art">
+          <span class="badge">Restocked</span>
+          <svg class="g" viewBox="0 0 200 200" role="img" aria-label="Illustration of a waxed cotton caddie jacket in clubhouse green">
+            <g stroke="#241F1A" stroke-width="3.2" stroke-linejoin="round" stroke-linecap="round">
+              <path d="M70 50 L30 70 L20 138 L48 148 L60 96 Z" fill="#2C5C46"/>
+              <path d="M130 50 L170 70 L180 138 L152 148 L140 96 Z" fill="#2C5C46"/>
+              <path d="M70 50 L100 68 L130 50 L146 58 Q152 61 152 68 L152 178 Q152 184 146 184 L54 184 Q48 184 48 178 L48 68 Q48 61 54 58 Z" fill="#2C5C46"/>
+              <path d="M70 50 L100 68 L130 50 L120 42 L100 52 L80 42 Z" fill="#1E4435"/>
+              <path d="M100 68 L100 184" stroke-width="2.4" fill="none"/>
+              <path d="M60 126 L88 126 L88 150 L60 150 Z" fill="#1E4435" stroke-width="2.4"/>
+              <path d="M112 126 L140 126 L140 150 L112 150 Z" fill="#1E4435" stroke-width="2.4"/>
+              <path d="M48 166 L152 166" stroke-width="2.4" fill="none"/>
+              <path d="M22 130 L49 140" stroke-width="2.4" fill="none"/>
+              <path d="M178 130 L151 140" stroke-width="2.4" fill="none"/>
+            </g>
+          </svg>
+          <button class="quick" type="button">Add to bag <span aria-hidden="true">&rarr;</span></button>
+        </div>
+        <div class="prod-info">
+          <h3 class="prod-name">The Caddie Jacket</h3>
+          <p class="prod-desc">Waxed cotton &middot; Clubhouse green</p>
+          <p class="prod-price">$268</p>
+        </div>
+      </article>
+
+      <!-- 2 · Polo -->
+      <article class="prod rev" data-cat="apparel" style="--pb:#D9CFB6">
+        <div class="prod-art">
+          <svg class="g" viewBox="0 0 200 200" role="img" aria-label="Illustration of an oat-coloured piqué polo shirt">
+            <g stroke="#241F1A" stroke-width="3.2" stroke-linejoin="round" stroke-linecap="round">
+              <path d="M72 52 L36 68 L28 108 L64 120 L76 88 Z" fill="#F7F1E6"/>
+              <path d="M128 52 L164 68 L172 108 L136 120 L124 88 Z" fill="#F7F1E6"/>
+              <path d="M72 52 L100 72 L128 52 L142 60 Q148 63 148 70 L148 176 Q148 182 142 182 L58 182 Q52 182 52 176 L52 70 Q52 63 58 60 Z" fill="#F7F1E6"/>
+              <path d="M72 52 L100 72 L128 52 L117 42 L100 50 L83 42 Z" fill="#E6DCC6"/>
+              <path d="M91 66 L91 108 L109 108 L109 62" fill="#E6DCC6" stroke-width="2.4"/>
+              <circle cx="100" cy="78" r="3.4" fill="#7B2E37" stroke-width="1.8"/>
+              <circle cx="100" cy="96" r="3.4" fill="#7B2E37" stroke-width="1.8"/>
+              <path d="M30 100 L67 111" stroke-width="2.4" fill="none"/>
+              <path d="M170 100 L133 111" stroke-width="2.4" fill="none"/>
+            </g>
+          </svg>
+          <button class="quick" type="button">Add to bag <span aria-hidden="true">&rarr;</span></button>
+        </div>
+        <div class="prod-info">
+          <h3 class="prod-name">The Long Way Polo</h3>
+          <p class="prod-desc">Pima piqu&eacute; &middot; Oat</p>
+          <p class="prod-price">$118</p>
+        </div>
+      </article>
+
+      <!-- 3 · Cap -->
+      <article class="prod rev" data-cat="accessories" style="--pb:#EFE5D2">
+        <div class="prod-art">
+          <span class="badge olive">Final 40</span>
+          <svg class="g" viewBox="0 0 200 200" role="img" aria-label="Illustration of a six-panel washed twill cap in burgundy">
+            <g stroke="#241F1A" stroke-width="3.2" stroke-linejoin="round" stroke-linecap="round">
+              <path d="M40 124 C40 56 160 56 160 124 Z" fill="#7B2E37"/>
+              <path d="M100 60 L100 124" stroke-width="2.2" fill="none" opacity=".8"/>
+              <path d="M72 66 C64 90 64 108 66 124" stroke-width="2.2" fill="none" opacity=".8"/>
+              <path d="M128 66 C136 90 136 108 134 124" stroke-width="2.2" fill="none" opacity=".8"/>
+              <circle cx="100" cy="58" r="5.5" fill="#63242C"/>
+              <path d="M34 124 Q100 112 166 124 Q168 148 100 154 Q32 148 34 124 Z" fill="#63242C"/>
+              <path d="M46 134 Q100 126 154 134" stroke-width="2" fill="none" opacity=".55"/>
+              <circle cx="76" cy="104" r="12" fill="#F0E6D2" stroke-width="2.6"/>
+            </g>
+          </svg>
+          <button class="quick" type="button">Add to bag <span aria-hidden="true">&rarr;</span></button>
+        </div>
+        <div class="prod-info">
+          <h3 class="prod-name">The Six-Panel Cap</h3>
+          <p class="prod-desc">Washed twill &middot; Faded burgundy</p>
+          <p class="prod-price">$58</p>
+        </div>
+      </article>
+
+      <!-- 4 · Trousers -->
+      <article class="prod rev" data-cat="apparel" style="--pb:#D5DCCE">
+        <div class="prod-art">
+          <svg class="g" viewBox="0 0 200 200" role="img" aria-label="Illustration of khaki cotton twill trousers">
+            <g stroke="#241F1A" stroke-width="3.2" stroke-linejoin="round" stroke-linecap="round">
+              <path d="M52 62 L148 62 L143 186 L112 186 L100 106 L88 186 L57 186 Z" fill="#C2A878"/>
+              <path d="M52 40 L148 40 L148 62 L52 62 Z" fill="#A98F62"/>
+              <path d="M66 40 L66 62 M134 40 L134 62" stroke-width="2.2" fill="none"/>
+              <path d="M92 40 L92 62 L108 62 L108 40" stroke-width="2.2" fill="none"/>
+              <path d="M100 62 L100 96" stroke-width="2.2" fill="none"/>
+              <path d="M78 74 C74 110 74 148 76 178" stroke-width="2" fill="none" opacity=".55"/>
+              <path d="M122 74 C126 110 126 148 124 178" stroke-width="2" fill="none" opacity=".55"/>
+              <path d="M56 172 L88 172 M112 172 L143 172" stroke-width="2.2" fill="none"/>
+            </g>
+          </svg>
+          <button class="quick" type="button">Add to bag <span aria-hidden="true">&rarr;</span></button>
+        </div>
+        <div class="prod-info">
+          <h3 class="prod-name">The Back Nine Trouser</h3>
+          <p class="prod-desc">Cotton twill &middot; Field khaki</p>
+          <p class="prod-price">$164</p>
+        </div>
+      </article>
+
+      <!-- 5 · Knit -->
+      <article class="prod rev" data-cat="apparel" style="--pb:#EFE5D2">
+        <div class="prod-art">
+          <svg class="g" viewBox="0 0 200 200" role="img" aria-label="Illustration of a navy lambswool crewneck knit with a chest stripe">
+            <g stroke="#241F1A" stroke-width="3.2" stroke-linejoin="round" stroke-linecap="round">
+              <path d="M68 54 L26 76 L18 148 L46 158 L58 100 Z" fill="#3A4E68"/>
+              <path d="M132 54 L174 76 L182 148 L154 158 L142 100 Z" fill="#3A4E68"/>
+              <path d="M68 54 Q100 74 132 54 L146 62 Q152 65 152 72 L152 172 Q152 178 146 178 L54 178 Q48 178 48 172 L48 72 Q48 65 54 62 Z" fill="#3A4E68"/>
+              <path d="M48 104 L152 104" stroke="#C2A878" stroke-width="9" fill="none"/>
+              <path d="M48 120 L152 120" stroke="#7B2E37" stroke-width="5" fill="none"/>
+              <path d="M68 54 Q100 74 132 54 Q118 42 100 42 Q82 42 68 54 Z" fill="#2C3C52"/>
+              <path d="M48 160 L152 160 L152 172 Q152 178 146 178 L54 178 Q48 178 48 172 Z" fill="#2C3C52"/>
+              <path d="M20 138 L47 147" stroke-width="2.4" fill="none"/>
+              <path d="M180 138 L153 147" stroke-width="2.4" fill="none"/>
+            </g>
+          </svg>
+          <button class="quick" type="button">Add to bag <span aria-hidden="true">&rarr;</span></button>
+        </div>
+        <div class="prod-info">
+          <h3 class="prod-name">The Fourball Knit</h3>
+          <p class="prod-desc">Scottish lambswool &middot; Faded navy</p>
+          <p class="prod-price">$198</p>
+        </div>
+      </article>
+
+      <!-- 6 · Towel -->
+      <article class="prod rev" data-cat="accessories" style="--pb:#D9CFB6">
+        <div class="prod-art">
+          <svg class="g" viewBox="0 0 200 200" role="img" aria-label="Illustration of a striped waffle cotton golf towel with a brass clip">
+            <g stroke="#241F1A" stroke-width="3.2" stroke-linejoin="round" stroke-linecap="round">
+              <path d="M100 22 a11 11 0 1 1 0 22 a11 11 0 1 1 0 -22" fill="none" stroke-width="4"/>
+              <path d="M52 44 L148 44 Q154 44 154 50 L154 176 Q154 182 148 182 L52 182 Q46 182 46 176 L46 50 Q46 44 52 44 Z" fill="#F7F1E6"/>
+              <path d="M46 74 L154 74" stroke="#7B2E37" stroke-width="10" fill="none"/>
+              <path d="M46 92 L154 92" stroke="#1E4435" stroke-width="6" fill="none"/>
+              <path d="M46 150 L154 150" stroke="#1E4435" stroke-width="6" fill="none"/>
+              <path d="M46 164 L154 164" stroke="#7B2E37" stroke-width="10" fill="none"/>
+              <g stroke-width="1.6" opacity=".45">
+                <path d="M64 104 L64 140 M82 104 L82 140 M100 104 L100 140 M118 104 L118 140 M136 104 L136 140"/>
+                <path d="M46 112 L154 112 M46 124 L154 124 M46 136 L154 136"/>
+              </g>
+            </g>
+          </svg>
+          <button class="quick" type="button">Add to bag <span aria-hidden="true">&rarr;</span></button>
+        </div>
+        <div class="prod-info">
+          <h3 class="prod-name">The Honours Towel</h3>
+          <p class="prod-desc">Waffle cotton &middot; Cream stripe</p>
+          <p class="prod-price">$38</p>
+        </div>
+      </article>
+
+      <!-- 7 · Headcover -->
+      <article class="prod rev" data-cat="accessories" style="--pb:#E4E0CE">
+        <div class="prod-art">
+          <span class="badge">New</span>
+          <svg class="g" viewBox="0 0 200 200" role="img" aria-label="Illustration of a boiled wool driver headcover with a pom-pom">
+            <g stroke="#241F1A" stroke-width="3.2" stroke-linejoin="round" stroke-linecap="round">
+              <circle cx="100" cy="36" r="19" fill="#F0E6D2"/>
+              <g stroke-width="1.6" opacity=".5"><path d="M88 26 L112 46 M112 26 L88 46 M100 18 L100 54 M82 36 L118 36"/></g>
+              <path d="M92 54 L108 54 L108 70 L92 70 Z" fill="#63242C"/>
+              <path d="M62 76 Q62 70 68 70 L132 70 Q138 70 138 76 L138 148 Q138 176 100 184 Q62 176 62 148 Z" fill="#7B2E37"/>
+              <path d="M62 148 L138 148" stroke-width="2.4" fill="none"/>
+              <path d="M62 160 Q100 168 138 160" stroke-width="2.2" fill="none" opacity=".6"/>
+              <circle cx="100" cy="112" r="24" fill="#F0E6D2" stroke-width="2.8"/>
+              <text x="100" y="123" text-anchor="middle" font-family="'DM Serif Display', Georgia, serif" font-size="30" fill="#1E4435" stroke="none">1</text>
+            </g>
+          </svg>
+          <button class="quick" type="button">Add to bag <span aria-hidden="true">&rarr;</span></button>
+        </div>
+        <div class="prod-info">
+          <h3 class="prod-name">The Persimmon Cover</h3>
+          <p class="prod-desc">Boiled wool &middot; Burgundy</p>
+          <p class="prod-price">$72</p>
+        </div>
+      </article>
+
+      <!-- 8 · Tote -->
+      <article class="prod rev" data-cat="accessories" style="--pb:#D5DCCE">
+        <div class="prod-art">
+          <svg class="g" viewBox="0 0 200 200" role="img" aria-label="Illustration of a heavy canvas tote bag with a green stripe and society patch">
+            <g stroke="#241F1A" stroke-width="3.2" stroke-linejoin="round" stroke-linecap="round">
+              <path d="M72 76 C72 40 128 40 128 76" fill="none" stroke-width="6"/>
+              <path d="M44 74 L156 74 L166 180 Q166 184 162 184 L38 184 Q34 184 34 180 Z" fill="#E4D9BE"/>
+              <path d="M36 100 L164 100" stroke="#1E4435" stroke-width="11" fill="none"/>
+              <path d="M38 116 L162 116" stroke="#7B2E37" stroke-width="5" fill="none"/>
+              <path d="M78 134 L122 134 L122 166 L78 166 Z" fill="#F7F1E6" stroke-width="2.8"/>
+              <text x="100" y="157" text-anchor="middle" font-family="'Grand Hotel', cursive" font-size="26" fill="#1E4435" stroke="none">SP</text>
+              <path d="M44 74 L44 184 M156 74 L157 184" stroke-width="1.8" fill="none" opacity=".4"/>
+            </g>
+          </svg>
+          <button class="quick" type="button">Add to bag <span aria-hidden="true">&rarr;</span></button>
+        </div>
+        <div class="prod-info">
+          <h3 class="prod-name">The Nineteenth Tote</h3>
+          <p class="prod-desc">18oz canvas &middot; Natural</p>
+          <p class="prod-price">$88</p>
+        </div>
+      </article>
+
+    </div>
+
+    <div class="coll-foot rev">
+      <p>When it&rsquo;s gone, it&rsquo;s genuinely gone.</p>
+      <a class="btn ghost" href="#join">Get told first <span class="arw" aria-hidden="true">&rarr;</span></a>
+    </div>
+  </div>
+</section>
+
+<!-- ======================================================== the society -->
+<section class="section society" id="society">
+  <div class="wrap soc-in">
+    <div class="soc-story">
+      <p class="eyebrow rev">The Society</p>
+      <h2 class="sec-title rev">A club with<br /><span class="script" style="color:var(--burgundy);font-size:1.15em">no clubhouse</span></h2>
+      <p class="sec-lede rev">It started with four people, one thoroughly average municipal course, and a shared suspicion that golf had got a little serious about itself.</p>
+      <p class="rev" style="margin-top:20px;color:var(--ink-soft)">We wanted clothes that could survive a wet November tee time and still look right at Sunday lunch &mdash; without anyone ever using the phrase &ldquo;performance stretch technology&rdquo; in our presence.</p>
+      <blockquote class="pull rev">We are not fast. We have never been fast. We have, however, never once regretted the walk.</blockquote>
+      <div class="sig rev">
+        <span class="name">M. Ardleigh</span>
+        <span class="role">Founding member<br />&amp; slowest of the four</span>
+      </div>
+    </div>
+
+    <div class="tenets" data-stagger>
+      <div class="tenet rev">
+        <span class="num" aria-hidden="true">01</span>
+        <div><h3>Small batches, long memories</h3><p>We cut two hundred of a thing and then we stop. If you missed it, you&rsquo;ll survive &mdash; and something better is already on the table.</p></div>
+      </div>
+      <div class="tenet rev">
+        <span class="num" aria-hidden="true">02</span>
+        <div><h3>Play it as it lies</h3><p>Weather, course conditions, your swing on the day. We make clothes for the round you actually get, not the one in the brochure.</p></div>
+      </div>
+      <div class="tenet rev">
+        <span class="num" aria-hidden="true">03</span>
+        <div><h3>Everyone plays through</h3><p>No handicap requirement. No dress code enforcement. Nobody at the first tee quietly working out who you know.</p></div>
+      </div>
+      <div class="tenet rev">
+        <span class="num" aria-hidden="true">04</span>
+        <div><h3>The round doesn&rsquo;t end at eighteen</h3><p>Half of this is the walk in, the drink after, and the forty-minute argument about what happened on the fifth.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========================================================= scorecard -->
+<section class="section score" id="scorecard">
+  <div class="wrap score-in">
+    <div class="sec-head">
+      <p class="eyebrow rev">House Rules</p>
+      <h2 class="sec-title rev" style="color:var(--cream)">The Society Scorecard</h2>
+      <p class="sec-lede rev">Nine holes, nine local rules. Printed on the back of every order, ignored by roughly half our members.</p>
+    </div>
+
+    <div class="card rev">
+      <div class="card-top">
+        <span class="wm">Slow Play Society</span>
+        <div class="meta">
+          <div>Course <b>Ardleigh Common</b></div>
+          <div>Tees <b>Whichever</b></div>
+          <div>Pace <b>Unhurried</b></div>
+        </div>
+      </div>
+      <div class="tscroll">
+        <table>
+          <caption>Front nine &mdash; yardage, par and the local rule for each hole</caption>
+          <thead>
+            <tr>
+              <th scope="col">Hole</th>
+              <th scope="col">Yards</th>
+              <th scope="col">Par</th>
+              <th scope="col">The Local Rule</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><th scope="row">1</th><td>402</td><td><span class="par">4</span></td><td class="rule">Phones stay in the bag. Whatever it is, it will keep.</td></tr>
+            <tr><th scope="row">2</th><td>168</td><td><span class="par three">3</span></td><td class="rule">An ace obliges you to buy a round. Aim accordingly.</td></tr>
+            <tr><th scope="row">3</th><td>511</td><td><span class="par five">5</span></td><td class="rule">Three practice swings maximum. We are, regrettably, counting.</td></tr>
+            <tr><th scope="row">4</th><td>366</td><td><span class="par">4</span></td><td class="rule">Compliment one shot that isn&rsquo;t your own. Mean it.</td></tr>
+            <tr><th scope="row">5</th><td>429</td><td><span class="par">4</span></td><td class="rule">Anything inside the flagstick is good. Do not litigate.</td></tr>
+            <tr><th scope="row">6</th><td>141</td><td><span class="par three">3</span></td><td class="rule">Name the bird you can hear and play the next hole free.</td></tr>
+            <tr><th scope="row">7</th><td>488</td><td><span class="par five">5</span></td><td class="rule">No score talk. Talk about very nearly anything else.</td></tr>
+            <tr><th scope="row">8</th><td>385</td><td><span class="par">4</span></td><td class="rule">Lost ball, lost cause. Drop, shrug, carry on.</td></tr>
+            <tr><th scope="row">9</th><td>410</td><td><span class="par">4</span></td><td class="rule">Walk this one in. It&rsquo;s four hundred yards, not a commute.</td></tr>
+          </tbody>
+          <tfoot>
+            <tr>
+              <th scope="row">Out</th>
+              <td>3,300</td>
+              <td>36</td>
+              <td class="rule">Regroup at the halfway house. The toastie is mandatory.</td>
+            </tr>
+          </tfoot>
+        </table>
+      </div>
+    </div>
+    <p class="score-note rev">
+      <svg width="17" height="17" viewBox="0 0 16 16" aria-hidden="true" style="flex:0 0 auto;margin-top:3px"><circle cx="8" cy="8" r="7" fill="none" stroke="#C2A878" stroke-width="1.3"/><path d="M8 4.4v.2M8 7v4.4" stroke="#C2A878" stroke-width="1.6" stroke-linecap="round"/></svg>
+      Rule ten, unwritten: if the group behind is genuinely quicker, wave them through and enjoy the extra five minutes.
+    </p>
+  </div>
+</section>
+
+<!-- ======================================================= giving back -->
+<section class="section" id="giving">
+  <div class="wrap giving-in">
+    <div class="giving-copy">
+      <p class="eyebrow rev">Giving Back</p>
+      <h2 class="sec-title rev">The Nineteenth Fund</h2>
+      <p class="sec-lede rev">Two per cent of every order goes to the courses without marketing budgets: municipal greens, community clubs, and junior memberships for kids whose families were never going to pay a joining fee.</p>
+      <p class="rev" style="margin-top:18px;color:var(--ink-soft)">No campaign, no ribbon, no landing page with a progress bar. It comes off the top, every order, and we publish where it went each January.</p>
+      <div class="rev" style="margin-top:32px">
+        <a class="btn wine" href="#join">Read the January letter <span class="arw" aria-hidden="true">&rarr;</span></a>
+      </div>
+    </div>
+
+    <div class="fund rev">
+      <div class="fund-head">
+        <svg width="34" height="34" viewBox="0 0 40 40" aria-hidden="true">
+          <path d="M12 6 L12 34" stroke="#F7F0E4" stroke-width="2.6" stroke-linecap="round"/>
+          <path d="M12 7 L31 12 L12 17 Z" fill="#F7F0E4"/>
+          <ellipse cx="12" cy="34" rx="8" ry="2.6" fill="#F7F0E4" opacity=".45"/>
+        </svg>
+        <span class="wm">Since 2019</span>
+      </div>
+      <div class="fund-grid">
+        <div><b>2%</b><span>Of every order</span></div>
+        <div><b>14</b><span>Municipal greens</span></div>
+        <div><b>318</b><span>Junior memberships</span></div>
+        <div><b>$1.2m</b><span>Given, to date</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+
+<!-- ============================================================ footer -->
+<footer class="foot" id="join">
+  <div class="wrap foot-in">
+    <div class="news">
+      <div class="rev">
+        <h2>Join the <span class="script">Society</span></h2>
+        <p>One letter a month. New pieces, restock warnings, and the occasional thousand words about a par three nobody asked about.</p>
+      </div>
+      <form class="news-form rev" id="newsForm" novalidate>
+        <label for="email">
+          <span class="lab">Your email</span>
+          <input id="email" name="email" type="email" inputmode="email" autocomplete="email" placeholder="you@example.com" required />
+        </label>
+        <button class="btn" type="submit">Sign me up</button>
+        <p class="news-msg" id="newsMsg" role="status" aria-live="polite"></p>
+      </form>
+    </div>
+
+    <div class="foot-cols">
+      <div class="foot-brand">
+        <span class="wm">Slow Play</span>
+        <p>Small-batch golf apparel and lifestyle goods. Made unhurriedly since 2019.</p>
+      </div>
+      <div>
+        <h3>Shop</h3>
+        <ul>
+          <li><a href="#collection">The Collection</a></li>
+          <li><a href="#collection">Outerwear</a></li>
+          <li><a href="#collection">Accessories</a></li>
+          <li><a href="#collection">Gift cards</a></li>
+        </ul>
+      </div>
+      <div>
+        <h3>The Society</h3>
+        <ul>
+          <li><a href="#society">Our story</a></li>
+          <li><a href="#scorecard">House rules</a></li>
+          <li><a href="#giving">The Nineteenth Fund</a></li>
+          <li><a href="#society">Stockists</a></li>
+        </ul>
+      </div>
+      <div>
+        <h3>Help</h3>
+        <ul>
+          <li><a href="#join">Shipping &amp; returns</a></li>
+          <li><a href="#join">Size guide</a></li>
+          <li><a href="#join">Fabric care</a></li>
+          <li><a href="#join">Contact</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="foot-base">
+      <p>&copy; 2026 Slow Play Society &mdash; a fictional brand. Concept site &mdash; portfolio demonstration.</p>
+      <p>Designed and built with unreasonable patience.</p>
+    </div>
+  </div>
+</footer>
+
+<script src="/demos/_vendor/gsap/gsap.min.js"></script>
+<script src="/demos/_vendor/gsap/ScrollTrigger.min.js"></script>
+<script>
+/* ------------------------------------------------ always-on behaviour */
+(function () {
+  /* mobile menu */
+  var mb = document.getElementById('menuBtn');
+  var mn = document.getElementById('mobileNav');
+  if (mb && mn) {
+    mb.addEventListener('click', function () {
+      var open = mn.getAttribute('data-open') === 'true';
+      mn.setAttribute('data-open', String(!open));
+      mb.setAttribute('aria-expanded', String(!open));
+    });
+    mn.addEventListener('click', function (e) {
+      if (e.target.tagName === 'A') {
+        mn.setAttribute('data-open', 'false');
+        mb.setAttribute('aria-expanded', 'false');
+      }
+    });
+  }
+
+  /* collection filter */
+  var fbtns = document.querySelectorAll('.filters button');
+  var prods = document.querySelectorAll('.prod');
+  Array.prototype.forEach.call(fbtns, function (btn) {
+    btn.addEventListener('click', function () {
+      var f = btn.getAttribute('data-filter');
+      Array.prototype.forEach.call(fbtns, function (b) {
+        b.setAttribute('aria-pressed', String(b === btn));
+      });
+      Array.prototype.forEach.call(prods, function (p) {
+        p.hidden = !(f === 'all' || p.getAttribute('data-cat') === f);
+      });
+      if (window.ScrollTrigger) { ScrollTrigger.refresh(); }
+    });
+  });
+
+  /* bag counter */
+  var cnt = document.querySelector('.bag .cnt');
+  Array.prototype.forEach.call(document.querySelectorAll('.quick'), function (q) {
+    q.addEventListener('click', function () {
+      if (!cnt) return;
+      cnt.textContent = String((parseInt(cnt.textContent, 10) || 0) + 1);
+      q.textContent = 'In the bag ✓';
+      setTimeout(function () { q.innerHTML = 'Add to bag <span aria-hidden="true">→</span>'; }, 1600);
+    });
+  });
+
+  /* newsletter */
+  var form = document.getElementById('newsForm');
+  var msg = document.getElementById('newsMsg');
+  if (form) {
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var v = (document.getElementById('email').value || '').trim();
+      if (v.indexOf('@') < 1 || v.indexOf('.') < 0) {
+        msg.textContent = 'That address looks a little off. Try again, slowly.';
+        return;
+      }
+      msg.textContent = 'You’re in. Demo site — nothing was actually sent.';
+      form.reset();
+    });
+  }
+})();
+
+/* --------------------------------------------------- scroll reveals --
+   Deliberately NOT driven by GSAP: a rAF ticker can be throttled (hidden
+   tab, headless capture, deep-link jump) and would leave whole sections
+   sitting at opacity 0. IntersectionObserver + CSS transitions always land
+   on the final state. GSAP below only moves things that are already visible. */
+(function () {
+  var root = document.documentElement;
+  function bail() { root.classList.remove('js-anim'); }
+  if (!root.classList.contains('js-anim')) return;
+
+  var revs = Array.prototype.slice.call(document.querySelectorAll('.rev'));
+  if (!('IntersectionObserver' in window) || !revs.length) { bail(); return; }
+
+  /* stagger children of a group by transition-delay */
+  Array.prototype.forEach.call(document.querySelectorAll('[data-stagger]'), function (group) {
+    var i = 0;
+    Array.prototype.forEach.call(group.children, function (kid) {
+      if (!kid.classList.contains('rev')) return;
+      kid.style.transitionDelay = (Math.min(i, 9) * 0.07) + 's';
+      i++;
+    });
+  });
+
+  var io = new IntersectionObserver(function (entries) {
+    entries.forEach(function (e) {
+      if (!e.isIntersecting) return;
+      e.target.classList.add('in');
+      io.unobserve(e.target);
+    });
+  }, { rootMargin: '0px 0px -8% 0px', threshold: 0.01 });
+
+  revs.forEach(function (el) { io.observe(el); });
+
+  /* belt-and-braces: anything sitting in the viewport shortly after load
+     gets shown regardless, so nothing can ever read as a blank section */
+  setTimeout(function () {
+    revs.forEach(function (el) {
+      var r = el.getBoundingClientRect();
+      if (r.top < window.innerHeight && r.bottom > 0) el.classList.add('in');
+    });
+  }, 2200);
+})();
+
+/* -------------------------------------------------- decorative motion */
+(function () {
+  if (!document.documentElement.classList.contains('js-anim')) return;
+  if (!window.gsap || !window.ScrollTrigger) return;
+
+  try {
+    gsap.registerPlugin(ScrollTrigger);
+
+    /* marquees */
+    Array.prototype.forEach.call(document.querySelectorAll('[data-marquee]'), function (track) {
+      var d = parseFloat(track.getAttribute('data-speed')) || 30;
+      gsap.to(track, { xPercent: -50, duration: d, ease: 'none', repeat: -1 });
+    });
+
+    /* crest ring */
+    var ring = document.querySelector('.crest-ring');
+    if (ring) {
+      gsap.to(ring, { rotation: 360, duration: 95, ease: 'none', repeat: -1, transformOrigin: '260px 260px' });
+    }
+
+    /* scrubbed parallax — transform only, on elements that are always visible */
+    var ghost = document.querySelector('.hero-ghost');
+    if (ghost) {
+      gsap.to(ghost, {
+        yPercent: -16, ease: 'none',
+        scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: .5 }
+      });
+    }
+    var card = document.querySelector('.score .card');
+    if (card) {
+      gsap.fromTo(card, { y: 34 }, {
+        y: -14, ease: 'none',
+        scrollTrigger: { trigger: '.score', start: 'top bottom', end: 'bottom top', scrub: .6 }
+      });
+    }
+
+    window.addEventListener('load', function () { ScrollTrigger.refresh(); });
+  } catch (e) { /* decorative only — nothing is hidden if this fails */ }
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,420 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Front-end recreation study — Longbow Motors layout</title>
+<meta name="description" content="A front-end recreation study of the Longbow Motors site layout, rebuilt from scratch by Naushad Punjani. Original design and brand belong to Longbow Motors. Not affiliated." />
+<meta name="robots" content="noindex, nofollow" />
+<style>
+@font-face{font-family:'Sora';font-style:normal;font-weight:300;font-display:swap;src:url('fonts/lb-Sora-300-normal.woff2') format('woff2')}
+@font-face{font-family:'Sora';font-style:normal;font-weight:400;font-display:swap;src:url('fonts/lb-Sora-400-normal.woff2') format('woff2')}
+@font-face{font-family:'Sora';font-style:normal;font-weight:600;font-display:swap;src:url('fonts/lb-Sora-600-normal.woff2') format('woff2')}
+@font-face{font-family:'Space Mono';font-style:normal;font-weight:400;font-display:swap;src:url('fonts/lb-SpaceMono-400-normal.woff2') format('woff2')}
+@font-face{font-family:'Space Mono';font-style:normal;font-weight:700;font-display:swap;src:url('fonts/lb-SpaceMono-700-normal.woff2') format('woff2')}
+
+:root{
+  --bg:#0c0c0c;
+  --bg-2:#141414;
+  --ink:#f2f1ee;
+  --ink-55:rgba(242,241,238,.55);
+  --ink-14:rgba(242,241,238,.14);
+  --note:#d8a24a;
+  --sans:'Sora',Helvetica,Arial,sans-serif;
+  --mono:'Space Mono',ui-monospace,monospace;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--ink);font-family:var(--sans);font-weight:300;line-height:1.65;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+::selection{background:var(--ink);color:var(--bg)}
+.wrap{max-width:1300px;margin:0 auto;padding:0 clamp(20px,4vw,56px)}
+.mono{font-family:var(--mono)}
+.eyebrow{font-family:var(--mono);font-size:10px;letter-spacing:.28em;text-transform:uppercase;color:var(--ink-55)}
+.js-anim .rev{opacity:0;transform:translateY(26px)}
+
+/* ── study banner: the disclosure, deliberately not dismissible ────────── */
+.study-banner{
+  position:relative;z-index:80;background:var(--note);color:#141005;
+  font-family:var(--mono);font-size:12px;line-height:1.55;
+  padding:11px clamp(20px,4vw,56px);
+}
+.study-banner b{font-weight:700}
+.study-banner a{color:inherit;text-decoration:underline;text-underline-offset:2px}
+
+header{position:sticky;top:0;z-index:70;display:flex;justify-content:space-between;align-items:center;padding:16px clamp(20px,4vw,56px);background:rgba(12,12,12,.82);backdrop-filter:blur(9px);border-bottom:1px solid var(--ink-14)}
+.logo{font-weight:600;font-size:15px;letter-spacing:.34em;text-transform:uppercase;color:var(--ink);text-decoration:none}
+nav{display:flex;gap:28px;align-items:center}
+nav a{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-55);text-decoration:none;transition:color .25s}
+nav a:hover{color:var(--ink)}
+.btn{
+  font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;
+  border:1px solid var(--ink);color:var(--ink);padding:10px 18px;text-decoration:none;display:inline-block;
+  transition:background .3s,color .3s,transform .3s;
+}
+.btn:hover{background:var(--ink);color:var(--bg);transform:translateY(-2px)}
+.btn-solid{background:var(--ink);color:var(--bg)}
+.btn-solid:hover{background:var(--note);border-color:var(--note);color:#141005}
+@media(max-width:800px){nav a:not(.btn){display:none}}
+
+/* hero */
+.hero{position:relative;min-height:84svh;display:flex;flex-direction:column;justify-content:center;padding:9vh 0 6vh;overflow:hidden}
+.hero-bg{position:absolute;inset:0;z-index:0;background:radial-gradient(70% 60% at 62% 42%,rgba(216,162,74,.1),transparent 68%),linear-gradient(180deg,#0c0c0c,#151515 62%,#0c0c0c)}
+.hero-road{position:absolute;left:0;right:0;bottom:0;height:46%;z-index:0;opacity:.5;background:
+  repeating-linear-gradient(90deg,transparent 0 118px,rgba(242,241,238,.09) 118px 120px),
+  linear-gradient(180deg,transparent,rgba(242,241,238,.05));
+  transform:perspective(520px) rotateX(62deg);transform-origin:bottom;}
+.hero-inner{position:relative;z-index:2}
+.hero h1{font-weight:300;font-size:clamp(40px,7.4vw,116px);line-height:.98;letter-spacing:-.045em;max-width:15ch}
+.hero h1 b{font-weight:600}
+.hero h1 .ln{display:block;overflow:hidden}
+.hero h1 .ln>span{display:inline-block;transform:translateY(112%);animation:rise 1.05s cubic-bezier(.16,1,.3,1) forwards}
+.hero h1 .ln:nth-child(2)>span{animation-delay:.1s}
+@keyframes rise{to{transform:none}}
+.hero .latin{font-family:var(--mono);font-size:12px;letter-spacing:.3em;text-transform:uppercase;color:var(--note);margin-bottom:22px;opacity:0;animation:fade .8s .55s forwards}
+.hero p.sub{max-width:46ch;margin-top:24px;color:var(--ink-55);font-size:16px;opacity:0;animation:fade .8s .8s forwards}
+.hero .cta{margin-top:32px;display:flex;gap:14px;flex-wrap:wrap;opacity:0;animation:fade .8s 1s forwards}
+@keyframes fade{to{opacity:1}}
+
+/* models */
+.models{padding:13vh 0;border-top:1px solid var(--ink-14)}
+.sec-head{display:flex;justify-content:space-between;align-items:baseline;gap:16px;flex-wrap:wrap;margin-bottom:6vh}
+.sec-head h2{font-weight:300;font-size:clamp(28px,4vw,52px);letter-spacing:-.035em}
+.m-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:22px}
+.model{background:var(--bg-2);border:1px solid var(--ink-14);padding:28px 26px 24px;text-decoration:none;color:inherit;display:block;position:relative;overflow:hidden;transition:border-color .4s,transform .5s cubic-bezier(.16,1,.3,1)}
+.model:hover{border-color:var(--note);transform:translateY(-6px)}
+.model .tier{font-family:var(--mono);font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:var(--note)}
+.model h3{font-weight:400;font-size:clamp(26px,3.2vw,40px);letter-spacing:-.03em;margin:8px 0 2px}
+.model .price{font-family:var(--mono);font-size:12.5px;color:var(--ink-55)}
+.car{width:100%;height:auto;display:block;margin:24px 0 20px}
+.car path,.car circle{vector-effect:non-scaling-stroke}
+.model:hover .car .body{stroke:var(--note)}
+.specs{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;border-top:1px solid var(--ink-14);padding-top:14px;font-family:var(--mono);font-size:11px;color:var(--ink-55)}
+.specs b{color:var(--ink);font-weight:700}
+@media(max-width:860px){.m-grid{grid-template-columns:1fr}}
+
+/* philosophy */
+.philo{padding:13vh 0;background:var(--bg-2);border-top:1px solid var(--ink-14);border-bottom:1px solid var(--ink-14)}
+.philo h2{font-weight:300;font-size:clamp(28px,4vw,52px);letter-spacing:-.035em;margin:14px 0 7vh;max-width:19ch}
+.philo h2 b{font-weight:600;color:var(--note)}
+.p-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--ink-14);border:1px solid var(--ink-14)}
+.p{background:var(--bg-2);padding:30px 24px 42px;transition:background .35s}
+.p:hover{background:#191919}
+.p .n{font-family:var(--mono);font-size:11px;color:var(--note);letter-spacing:.2em}
+.p h3{font-weight:400;font-size:21px;margin:34px 0 10px;letter-spacing:-.01em}
+.p p{font-size:14px;color:var(--ink-55);line-height:1.7}
+@media(max-width:860px){.p-grid{grid-template-columns:1fr}}
+
+/* gallery — original abstract panels, no photography */
+.gallery{padding:13vh 0}
+.g-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.g{aspect-ratio:4/3;border:1px solid var(--ink-14);position:relative;overflow:hidden;background:var(--bg-2)}
+.g svg{position:absolute;inset:0;width:100%;height:100%}
+.g span{position:absolute;left:14px;bottom:12px;font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-55)}
+.g::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 55%,rgba(12,12,12,.7));pointer-events:none}
+@media(max-width:860px){.g-grid{grid-template-columns:1fr 1fr}}
+@media(max-width:520px){.g-grid{grid-template-columns:1fr}}
+
+/* team */
+.team{padding:13vh 0;border-top:1px solid var(--ink-14)}
+.t-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.t{border:1px solid var(--ink-14);padding:26px 22px;transition:border-color .35s}
+.t:hover{border-color:var(--note)}
+.mono-badge{width:64px;height:64px;border:1px solid var(--ink-14);display:grid;place-items:center;font-family:var(--mono);font-size:17px;letter-spacing:.1em;color:var(--note);margin-bottom:20px}
+.t h3{font-weight:400;font-size:18px;letter-spacing:-.01em}
+.t .role{font-family:var(--mono);font-size:11px;color:var(--ink-55);margin-top:4px}
+.t p{font-size:13.5px;color:var(--ink-55);margin-top:12px;line-height:1.65}
+@media(max-width:860px){.t-grid{grid-template-columns:1fr}}
+
+footer{border-top:1px solid var(--ink-14);padding:12vh 0 5vh}
+.cta-big{font-weight:300;font-size:clamp(30px,5.2vw,74px);line-height:1.04;letter-spacing:-.04em;max-width:17ch}
+.cta-big b{font-weight:600}
+.f-meta{display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap;margin-top:9vh;padding-top:18px;border-top:1px solid var(--ink-14);font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-55)}
+.colophon{margin-top:26px;font-family:var(--mono);font-size:11px;line-height:1.7;color:var(--ink-55);max-width:78ch;border-left:2px solid var(--note);padding-left:16px}
+.colophon b{color:var(--ink)}
+
+@media(prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{animation-duration:.01ms !important;animation-delay:0s !important;transition-duration:.01ms !important}
+  .hero h1 .ln>span{transform:none}
+  .hero .latin,.hero p.sub,.hero .cta{opacity:1}
+}
+</style>
+</head>
+<body>
+<script>
+  if (!matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    document.documentElement.classList.add('js-anim');
+  }
+</script>
+
+<div class="study-banner">
+  <b>FRONT-END RECREATION STUDY.</b> This is not a real Longbow Motors page and is not affiliated with, endorsed by, or produced for Longbow Motors.
+  The original site, brand and design belong to <a href="https://longbowmotors.com" target="_blank" rel="noopener noreferrer nofollow">Longbow Motors</a>.
+  This page was rebuilt from scratch by Naushad Punjani as a technical exercise — layout and interactions only. Every visual here is original; no images, code or copy were taken from the original site.
+</div>
+
+<header>
+  <a class="logo" href="#top">Longbow</a>
+  <nav>
+    <a href="#models">Models</a>
+    <a href="#philosophy">Philosophy</a>
+    <a href="#gallery">Gallery</a>
+    <a href="#team">Team</a>
+    <a class="btn" href="#reserve">Reserve +</a>
+  </nav>
+</header>
+
+<section class="hero" id="top">
+  <div class="hero-bg"></div>
+  <div class="hero-road" aria-hidden="true"></div>
+  <div class="wrap hero-inner">
+    <div class="latin">Celeritas Levitas</div>
+    <h1>
+      <span class="ln"><span>Speed through</span></span>
+      <span class="ln"><span><b>lightness</b>.</span></span>
+    </h1>
+    <p class="sub">
+      A recreation of the layout language used for a lightweight electric sports car marque:
+      full-bleed staging, restrained monochrome, and specifications treated as the hero copy.
+    </p>
+    <div class="cta">
+      <a class="btn btn-solid" href="#models">View the models</a>
+      <a class="btn" href="#colophon">What this study is</a>
+    </div>
+  </div>
+</section>
+
+<section class="models" id="models">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2 class="rev">Two cars, one platform.</h2>
+      <span class="eyebrow rev">Layout study · figures are illustrative</span>
+    </div>
+    <div class="m-grid">
+      <a class="model rev" href="#reserve">
+        <span class="tier">Model 01 · Open</span>
+        <h3>Speedster</h3>
+        <span class="price">Illustrative — £125,000</span>
+        <svg class="car" viewBox="0 0 460 130" fill="none" stroke="#f2f1ee" stroke-width="1.3" aria-hidden="true">
+          <path class="body" d="M18 96c2-18 12-28 32-33 24-6 44-24 68-30 32-8 84-8 120 2 28 8 48 24 82 30 24 4 34 14 34 31"/>
+          <path class="body" d="M146 33c-11 9-18 18-21 25h104c-7-10-17-19-32-25-16-7-36-7-51 0Z"/>
+          <path d="M18 96h416"/>
+          <circle cx="96" cy="96" r="27"/><circle cx="96" cy="96" r="10"/>
+          <circle cx="360" cy="96" r="27"/><circle cx="360" cy="96" r="10"/>
+        </svg>
+        <div class="specs"><span><b>895</b> kg</span><span><b>3.4</b>s 0–60</span><span><b>380</b> km</span><span>Rear drive</span></div>
+      </a>
+      <a class="model rev" href="#reserve">
+        <span class="tier">Model 02 · Coupé</span>
+        <h3>Roadster</h3>
+        <span class="price">Illustrative — £125,000</span>
+        <svg class="car" viewBox="0 0 460 130" fill="none" stroke="#f2f1ee" stroke-width="1.3" aria-hidden="true">
+          <path class="body" d="M18 96c2-18 12-28 32-33 22-5 38-16 58-22 36-13 90-13 130 0 26 9 44 20 70 24 24 4 34 14 34 31"/>
+          <path class="body" d="M132 41c15-17 33-26 57-28 32-3 58 7 77 28H132Z"/>
+          <path d="M18 96h416"/>
+          <circle cx="96" cy="96" r="27"/><circle cx="96" cy="96" r="10"/>
+          <circle cx="360" cy="96" r="27"/><circle cx="360" cy="96" r="10"/>
+        </svg>
+        <div class="specs"><span><b>930</b> kg</span><span><b>3.1</b>s 0–60</span><span><b>410</b> km</span><span>Rear drive</span></div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<section class="philo" id="philosophy">
+  <div class="wrap">
+    <div class="eyebrow rev">The premise</div>
+    <h2 class="rev">Take weight out, and everything else <b>gets easier</b>.</h2>
+    <div class="p-grid">
+      <div class="p rev"><span class="n">01</span><h3>Lightness</h3><p>A lighter car needs less battery, less brake, less tyre and less structure. Every kilo removed removes another somewhere else.</p></div>
+      <div class="p rev"><span class="n">02</span><h3>Simplicity</h3><p>Fewer systems, fewer failure points. The interface is a wheel, three pedals and a switch — the rest is deliberately absent.</p></div>
+      <div class="p rev"><span class="n">03</span><h3>Involvement</h3><p>The point is not the lap time. It is the feeling of a small, honest car doing exactly what you asked of it.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="gallery" id="gallery">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2 class="rev">Gallery.</h2>
+      <span class="eyebrow rev">Original artwork — placeholders for photography</span>
+    </div>
+    <div class="g-grid">
+      <div class="g rev">
+        <svg viewBox="0 0 400 300" aria-hidden="true">
+          <rect width="400" height="300" fill="#111"/>
+          <path d="M0 210h400" stroke="#d8a24a" stroke-width="1" opacity=".5"/>
+          <path d="M0 240c60-16 120-24 200-24s140 8 200 24v60H0Z" fill="#181818"/>
+          <circle cx="300" cy="86" r="34" fill="#d8a24a" opacity=".18"/>
+          <path d="M40 210c30-46 70-70 120-70s90 24 120 70" stroke="#f2f1ee" stroke-width="1" fill="none" opacity=".35"/>
+        </svg>
+        <span>Road · dawn</span>
+      </div>
+      <div class="g rev">
+        <svg viewBox="0 0 400 300" aria-hidden="true">
+          <rect width="400" height="300" fill="#131313"/>
+          <g stroke="#f2f1ee" stroke-width="1" fill="none" opacity=".4">
+            <circle cx="200" cy="150" r="92"/><circle cx="200" cy="150" r="60"/><circle cx="200" cy="150" r="26"/>
+            <path d="M200 58v184M108 150h184M135 85l130 130M265 85 135 215"/>
+          </g>
+          <circle cx="200" cy="150" r="8" fill="#d8a24a"/>
+        </svg>
+        <span>Wheel · study</span>
+      </div>
+      <div class="g rev">
+        <svg viewBox="0 0 400 300" aria-hidden="true">
+          <rect width="400" height="300" fill="#0f0f0f"/>
+          <g stroke="#d8a24a" stroke-width="1.1" fill="none" opacity=".65">
+            <path d="M60 220h280M60 220 130 96h140l70 124M130 96h140M100 158h200"/>
+          </g>
+          <g stroke="#f2f1ee" stroke-width="1" fill="none" opacity=".3">
+            <path d="M60 220 200 96l140 124M100 158 200 220l100-62"/>
+          </g>
+        </svg>
+        <span>Chassis · lattice</span>
+      </div>
+      <div class="g rev">
+        <svg viewBox="0 0 400 300" aria-hidden="true">
+          <rect width="400" height="300" fill="#141414"/>
+          <g fill="none" stroke="#f2f1ee" opacity=".35">
+            <path d="M0 250c80-10 120-70 200-70s120 60 200 70" stroke-width="1"/>
+            <path d="M0 270c80-10 120-50 200-50s120 40 200 50" stroke-width="1"/>
+          </g>
+          <rect x="150" y="60" width="100" height="120" fill="none" stroke="#d8a24a" opacity=".5"/>
+          <path d="M150 120h100M200 60v120" stroke="#d8a24a" opacity=".3"/>
+        </svg>
+        <span>Battery · pack</span>
+      </div>
+      <div class="g rev">
+        <svg viewBox="0 0 400 300" aria-hidden="true">
+          <rect width="400" height="300" fill="#101010"/>
+          <path d="M0 300 200 60l200 240Z" fill="#161616"/>
+          <path d="M0 300 200 60l200 240" stroke="#f2f1ee" stroke-width="1" fill="none" opacity=".3"/>
+          <circle cx="200" cy="110" r="20" fill="none" stroke="#d8a24a" opacity=".7"/>
+        </svg>
+        <span>Pass · alpine</span>
+      </div>
+      <div class="g rev">
+        <svg viewBox="0 0 400 300" aria-hidden="true">
+          <rect width="400" height="300" fill="#121212"/>
+          <g stroke="#f2f1ee" stroke-width="1" fill="none" opacity=".28">
+            <path d="M20 40h360M20 90h360M20 140h360M20 190h360M20 240h360"/>
+          </g>
+          <path d="M20 240c60-6 90-100 180-100s120 94 180 100" stroke="#d8a24a" stroke-width="1.4" fill="none"/>
+        </svg>
+        <span>Torque · curve</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="team" id="team">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2 class="rev">The team.</h2>
+      <span class="eyebrow rev">Roles only — real individuals not represented</span>
+    </div>
+    <div class="t-grid">
+      <div class="t rev">
+        <div class="mono-badge">01</div>
+        <h3>Founder &amp; Design</h3>
+        <div class="role">Placeholder profile</div>
+        <p>In the original layout this slot carries a portrait and a short biography. Here it stays a monogram — a real person's name and likeness aren't mine to reproduce.</p>
+      </div>
+      <div class="t rev">
+        <div class="mono-badge">02</div>
+        <h3>Chief Executive</h3>
+        <div class="role">Placeholder profile</div>
+        <p>The three-up team grid, its hairline borders and the hover treatment are the parts being studied — the content is intentionally generic.</p>
+      </div>
+      <div class="t rev">
+        <div class="mono-badge">03</div>
+        <h3>Engineering</h3>
+        <div class="role">Placeholder profile</div>
+        <p>Column widths, vertical rhythm and type scale are matched to the reference; every word and graphic is written and drawn from scratch.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer id="reserve">
+  <div class="wrap">
+    <p class="cta-big rev">This is a layout study — <b>not a place to buy a car</b>.</p>
+    <div class="colophon" id="colophon">
+      <b>About this page.</b><br />
+      Built by Naushad Punjani as a front-end exercise: rebuilding a premium automotive layout — sticky navigation, staged hero,
+      two-up model cards, hairline grids and scroll choreography — from an empty file, using no framework.<br /><br />
+      <b>Credit.</b> The original site, brand, naming and design direction belong to Longbow Motors (longbowmotors.com).
+      This study is unaffiliated and unendorsed. No images, markup, styles or copy were copied from the original;
+      all artwork here is original SVG and CSS, all text is newly written, and specification figures are illustrative rather than factual.
+      If Longbow Motors would prefer this study not exist, it comes down on request.
+    </div>
+    <div class="f-meta">
+      <span>Recreation study © 2026 Naushad Punjani</span>
+      <span>Unaffiliated with Longbow Motors</span>
+      <span>Concept site — portfolio demonstration</span>
+    </div>
+  </div>
+</footer>
+
+<script src="/demos/_vendor/gsap/gsap.min.js"></script>
+<script src="/demos/_vendor/gsap/ScrollTrigger.min.js"></script>
+<script type="module">
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  if (window.gsap) {
+    gsap.registerPlugin(ScrollTrigger);
+    gsap.ticker.lagSmoothing(0);
+    addEventListener('load', () => ScrollTrigger.refresh());
+
+    if (reduce) {
+      gsap.set('.rev', { opacity: 1, y: 0 });
+    } else {
+      document.querySelectorAll('section, footer').forEach((sec) => {
+        const items = sec.querySelectorAll('.rev');
+        if (!items.length) return;
+        gsap.to(items, {
+          opacity: 1, y: 0, duration: 0.8, ease: 'power3.out', stagger: 0.07,
+          scrollTrigger: { trigger: sec, start: 'top 78%', once: true }
+        });
+      });
+
+      // The road plane drifts as you leave the hero.
+      gsap.to('.hero-road', {
+        backgroundPositionX: '240px',
+        ease: 'none',
+        scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: 0.8 }
+      });
+    }
+  }
+
+  // Lenis smooth scrolling — the reference leans on inertial scroll.
+  if (!reduce) {
+    try {
+      await import('/demos/_vendor/lenis/lenis.min.js');
+      const Lenis = window.Lenis;
+      if (Lenis) {
+        const lenis = new Lenis({ duration: 1.05, smoothWheel: true });
+        if (window.gsap) {
+          lenis.on('scroll', ScrollTrigger.update);
+          gsap.ticker.add((t) => lenis.raf(t * 1000));
+        } else {
+          const raf = (t) => { lenis.raf(t); requestAnimationFrame(raf); };
+          requestAnimationFrame(raf);
+        }
+        document.querySelectorAll('a[href^="#"]').forEach((a) => {
+          a.addEventListener('click', (e) => {
+            const target = document.querySelector(a.getAttribute('href'));
+            if (!target) return;
+            e.preventDefault();
+            lenis.scrollTo(target, { offset: -70 });
+          });
+        });
+      }
+    } catch (err) {
+      console.warn('smooth scroll unavailable:', err);
+    }
+  }
+</script>
+</body>
+</html>

@@ -10,7 +10,11 @@
     { href: '/demos/atelier',  shot: '/showcase/atelier.png',  name: 'Atelier Nord',            tag: 'architecture', note: 'SVG line art' },
     { href: '/demos/roastery', shot: '/showcase/roastery.png', name: 'Ember & Husk',            tag: 'coffee',       note: 'CSS steam' },
     { href: '/demos/pulse',    shot: '/showcase/pulse.png',    name: 'Pulseboard',              tag: 'saas',         note: 'live chart' },
-    { href: '/demos/southpaw', shot: '/showcase/southpaw.png', name: 'Southpaw Boxing',         tag: 'fitness',      note: 'type-driven' }
+    { href: '/demos/southpaw', shot: '/showcase/southpaw.png', name: 'Southpaw Boxing',         tag: 'fitness',      note: 'type-driven' },
+    { href: '/demos/kestrel',  shot: '/showcase/kestrel.png',  name: 'Kestrel Motors',          tag: 'automotive',   note: '3D spaceframe' },
+    { href: '/demos/marengo',  shot: '/showcase/marengo.png',  name: 'Marengo',                 tag: 'luxury',       note: 'AI stylist' },
+    { href: '/demos/thorn',    shot: '/showcase/thorn.png',    name: 'Thorn Enduro',            tag: 'motorcycles',  note: '3D terrain' },
+    { href: '/demos/slowplay', shot: '/showcase/slowplay.png', name: 'Slow Play Society',       tag: 'apparel',      note: 'SVG crest' }
   ];
 
   let bench;
