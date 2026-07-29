@@ -1,0 +1,5 @@
+﻿@font-face{font-family:'Familjen Grotesk';font-style:normal;font-weight:400;font-display:swap;src:url('fonts/ke-FamiljenGrotesk-400-normal.woff2') format('woff2')}
+@font-face{font-family:'Familjen Grotesk';font-style:normal;font-weight:500;font-display:swap;src:url('fonts/ke-FamiljenGrotesk-500-normal.woff2') format('woff2')}
+@font-face{font-family:'Familjen Grotesk';font-style:normal;font-weight:700;font-display:swap;src:url('fonts/ke-FamiljenGrotesk-700-normal.woff2') format('woff2')}
+@font-face{font-family:'Space Mono';font-style:normal;font-weight:400;font-display:swap;src:url('fonts/ke-SpaceMono-400-normal.woff2') format('woff2')}
+@font-face{font-family:'Space Mono';font-style:normal;font-weight:700;font-display:swap;src:url('fonts/ke-SpaceMono-700-normal.woff2') format('woff2')}
