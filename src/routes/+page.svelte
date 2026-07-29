@@ -6,6 +6,9 @@
   export let data;
   $: featured = data.featured;
 
+  // Public booking link for the get-in-touch section.
+  const calendlyUrl = 'https://calendly.com/napunjani/30min';
+
   // Easily editable "this week" status — change one line and the home updates.
   const thisWeek = {
     text: 'Writing a WSO2 cheatsheet from years of production scars.',
@@ -162,3 +165,46 @@
     </a>
   </section>
 {/if}
+
+<div class="container-prose">
+  <div style="height: 1px; background: var(--line);"></div>
+</div>
+
+<!-- ─── Get in touch ────────────────────────────────────────────────────── -->
+<section class="container-prose py-14" id="contact">
+  <div class="label-mono mb-4">
+    <span class="status-dot"></span>get in touch
+  </div>
+
+  <h2 class="font-serif" style="font-size: clamp(28px, 4.5vw, 40px); line-height: 1.12; font-weight: 500; max-width: 20ch; margin: 0 0 4px;">
+    Have something that needs to <span class="marker">actually ship</span>?
+  </h2>
+
+  <div class="font-hand mb-5" style="color: var(--muted); font-size: 19px; transform: rotate(-1deg); display: inline-block;">
+    a SaaS idea, an integration mess, or a site that should feel alive
+  </div>
+
+  <p style="font-size: 15px; line-height: 1.7; max-width: 520px; margin-bottom: 26px;">
+    Tell me what you're building and where it hurts. I'll reply with an honest take —
+    even if the honest take is that you don't need me for it.
+  </p>
+
+  <div class="flex items-center gap-5 flex-wrap">
+    <a
+      href={calendlyUrl}
+      target="_blank"
+      rel="noopener noreferrer"
+      class="font-mono"
+      style="font-size: 13px; padding: 12px 22px; border-radius: 8px; background: var(--accent-soft); border: 1px solid var(--accent); color: var(--accent); text-decoration: none;"
+    >
+      book a 30-min call →
+    </a>
+    <a href="mailto:{config.contact.email}" class="link font-mono" style="font-size: 13px;">email me</a>
+    <a href={config.contact.linkedinUrl} target="_blank" rel="noopener noreferrer" class="link font-mono" style="font-size: 13px;">linkedin</a>
+    <a href={config.github.profileUrl} target="_blank" rel="noopener noreferrer" class="link font-mono" style="font-size: 13px;">github</a>
+  </div>
+
+  <div class="font-mono mt-5" style="font-size: 11px; color: var(--muted);">
+    {config.contact.email} · islamabad (gmt+5) · usually replies within a day
+  </div>
+</section>
