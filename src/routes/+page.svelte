@@ -1,6 +1,7 @@
 <script>
   import { config } from '$lib/config.js';
   import Seo from '$lib/Seo.svelte';
+  import DemoBench from '$lib/components/DemoBench.svelte';
 
   export let data;
   $: featured = data.featured;
@@ -85,6 +86,13 @@
     </div>
   </div>
 </section>
+
+<div class="container-prose">
+  <div style="height: 1px; background: var(--line);"></div>
+</div>
+
+<!-- ─── Demo bench ───────────────────────────────────────────────────────── -->
+<DemoBench />
 
 <div class="container-prose">
   <div style="height: 1px; background: var(--line);"></div>
