@@ -127,7 +127,7 @@
       stack: ['SvelteKit', 'React', 'TypeScript', 'Nginx', 'F5'],
       annot: 'this very page is fig. 04',
       links: [
-        { label: 'Gallery', href: '#', lead: true },
+        { label: 'Gallery', href: '/work/web-builds', lead: true },
         { label: 'naushadpunjani.com', href: 'https://naushadpunjani.com' }
       ],
       diagram: `
