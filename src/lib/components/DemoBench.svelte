@@ -17,6 +17,9 @@
   let row;
 
   onMount(async () => {
+    // Start the strip centered: middle card in the middle of the viewport.
+    row.scrollLeft = (row.scrollWidth - row.clientWidth) / 2;
+
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
     const { gsap } = await import('gsap');
@@ -128,6 +131,13 @@
   }
   .bench-row::-webkit-scrollbar {
     display: none;
+  }
+  /* Center the row when it fits; auto margins collapse to 0 on overflow. */
+  .bench-card:first-child {
+    margin-left: auto;
+  }
+  .bench-card:last-child {
+    margin-right: auto;
   }
 
   .bench-card {
