@@ -1,0 +1,1156 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Marengo — Cashmere from Colle Marengo, Umbria</title>
+<meta name="description" content="Marengo is a concept site for a fictional Italian cashmere house, built around an illustrative AI stylist." />
+<meta name="robots" content="noindex" />
+<style>
+@font-face{font-family:'Cormorant Garamond';font-style:italic;font-weight:400;font-display:swap;src:url('fonts/ma-CormorantGaramond-400-italic.woff2') format('woff2')}
+@font-face{font-family:'Cormorant Garamond';font-style:normal;font-weight:300;font-display:swap;src:url('fonts/ma-CormorantGaramond-300-normal.woff2') format('woff2')}
+@font-face{font-family:'Cormorant Garamond';font-style:normal;font-weight:400;font-display:swap;src:url('fonts/ma-CormorantGaramond-400-normal.woff2') format('woff2')}
+@font-face{font-family:'Cormorant Garamond';font-style:normal;font-weight:600;font-display:swap;src:url('fonts/ma-CormorantGaramond-600-normal.woff2') format('woff2')}
+@font-face{font-family:'Manrope';font-style:normal;font-weight:300;font-display:swap;src:url('fonts/ma-Manrope-300-normal.woff2') format('woff2')}
+@font-face{font-family:'Manrope';font-style:normal;font-weight:400;font-display:swap;src:url('fonts/ma-Manrope-400-normal.woff2') format('woff2')}
+@font-face{font-family:'Manrope';font-style:normal;font-weight:600;font-display:swap;src:url('fonts/ma-Manrope-600-normal.woff2') format('woff2')}
+
+:root{
+  --ivory:#faf7f1;
+  --oat:#f2ece1;
+  --sand:#e8dfd0;
+  --clay:#ded2be;
+  --ink:#231f1a;
+  --ink-72:rgba(35,31,26,.72);
+  --ink-52:rgba(35,31,26,.52);
+  --ink-38:rgba(35,31,26,.38);
+  --line:rgba(35,31,26,.18);
+  --line-soft:rgba(35,31,26,.09);
+  --camel:#a97b47;
+  --camel-soft:#c9a877;
+  --serif:'Cormorant Garamond',Georgia,'Times New Roman',serif;
+  --sans:'Manrope','Helvetica Neue',Helvetica,Arial,sans-serif;
+  --head-h:64px;
+}
+
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{
+  background:var(--ivory);
+  color:var(--ink);
+  font-family:var(--sans);
+  font-weight:300;
+  font-size:15px;
+  line-height:1.7;
+  -webkit-font-smoothing:antialiased;
+  text-rendering:optimizeLegibility;
+  overflow-x:hidden;
+}
+img,svg{display:block;max-width:100%}
+::selection{background:var(--camel);color:var(--ivory)}
+:focus-visible{outline:2px solid var(--camel);outline-offset:4px;border-radius:1px}
+
+/* ---------------- shared ---------------- */
+.wrap{width:100%;max-width:1340px;margin:0 auto;padding:0 clamp(22px,4.2vw,64px)}
+.eyebrow{
+  font-size:10.5px;font-weight:600;letter-spacing:.3em;text-transform:uppercase;
+  color:var(--ink-52);
+}
+.serif{font-family:var(--serif);font-weight:300}
+h1,h2,h3,.display{font-family:var(--serif);font-weight:300;letter-spacing:-.012em}
+h2{font-size:clamp(34px,4.6vw,62px);line-height:1.03}
+h3{font-size:clamp(24px,2.6vw,34px);line-height:1.12}
+p{max-width:62ch}
+em{font-style:italic}
+a{color:inherit}
+hr.rule{border:0;border-top:1px solid var(--line)}
+section{padding:clamp(84px,10.5vw,152px) 0;scroll-margin-top:calc(var(--head-h) + 8px)}
+.lede{font-size:clamp(15px,1.15vw,17px);line-height:1.75;color:var(--ink-72);font-weight:300}
+.small{font-size:12.5px;line-height:1.65;color:var(--ink-52)}
+.sect-head{display:flex;flex-wrap:wrap;align-items:baseline;gap:14px 28px;margin-bottom:clamp(34px,4vw,54px)}
+.sect-head .eyebrow{flex:0 0 auto}
+.sect-head .hairline{flex:1 1 120px;height:1px;background:var(--line);transform:translateY(-5px)}
+
+/* reveal — gated so content is visible if JS never runs */
+.js-anim .rev{opacity:0;transform:translateY(26px)}
+.js-anim .ln-i{opacity:0;transform:translateY(30px)}
+
+/* ---------------- buttons ---------------- */
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:10px;
+  font-family:var(--sans);font-size:11px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;
+  padding:15px 30px;border:1px solid var(--ink);background:transparent;color:var(--ink);
+  text-decoration:none;cursor:pointer;border-radius:0;
+  transition:background .45s cubic-bezier(.16,1,.3,1),color .45s cubic-bezier(.16,1,.3,1),border-color .45s;
+}
+.btn:hover{background:var(--ink);color:var(--ivory)}
+.btn--solid{background:var(--ink);color:var(--ivory)}
+.btn--solid:hover{background:transparent;color:var(--ink)}
+.btn--ghost{border-color:var(--line);color:var(--ink-72)}
+.btn--ghost:hover{background:transparent;border-color:var(--ink);color:var(--ink)}
+.link-u{
+  display:inline-block;text-decoration:none;position:relative;padding-bottom:4px;
+  font-size:11px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;
+}
+.link-u::after{
+  content:"";position:absolute;left:0;bottom:0;width:100%;height:1px;background:currentColor;
+  transform:scaleX(1);transform-origin:right;transition:transform .5s cubic-bezier(.16,1,.3,1);
+}
+.link-u:hover::after{transform:scaleX(0)}
+
+/* ---------------- header ---------------- */
+.site-head{
+  position:fixed;top:0;left:0;right:0;z-index:80;height:var(--head-h);
+  display:flex;align-items:center;
+  background:rgba(250,247,241,0);
+  border-bottom:1px solid transparent;
+  transition:background .4s ease,border-color .4s ease;
+}
+.site-head.is-stuck{background:var(--ivory);border-bottom-color:var(--line-soft)}
+.head-in{display:flex;align-items:center;justify-content:space-between;gap:24px;width:100%}
+.wordmark{
+  font-family:var(--serif);font-weight:400;font-size:23px;letter-spacing:.26em;
+  text-transform:uppercase;text-decoration:none;line-height:1;padding-left:.26em;
+}
+.nav{display:flex;gap:clamp(18px,2.4vw,36px);align-items:center}
+.nav a{
+  font-size:10.5px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;
+  text-decoration:none;color:var(--ink-72);position:relative;padding:6px 0;
+  transition:color .3s ease;
+}
+.nav a::after{
+  content:"";position:absolute;left:0;bottom:2px;height:1px;width:100%;background:var(--camel);
+  transform:scaleX(0);transform-origin:left;transition:transform .45s cubic-bezier(.16,1,.3,1);
+}
+.nav a:hover{color:var(--ink)}
+.nav a:hover::after{transform:scaleX(1)}
+.head-cta{
+  font-size:10.5px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;
+  text-decoration:none;border:1px solid var(--line);padding:9px 18px;
+  transition:border-color .4s,background .4s,color .4s;
+}
+.head-cta:hover{background:var(--ink);border-color:var(--ink);color:var(--ivory)}
+.skip{position:absolute;left:-9999px;top:0}
+.skip:focus{left:12px;top:12px;background:var(--ink);color:var(--ivory);padding:10px 16px;z-index:200}
+
+/* ---------------- hero ---------------- */
+.hero{
+  min-height:100vh;display:flex;flex-direction:column;justify-content:center;
+  padding-top:calc(var(--head-h) + clamp(26px,4vw,52px));
+  padding-bottom:clamp(26px,3.4vw,44px);
+  position:relative;
+}
+.hero::before{
+  content:"";position:absolute;inset:0;z-index:-1;
+  background:
+    radial-gradient(120% 80% at 78% 6%,rgba(201,168,119,.16),transparent 58%),
+    radial-gradient(90% 70% at 4% 96%,rgba(222,210,190,.4),transparent 62%);
+}
+.hero-grid{
+  display:grid;grid-template-columns:minmax(0,1.42fr) minmax(0,1fr);
+  gap:clamp(34px,5vw,78px);align-items:center;
+}
+.hero h1{
+  font-size:clamp(44px,6.1vw,96px);line-height:1.05;margin:20px 0 30px;
+  letter-spacing:-.018em;
+}
+.hero h1 em{color:var(--camel)}
+.ln{display:block}
+.ln-i{display:block}
+.hero .lede{max-width:44ch}
+.hero-actions{display:flex;flex-wrap:wrap;gap:14px 18px;align-items:center;margin-top:clamp(26px,3vw,38px)}
+.hero-meta{
+  margin-top:clamp(38px,5vw,64px);
+  border-top:1px solid var(--line);padding-top:20px;
+  display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px 32px;
+}
+.hero-meta div{display:flex;flex-direction:column;gap:3px}
+.hero-meta dt,.hero-meta .k{font-size:10.5px;font-weight:600;letter-spacing:.24em;text-transform:uppercase;color:var(--ink-38)}
+.hero-meta .v{font-family:var(--serif);font-size:clamp(19px,1.6vw,25px);line-height:1.2}
+
+/* hero plate */
+.plate{
+  position:relative;overflow:hidden;border:1px solid var(--line);
+  height:clamp(340px,54vh,520px);
+  background:linear-gradient(158deg,#f5efe3 0%,#e9ddc7 44%,#d3b98f 100%);
+}
+.plate::after{
+  content:"";position:absolute;inset:0;
+  background:
+    radial-gradient(110% 70% at 26% 8%,rgba(255,255,255,.5),transparent 60%),
+    repeating-linear-gradient(90deg,rgba(255,255,255,.09) 0 2px,rgba(255,255,255,0) 2px 5px);
+  pointer-events:none;
+}
+.plate-fig{position:absolute;inset:0;display:grid;place-items:center;z-index:1}
+.plate-fig svg{height:70%;width:auto;color:rgba(60,46,30,.32)}
+.plate-tag{
+  position:absolute;top:14px;right:16px;z-index:2;
+  font-size:9.5px;font-weight:600;letter-spacing:.26em;text-transform:uppercase;color:rgba(60,46,30,.5);
+}
+.plate-cap{
+  position:absolute;left:16px;bottom:14px;z-index:2;max-width:calc(100% - 130px);
+  font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:rgba(45,35,22,.62);line-height:1.6;
+}
+.plate-chips{position:absolute;right:16px;bottom:15px;z-index:2;display:flex;gap:6px}
+.plate-chips i{width:22px;height:22px;border:1px solid rgba(60,46,30,.22);display:block}
+
+/* ---------------- house ---------------- */
+.house-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(30px,4.5vw,72px)}
+.house-grid h2{max-width:16ch}
+.house-cols{display:grid;gap:22px;align-content:start;padding-top:clamp(6px,1vw,14px)}
+.principles{
+  margin-top:clamp(50px,6vw,86px);
+  display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:0;
+  border-top:1px solid var(--line);
+}
+.principle{padding:30px clamp(18px,2.4vw,38px) 8px;border-right:1px solid var(--line-soft)}
+.principle:first-child{padding-left:0}
+.principle:last-child{border-right:0;padding-right:0}
+.principle .num{font-family:var(--serif);font-size:15px;letter-spacing:.16em;color:var(--camel);display:block;margin-bottom:12px}
+.principle h3{font-size:clamp(21px,2vw,27px);margin-bottom:10px}
+.principle p{font-size:14px;color:var(--ink-72);max-width:34ch}
+.stats{
+  margin-top:clamp(52px,6vw,88px);border-top:1px solid var(--line);border-bottom:1px solid var(--line);
+  display:grid;grid-template-columns:repeat(4,minmax(0,1fr));
+}
+.stat{padding:26px clamp(18px,2.2vw,32px) 24px;border-right:1px solid var(--line-soft)}
+.stat:first-child{padding-left:0}
+.stat:last-child{border-right:0;padding-right:0}
+.stat b{display:block;font-family:var(--serif);font-weight:300;font-size:clamp(30px,3.4vw,46px);line-height:1;margin-bottom:8px}
+.stat span{font-size:10.5px;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:var(--ink-38)}
+
+/* ---------------- stylist ---------------- */
+.stylist{background:var(--oat);border-top:1px solid var(--line-soft);border-bottom:1px solid var(--line-soft)}
+.stylist-intro{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);gap:clamp(26px,4vw,64px);align-items:end;margin-bottom:clamp(34px,4.4vw,56px)}
+.stylist-intro h2{max-width:14ch}
+.disclosure{
+  display:flex;gap:10px;align-items:flex-start;
+  font-size:12px;line-height:1.6;color:var(--ink-52);
+  border-left:1px solid var(--camel);padding:2px 0 2px 14px;max-width:46ch;
+}
+.panel{
+  background:var(--ivory);border:1px solid var(--line);
+  padding:clamp(24px,3.2vw,46px);
+}
+.progress{display:flex;align-items:center;gap:clamp(10px,1.6vw,22px);flex-wrap:wrap;margin-bottom:clamp(24px,3vw,38px)}
+.progress li{list-style:none;display:flex;align-items:center;gap:10px;flex:1 1 120px;min-width:0}
+.progress .dot{
+  flex:0 0 auto;width:9px;height:9px;border-radius:50%;border:1px solid var(--ink-38);background:transparent;
+  transition:background .4s ease,border-color .4s ease;
+}
+.progress li[data-state="done"] .dot{background:var(--camel);border-color:var(--camel)}
+.progress li[data-state="current"] .dot{background:var(--ink);border-color:var(--ink)}
+.progress .lbl{font-size:10px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--ink-38);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.progress li[data-state="current"] .lbl{color:var(--ink)}
+.progress li[data-state="done"] .lbl{color:var(--ink-52)}
+.progress .bar{flex:1 1 auto;height:1px;background:var(--line);min-width:12px}
+
+.stage{min-height:clamp(340px,42vh,420px);position:relative}
+.q-head{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:12px 20px;margin-bottom:clamp(20px,2.6vw,30px)}
+.q-head h3{font-size:clamp(26px,3.1vw,42px);max-width:20ch}
+.q-count{font-size:10.5px;font-weight:600;letter-spacing:.24em;text-transform:uppercase;color:var(--ink-38)}
+.opts{display:grid;grid-template-columns:repeat(auto-fit,minmax(196px,1fr));gap:clamp(12px,1.4vw,18px)}
+.opt{
+  display:flex;flex-direction:column;align-items:flex-start;gap:10px;text-align:left;
+  font-family:var(--sans);font-weight:300;
+  background:var(--ivory);border:1px solid var(--line);cursor:pointer;
+  padding:20px 20px 22px;color:var(--ink);
+  transition:border-color .4s cubic-bezier(.16,1,.3,1),background .4s,transform .5s cubic-bezier(.16,1,.3,1);
+}
+.opt:hover{border-color:var(--ink);transform:translateY(-3px)}
+.opt[aria-pressed="true"]{border-color:var(--ink);background:var(--sand)}
+.opt .opt-i{font-family:var(--serif);font-size:13px;letter-spacing:.2em;color:var(--camel)}
+.opt .opt-t{font-family:var(--serif);font-size:clamp(21px,2.1vw,27px);line-height:1.1;letter-spacing:-.01em}
+.opt .opt-d{font-size:12.5px;line-height:1.6;color:var(--ink-52)}
+.opt .chips{display:flex;gap:5px;margin-top:2px}
+.opt .chips i{width:26px;height:14px;display:block;border:1px solid rgba(35,31,26,.14)}
+.opt .wgt{display:flex;flex-direction:column;gap:4px;width:44px;margin-top:4px}
+.opt .wgt b{display:block;background:var(--ink-38);width:100%}
+.q-foot{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-top:clamp(22px,2.6vw,32px);flex-wrap:wrap}
+.back{
+  background:none;border:0;cursor:pointer;font-family:var(--sans);color:var(--ink-52);
+  font-size:10.5px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;padding:6px 0;
+}
+.back:hover{color:var(--ink)}
+.q-foot .hint{font-size:11.5px;color:var(--ink-38)}
+
+/* composing */
+.composing{display:flex;flex-direction:column;justify-content:center;align-items:flex-start;gap:18px;min-height:clamp(300px,38vh,380px)}
+.composing .display{font-size:clamp(28px,3.4vw,46px);line-height:1.1}
+.comp-bar{width:min(360px,100%);height:1px;background:var(--line);position:relative;overflow:hidden}
+.comp-bar i{position:absolute;inset:0;background:var(--camel);transform-origin:left;transform:scaleX(0)}
+
+/* look */
+.look-head{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:16px 28px;margin-bottom:clamp(22px,2.6vw,32px)}
+.look-head h3{font-size:clamp(28px,3.4vw,46px);max-width:18ch}
+.look-note{font-size:13px;color:var(--ink-52);max-width:40ch;margin-top:10px}
+.look-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(186px,1fr));gap:clamp(14px,1.6vw,22px)}
+.card{display:flex;flex-direction:column;gap:0}
+.tile{
+  position:relative;aspect-ratio:4/5;overflow:hidden;
+  border:1px solid var(--line-soft);
+  background:linear-gradient(155deg,var(--c1),var(--c2));
+  display:grid;place-items:center;
+}
+.tile::before{
+  content:"";position:absolute;inset:0;
+  background:radial-gradient(115% 72% at 28% 10%,rgba(255,255,255,.34),transparent 62%);
+}
+.tile::after{
+  content:"";position:absolute;inset:0;
+  background:repeating-linear-gradient(90deg,rgba(255,255,255,.085) 0 2px,rgba(255,255,255,0) 2px 5px);
+}
+.tile svg{position:relative;z-index:1;width:60%;height:auto}
+.tile[data-tone="light"] svg{color:rgba(46,38,28,.34)}
+.tile[data-tone="dark"] svg{color:rgba(255,255,255,.46)}
+.card .meta{padding-top:14px;display:flex;flex-direction:column;gap:5px}
+.card .role{font-size:9.5px;font-weight:600;letter-spacing:.24em;text-transform:uppercase;color:var(--ink-38)}
+.card .name{font-family:var(--serif);font-size:clamp(19px,1.7vw,23px);line-height:1.15}
+.card .fab{font-size:12px;color:var(--ink-52);line-height:1.55}
+.card .row{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:6px;padding-top:9px;border-top:1px solid var(--line-soft)}
+.card .col{display:flex;align-items:center;gap:8px;font-size:11.5px;color:var(--ink-52);min-width:0}
+.card .col i{flex:0 0 auto;width:11px;height:11px;border-radius:50%;border:1px solid rgba(35,31,26,.16)}
+.card .col span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.card .price{font-family:var(--serif);font-size:16px;white-space:nowrap}
+.look-foot{
+  margin-top:clamp(26px,3vw,38px);padding-top:20px;border-top:1px solid var(--line);
+  display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:16px 24px;
+}
+.total{display:flex;align-items:baseline;gap:12px}
+.total .k{font-size:10.5px;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:var(--ink-38)}
+.total .v{font-family:var(--serif);font-size:clamp(24px,2.4vw,32px)}
+.look-actions{display:flex;flex-wrap:wrap;gap:12px}
+
+/* ---------------- collection ---------------- */
+.coll-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(16px,2vw,34px)}
+
+/* ---------------- footer ---------------- */
+.site-foot{background:var(--ivory);border-top:1px solid var(--line);padding:clamp(72px,8vw,120px) 0 34px}
+.foot-cta{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,1fr);gap:clamp(28px,4vw,70px);align-items:end}
+.foot-cta h2{max-width:13ch}
+.foot-cta .lede{margin-bottom:26px}
+.foot-mid{margin-top:clamp(56px,6.5vw,96px);padding-top:26px;border-top:1px solid var(--line);
+  display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:26px}
+.foot-col h4{font-size:10px;font-weight:600;letter-spacing:.24em;text-transform:uppercase;color:var(--ink-38);margin-bottom:12px;font-family:var(--sans)}
+.foot-col ul{list-style:none;display:flex;flex-direction:column;gap:7px}
+.foot-col a,.foot-col li{font-size:13px;color:var(--ink-72);text-decoration:none}
+.foot-col a:hover{color:var(--ink)}
+.foot-bot{
+  margin-top:clamp(44px,5vw,72px);padding-top:20px;border-top:1px solid var(--line-soft);
+  display:flex;flex-wrap:wrap;gap:8px 26px;align-items:center;justify-content:space-between;
+}
+.foot-bot p{font-size:11.5px;color:var(--ink-38);letter-spacing:.04em;max-width:none}
+
+/* ---------------- responsive ---------------- */
+@media (max-width:1080px){
+  .hero-grid{grid-template-columns:1fr;gap:34px}
+  .plate{height:clamp(300px,42vh,400px)}
+  .house-grid,.stylist-intro,.foot-cta{grid-template-columns:1fr;gap:26px}
+  .principles{grid-template-columns:1fr;border-top:1px solid var(--line)}
+  .principle{border-right:0;border-bottom:1px solid var(--line-soft);padding:24px 0 22px}
+  .principle:last-child{border-bottom:0}
+  .stats{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .stat:nth-child(2){border-right:0;padding-right:0}
+  .stat:nth-child(3){padding-left:0}
+  .stat:nth-child(1),.stat:nth-child(2){border-bottom:1px solid var(--line-soft)}
+  .coll-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .foot-mid{grid-template-columns:repeat(2,minmax(0,1fr));gap:30px}
+}
+@media (max-width:760px){
+  .nav{display:none}
+  .hero{min-height:auto;padding-bottom:clamp(48px,8vw,72px)}
+  .hero-meta{grid-template-columns:1fr;gap:16px}
+  .hero-meta div{flex-direction:row;justify-content:space-between;align-items:baseline;gap:16px;
+    border-bottom:1px solid var(--line-soft);padding-bottom:12px}
+  .hero-meta div:last-child{border-bottom:0}
+  .opts{grid-template-columns:1fr}
+  .look-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .coll-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .card .col{font-size:10.5px;gap:6px}
+  .card .price{font-size:14px}
+  .progress{gap:10px 16px}
+  .progress .bar{display:none}
+  .progress li{flex:0 0 auto}
+  .stage{min-height:0}
+  .composing{min-height:240px}
+}
+@media (max-width:440px){
+  .wordmark{font-size:19px;letter-spacing:.2em}
+  .head-cta{padding:8px 12px;letter-spacing:.14em}
+  .btn{padding:14px 22px}
+}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{animation-duration:.001ms !important;transition-duration:.001ms !important}
+}
+</style>
+</head>
+<body>
+<script>
+  if (!matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    document.documentElement.classList.add('js-anim');
+  }
+</script>
+
+<!-- garment line-drawings, reused by the collection and the stylist -->
+<svg width="0" height="0" aria-hidden="true" focusable="false" style="position:absolute">
+  <defs>
+    <g id="sh" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"></g>
+  </defs>
+  <symbol id="g-coat" viewBox="0 0 120 160" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round">
+    <path d="M44 26 L28 34 L14 50 L7 114 L24 119 L33 82 L27 152 L93 152 L87 82 L96 119 L113 114 L106 50 L92 34 L76 26 Z"/>
+    <path d="M44 26 L60 54 L76 26"/>
+    <path d="M60 54 L60 152"/>
+    <path d="M9 106 L25 111"/><path d="M111 106 L95 111"/>
+    <path d="M38 108 L50 108"/><path d="M70 108 L82 108"/>
+  </symbol>
+  <symbol id="g-knit" viewBox="0 0 120 160" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round">
+    <path d="M44 28 L30 34 L16 48 L8 98 L24 104 L32 74 L32 144 L88 144 L88 74 L96 104 L112 98 L104 48 L90 34 L76 28 Z"/>
+    <path d="M44 28 Q60 43 76 28"/>
+    <path d="M16 94 L27 99"/><path d="M104 94 L93 99"/>
+    <path d="M32 134 L88 134"/>
+  </symbol>
+  <symbol id="g-cardigan" viewBox="0 0 120 160" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round">
+    <path d="M44 28 L30 34 L16 48 L8 98 L24 104 L32 74 L32 144 L88 144 L88 74 L96 104 L112 98 L104 48 L90 34 L76 28 Z"/>
+    <path d="M44 28 L60 40 L76 28"/>
+    <path d="M60 40 L60 144"/>
+    <circle cx="60" cy="60" r="2.6"/><circle cx="60" cy="82" r="2.6"/>
+    <circle cx="60" cy="104" r="2.6"/><circle cx="60" cy="126" r="2.6"/>
+  </symbol>
+  <symbol id="g-shirt" viewBox="0 0 120 160" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round">
+    <path d="M44 24 L28 32 L14 46 L8 94 L22 100 L30 70 L30 142 L90 142 L90 70 L98 100 L112 94 L106 46 L92 32 L76 24 Z"/>
+    <path d="M44 24 L53 40 L60 46 L67 40 L76 24"/>
+    <path d="M60 46 L60 142"/>
+  </symbol>
+  <symbol id="g-trouser" viewBox="0 0 120 160" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round">
+    <path d="M28 22 L92 22 L96 148 L70 148 L60 80 L50 148 L24 148 Z"/>
+    <path d="M28 36 L92 36"/>
+    <path d="M44 42 L40 142"/><path d="M76 42 L80 142"/>
+  </symbol>
+  <symbol id="g-skirt" viewBox="0 0 120 160" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round">
+    <path d="M34 24 L86 24 L104 148 L16 148 Z"/>
+    <path d="M34 38 L86 38"/>
+    <path d="M52 44 Q47 100 40 148"/><path d="M68 44 Q73 100 80 148"/>
+  </symbol>
+  <symbol id="g-scarf" viewBox="0 0 120 160" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round">
+    <path d="M26 18 L54 18 L54 122 L26 122 Z"/>
+    <path d="M31 122 L31 136"/><path d="M38 122 L38 136"/><path d="M45 122 L45 136"/><path d="M51 122 L51 136"/>
+    <path d="M62 18 L90 18 L90 104 L62 104 Z"/>
+    <path d="M67 104 L67 118"/><path d="M74 104 L74 118"/><path d="M81 104 L81 118"/><path d="M87 104 L87 118"/>
+  </symbol>
+  <symbol id="g-hat" viewBox="0 0 120 160" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round">
+    <circle cx="60" cy="30" r="9"/>
+    <path d="M28 104 Q28 42 60 42 Q92 42 92 104 Z"/>
+    <rect x="22" y="104" width="76" height="26"/>
+    <path d="M42 104 L42 130"/><path d="M60 104 L60 130"/><path d="M78 104 L78 130"/>
+  </symbol>
+</svg>
+
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="site-head" id="head">
+  <div class="wrap head-in">
+    <a class="wordmark" href="#top" aria-label="Marengo, home">Marengo</a>
+    <nav class="nav" aria-label="Primary">
+      <a href="#house">The House</a>
+      <a href="#stylist">The Stylist</a>
+      <a href="#collection">Collection</a>
+      <a href="#workshop">Workshop</a>
+    </nav>
+    <a class="head-cta" href="#stylist">Begin</a>
+  </div>
+</header>
+
+<main id="main">
+
+  <!-- ============ HERO ============ -->
+  <section class="hero" id="top">
+    <div class="wrap">
+      <div class="hero-grid">
+        <div class="hero-copy">
+          <p class="eyebrow rev">Colle Marengo · Umbria · since 1974</p>
+          <h1>
+            <span class="ln"><span class="ln-i">Cashmere that</span></span>
+            <span class="ln"><span class="ln-i">learns the <em>shape</em></span></span>
+            <span class="ln"><span class="ln-i">of a life.</span></span>
+          </h1>
+          <p class="lede rev">Four generations of hand-finishing in one Umbrian workshop. Fifty-eight pieces a day, no more — thread keeps its own pace, and we have never found a decent way to hurry it.</p>
+          <div class="hero-actions rev">
+            <a class="btn btn--solid" href="#stylist">Meet the stylist</a>
+            <a class="link-u" href="#house">Read the house</a>
+          </div>
+        </div>
+
+        <figure class="plate rev" role="img" aria-label="Illustration: a line drawing of the Cappotto Solaia coat over a field of camel and oat tones.">
+          <span class="plate-tag">Fig. 01</span>
+          <div class="plate-fig"><svg viewBox="0 0 120 160" aria-hidden="true"><use href="#g-coat"/></svg></div>
+          <figcaption class="plate-cap">Cappotto Solaia — 6-ply, hand-felled</figcaption>
+          <div class="plate-chips" aria-hidden="true">
+            <i style="background:#b0824f"></i><i style="background:#e2d6c0"></i><i style="background:#9c9a94"></i>
+          </div>
+        </figure>
+      </div>
+
+      <dl class="hero-meta rev">
+        <div><dt class="k">The workshop</dt><dd class="v">Colle Marengo</dd></div>
+        <div><dt class="k">Daily count</dt><dd class="v">58 pieces</dd></div>
+        <div><dt class="k">The fibre</dt><dd class="v">Long-staple, 2 to 6-ply</dd></div>
+      </dl>
+    </div>
+  </section>
+
+  <!-- ============ HOUSE ============ -->
+  <section id="house">
+    <div class="wrap">
+      <div class="sect-head rev"><span class="eyebrow">The house</span><span class="hairline"></span></div>
+
+      <div class="house-grid" data-rev-group>
+        <h2 class="rev">Fifty-eight pieces a day, and not one more.</h2>
+        <div class="house-cols">
+          <p class="lede rev">Marengo began in 1974 in a converted grain store on the hill at Colle Marengo, forty minutes above Perugia. Two rooms, eleven people, a single linking machine. The building is larger now and the machines are quieter, but the daily count has barely moved.</p>
+          <p class="lede rev">We buy fibre once a year from the same four herds, and we let the cloth rest between stages — a habit inherited from the founder's mother, who held that knitwear, like bread, is ruined by hurry.</p>
+        </div>
+      </div>
+
+      <div class="principles" data-rev-group>
+        <article class="principle rev">
+          <span class="num">01</span>
+          <h3>Fibre</h3>
+          <p>Long-staple and undyed at intake, sorted by hand into eleven natural tones before a single thread is spun.</p>
+        </article>
+        <article class="principle rev">
+          <span class="num">02</span>
+          <h3>Hand</h3>
+          <p>Every seam is linked by a person. Every finished piece is worn for an hour by the person who made it, then folded.</p>
+        </article>
+        <article class="principle rev">
+          <span class="num">03</span>
+          <h3>Time</h3>
+          <p>Six weeks from spin to shelf. We have twice been asked to halve it, and have twice declined.</p>
+        </article>
+      </div>
+
+      <div class="stats" data-rev-group>
+        <div class="stat rev"><b>1974</b><span>The first room</span></div>
+        <div class="stat rev"><b>58</b><span>Pieces per day</span></div>
+        <div class="stat rev"><b>11</b><span>Undyed tones</span></div>
+        <div class="stat rev"><b>6 wks</b><span>Spin to shelf</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ STYLIST ============ -->
+  <section class="stylist" id="stylist">
+    <div class="wrap">
+      <div class="sect-head rev"><span class="eyebrow">Concept</span><span class="hairline"></span></div>
+
+      <div class="stylist-intro" data-rev-group>
+        <h2 class="rev">The Marengo Stylist.</h2>
+        <div class="rev">
+          <p class="lede" style="margin-bottom:18px">A small experiment in how a house might advise from a distance. Three questions, one composed look, drawn from a fixed catalogue of forty pieces.</p>
+          <p class="disclosure"><span aria-hidden="true">✳</span> Styling suggestions are illustrative — a concept demonstration. There is no model and no network request; everything runs in your browser.</p>
+        </div>
+      </div>
+
+      <div class="panel rev">
+        <ol class="progress" id="progress" aria-hidden="true">
+          <li data-step="occasion" data-state="current"><span class="dot"></span><span class="lbl">01 Occasion</span><span class="bar"></span></li>
+          <li data-step="palette"><span class="dot"></span><span class="lbl">02 Palette</span><span class="bar"></span></li>
+          <li data-step="weight"><span class="dot"></span><span class="lbl">03 Weight</span></li>
+        </ol>
+
+        <div class="stage" id="stage" aria-live="polite">
+
+          <!-- step 1 -->
+          <div data-panel="q1">
+            <div class="q-head">
+              <h3>Where is this going to be worn?</h3>
+              <span class="q-count">Question one of three</span>
+            </div>
+            <div class="opts">
+              <button type="button" class="opt" data-step="occasion" data-value="lunch" aria-pressed="false">
+                <span class="opt-i">I</span>
+                <span class="opt-t">A long lunch</span>
+                <span class="opt-d">Ease that reads as intention — something you can sit in for three hours.</span>
+              </button>
+              <button type="button" class="opt" data-step="occasion" data-value="office" aria-pressed="false">
+                <span class="opt-i">II</span>
+                <span class="opt-t">The office</span>
+                <span class="opt-d">Structure without stiffness; layers that survive a full day of rooms.</span>
+              </button>
+              <button type="button" class="opt" data-step="occasion" data-value="travel" aria-pressed="false">
+                <span class="opt-i">III</span>
+                <span class="opt-t">Travelling</span>
+                <span class="opt-d">Folds small, creases little, and doubles as a blanket at altitude.</span>
+              </button>
+              <button type="button" class="opt" data-step="occasion" data-value="evening" aria-pressed="false">
+                <span class="opt-i">IV</span>
+                <span class="opt-t">An evening</span>
+                <span class="opt-d">Low light, low shine. Depth in place of decoration.</span>
+              </button>
+            </div>
+            <div class="q-foot">
+              <span></span>
+              <span class="hint">Choose one to continue.</span>
+            </div>
+          </div>
+
+          <!-- step 2 -->
+          <div data-panel="q2" hidden>
+            <div class="q-head">
+              <h3>Which way should the colour lean?</h3>
+              <span class="q-count">Question two of three</span>
+            </div>
+            <div class="opts">
+              <button type="button" class="opt" data-step="palette" data-value="warm" aria-pressed="false">
+                <span class="chips" aria-hidden="true"><i style="background:#e2d6c0"></i><i style="background:#c39a68"></i><i style="background:#a97b47"></i></span>
+                <span class="opt-t">Warm neutrals</span>
+                <span class="opt-d">Oat, sand and camel, kept close together in tone.</span>
+              </button>
+              <button type="button" class="opt" data-step="palette" data-value="cool" aria-pressed="false">
+                <span class="chips" aria-hidden="true"><i style="background:#e4e2dd"></i><i style="background:#c8c6c0"></i><i style="background:#8d8b86"></i></span>
+                <span class="opt-t">Cool stone</span>
+                <span class="opt-d">Chalk and grey, with the temperature pulled quietly down.</span>
+              </button>
+              <button type="button" class="opt" data-step="palette" data-value="deep" aria-pressed="false">
+                <span class="chips" aria-hidden="true"><i style="background:#2f333a"></i><i style="background:#6d3a3c"></i><i style="background:#3f4a40"></i></span>
+                <span class="opt-t">Deep tones</span>
+                <span class="opt-d">Ink, bordeaux and forest, weighted at the base of the look.</span>
+              </button>
+            </div>
+            <div class="q-foot">
+              <button type="button" class="back" data-back>← Back</button>
+              <span class="hint">Choose one to continue.</span>
+            </div>
+          </div>
+
+          <!-- step 3 -->
+          <div data-panel="q3" hidden>
+            <div class="q-head">
+              <h3>And how heavy should it feel?</h3>
+              <span class="q-count">Question three of three</span>
+            </div>
+            <div class="opts">
+              <button type="button" class="opt" data-step="weight" data-value="light" aria-pressed="false">
+                <span class="wgt" aria-hidden="true"><b style="height:1px"></b><b style="height:1px"></b><b style="height:1px"></b></span>
+                <span class="opt-t">Featherweight</span>
+                <span class="opt-d">Two-ply and gauze, for rooms that are already warm.</span>
+              </button>
+              <button type="button" class="opt" data-step="weight" data-value="mid" aria-pressed="false">
+                <span class="wgt" aria-hidden="true"><b style="height:2px"></b><b style="height:2px"></b><b style="height:2px"></b></span>
+                <span class="opt-t">Mid-weight</span>
+                <span class="opt-d">Three and four-ply — the year-round register of the house.</span>
+              </button>
+              <button type="button" class="opt" data-step="weight" data-value="heavy" aria-pressed="false">
+                <span class="wgt" aria-hidden="true"><b style="height:4px"></b><b style="height:4px"></b><b style="height:4px"></b></span>
+                <span class="opt-t">Heavy</span>
+                <span class="opt-d">Six-ply and brushed, built for cold air and long walks.</span>
+              </button>
+            </div>
+            <div class="q-foot">
+              <button type="button" class="back" data-back>← Back</button>
+              <span class="hint">Choose one to see the look.</span>
+            </div>
+          </div>
+
+          <!-- composing -->
+          <div data-panel="composing" hidden>
+            <div class="composing">
+              <span class="eyebrow">One moment</span>
+              <p class="display">Composing the look…</p>
+              <div class="comp-bar" id="compBar"><i></i></div>
+            </div>
+          </div>
+
+          <!-- result -->
+          <div data-panel="look" hidden>
+            <div class="look-head">
+              <div>
+                <span class="eyebrow">Your look</span>
+                <h3 id="lookTitle" style="margin-top:10px">—</h3>
+                <p class="look-note" id="lookNote"></p>
+              </div>
+              <button type="button" class="back" data-back>← Change the weight</button>
+            </div>
+            <div class="look-grid" id="lookGrid"></div>
+            <div class="look-foot">
+              <div class="total"><span class="k">The four pieces</span><span class="v" id="lookTotal">—</span></div>
+              <div class="look-actions">
+                <button type="button" class="btn" id="again">Start again</button>
+                <a class="btn btn--ghost" href="#collection">See the collection</a>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ COLLECTION ============ -->
+  <section id="collection">
+    <div class="wrap">
+      <div class="sect-head rev"><span class="eyebrow">The collection</span><span class="hairline"></span></div>
+      <div class="house-grid rev" style="margin-bottom:clamp(34px,4vw,54px)">
+        <h2>Autumn, in eleven undyed tones.</h2>
+        <div class="house-cols">
+          <p class="lede">Nothing here is dyed to match a season. The colours are the colours the fibre arrived in, sorted by eye on a table beside the window.</p>
+        </div>
+      </div>
+
+      <div class="coll-grid" data-rev-group>
+        <article class="card rev">
+          <div class="tile" data-tone="light" style="--c1:#c9a877;--c2:#a97b47">
+            <svg viewBox="0 0 120 160" role="img" aria-label="Line drawing of a long coat"><use href="#g-coat"/></svg>
+          </div>
+          <div class="meta">
+            <span class="role">Outer layer</span>
+            <span class="name">Cappotto Solaia</span>
+            <span class="fab">6-ply cashmere, hand-felled seams</span>
+            <span class="row"><span class="col"><i style="background:#b0824f"></i><span>Camel Bruciato</span></span><span class="price">€ 3.450</span></span>
+          </div>
+        </article>
+
+        <article class="card rev">
+          <div class="tile" data-tone="light" style="--c1:#eee3cd;--c2:#cbbb9e">
+            <svg viewBox="0 0 120 160" role="img" aria-label="Line drawing of a crewneck sweater"><use href="#g-knit"/></svg>
+          </div>
+          <div class="meta">
+            <span class="role">Knitwear</span>
+            <span class="name">Maglia Bruma</span>
+            <span class="fab">4-ply crewneck, rested twice</span>
+            <span class="row"><span class="col"><i style="background:#e2d6c0"></i><span>Avena</span></span><span class="price">€ 880</span></span>
+          </div>
+        </article>
+
+        <article class="card rev">
+          <div class="tile" data-tone="dark" style="--c1:#3b4048;--c2:#1c1e23">
+            <svg viewBox="0 0 120 160" role="img" aria-label="Line drawing of a roll-neck sweater"><use href="#g-knit"/></svg>
+          </div>
+          <div class="meta">
+            <span class="role">Knitwear</span>
+            <span class="name">Dolcevita Notte</span>
+            <span class="fab">3-ply roll neck, double-turn collar</span>
+            <span class="row"><span class="col"><i style="background:#2e3138"></i><span>Inchiostro</span></span><span class="price">€ 960</span></span>
+          </div>
+        </article>
+
+        <article class="card rev">
+          <div class="tile" data-tone="light" style="--c1:#a5a39d;--c2:#7c7a74">
+            <svg viewBox="0 0 120 160" role="img" aria-label="Line drawing of wide-leg trousers"><use href="#g-trouser"/></svg>
+          </div>
+          <div class="meta">
+            <span class="role">Trouser</span>
+            <span class="name">Pantalone Riposo</span>
+            <span class="fab">4-ply knitted wide leg, drawcord</span>
+            <span class="row"><span class="col"><i style="background:#8d8b86"></i><span>Grigio Fumo</span></span><span class="price">€ 1.120</span></span>
+          </div>
+        </article>
+
+        <article class="card rev">
+          <div class="tile" data-tone="light" style="--c1:#e6ded0;--c2:#bdb4a2">
+            <svg viewBox="0 0 120 160" role="img" aria-label="Line drawing of a scarf"><use href="#g-scarf"/></svg>
+          </div>
+          <div class="meta">
+            <span class="role">Accessory</span>
+            <span class="name">Sciarpa Nebbia</span>
+            <span class="fab">6-ply brushed, 210cm</span>
+            <span class="row"><span class="col"><i style="background:#d9d2c4"></i><span>Nebbia</span></span><span class="price">€ 480</span></span>
+          </div>
+        </article>
+
+        <article class="card rev">
+          <div class="tile" data-tone="dark" style="--c1:#4c5a4c;--c2:#2b332c">
+            <svg viewBox="0 0 120 160" role="img" aria-label="Line drawing of a long skirt"><use href="#g-skirt"/></svg>
+          </div>
+          <div class="meta">
+            <span class="role">Skirt</span>
+            <span class="name">Gonna Serale</span>
+            <span class="fab">4-ply bias, weighted hem</span>
+            <span class="row"><span class="col"><i style="background:#3f4a40"></i><span>Verde Bosco</span></span><span class="price">€ 1.240</span></span>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- ============ FOOTER ============ -->
+<footer class="site-foot" id="workshop">
+  <div class="wrap">
+    <div class="foot-cta" data-rev-group>
+      <h2 class="rev">Come and sit in the workshop.</h2>
+      <div class="rev">
+        <p class="lede">Two chairs are kept by the linking room for anyone who wants to watch a shoulder go together. No appointment needed — but do write first, so someone puts the coffee on.</p>
+        <a class="btn btn--solid" href="#stylist">Begin with the stylist</a>
+      </div>
+    </div>
+
+    <div class="foot-mid">
+      <div class="foot-col">
+        <h4>The house</h4>
+        <ul>
+          <li><a href="#house">Our story</a></li>
+          <li><a href="#house">The workshop</a></li>
+          <li><a href="#house">Fibre &amp; sourcing</a></li>
+        </ul>
+      </div>
+      <div class="foot-col">
+        <h4>Collection</h4>
+        <ul>
+          <li><a href="#collection">Knitwear</a></li>
+          <li><a href="#collection">Outerwear</a></li>
+          <li><a href="#collection">Accessories</a></li>
+        </ul>
+      </div>
+      <div class="foot-col">
+        <h4>Care</h4>
+        <ul>
+          <li><a href="#workshop">Repairs, for life</a></li>
+          <li><a href="#workshop">Washing by hand</a></li>
+          <li><a href="#workshop">Re-knitting service</a></li>
+        </ul>
+      </div>
+      <div class="foot-col">
+        <h4>Visit</h4>
+        <ul>
+          <li>Via del Grano 4</li>
+          <li>Colle Marengo, Umbria</li>
+          <li>Tuesday to Saturday</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="foot-bot">
+      <p>© 1974–2026 Marengo. A fictional house. Concept site — portfolio demonstration</p>
+      <p>Styling suggestions are illustrative. No data leaves this page.</p>
+    </div>
+  </div>
+</footer>
+
+<script src="/demos/_vendor/gsap/gsap.min.js"></script>
+<script src="/demos/_vendor/gsap/ScrollTrigger.min.js"></script>
+<script>
+(function () {
+  'use strict';
+
+  var root = document.documentElement;
+  var ANIM = root.classList.contains('js-anim');
+  var hasGSAP = typeof window.gsap !== 'undefined';
+
+  // If GSAP never arrived, nothing must stay hidden.
+  if (!hasGSAP) { root.classList.remove('js-anim'); ANIM = false; }
+
+  /* ---------------------------------------------------------------
+     CATALOGUE — fixed, local, no network. Prices in EUR.
+     --------------------------------------------------------------- */
+  var CATALOGUE = [
+    /* --- outer --- */
+    {id:'solaia',    kind:'outer', role:'Outer layer', shape:'g-coat',      name:'Cappotto Solaia',    fabric:'6-ply cashmere, hand-felled seams', colour:'Camel Bruciato', hex:'#b0824f', c1:'#c9a877', c2:'#a06f3c', tone:'light', price:3450, occ:['lunch','evening','travel'], pal:['warm','deep'], wt:['heavy','mid']},
+    {id:'fienile',   kind:'outer', role:'Outer layer', shape:'g-cardigan',  name:'Giacca Fienile',     fabric:'4-ply double-face, unlined',        colour:'Grigio Pietra',  hex:'#9c9a94', c1:'#b3b1aa', c2:'#7c7a74', tone:'light', price:2180, occ:['office','lunch'],           pal:['cool'],        wt:['mid','heavy']},
+    {id:'riva',      kind:'outer', role:'Outer layer', shape:'g-coat',      name:'Mantella Riva',      fabric:'2-ply travel wrap, self-folding',   colour:'Nebbia',         hex:'#ddd6c8', c1:'#efe9dd', c2:'#c3b9a6', tone:'light', price:1290, occ:['travel','lunch'],           pal:['warm','cool'], wt:['light','mid']},
+    {id:'orto',      kind:'outer', role:'Outer layer', shape:'g-cardigan',  name:'Cardigan Orto',      fabric:'3-ply ribbed, horn buttons',        colour:'Inchiostro',     hex:'#333a41', c1:'#3f4650', c2:'#20262c', tone:'dark',  price:1540, occ:['evening','office'],         pal:['deep'],        wt:['mid','light']},
+
+    /* --- knit / top --- */
+    {id:'bruma',     kind:'knit',  role:'Knitwear',    shape:'g-knit',      name:'Maglia Bruma',       fabric:'4-ply crewneck, rested twice',      colour:'Avena',          hex:'#e2d6c0', c1:'#eee3cd', c2:'#cbbb9e', tone:'light', price:880,  occ:['lunch','travel','office'],  pal:['warm'],        wt:['mid']},
+    {id:'notte',     kind:'knit',  role:'Knitwear',    shape:'g-knit',      name:'Dolcevita Notte',    fabric:'3-ply roll neck, double-turn collar',colour:'Inchiostro',    hex:'#2e3138', c1:'#3b4048', c2:'#1c1e23', tone:'dark',  price:960,  occ:['evening','office'],         pal:['deep'],        wt:['mid','light']},
+    {id:'ghiaccio',  kind:'knit',  role:'Knitwear',    shape:'g-knit',      name:'Maglia Ghiaccio',    fabric:'2-ply fine gauge, rolled edge',     colour:'Pietra Chiara',  hex:'#c8c6c0', c1:'#dad8d2', c2:'#a9a7a1', tone:'light', price:740,  occ:['office','travel'],          pal:['cool'],        wt:['light']},
+    {id:'vento',     kind:'knit',  role:'Knitwear',    shape:'g-shirt',     name:'Polo Vento',         fabric:'2-ply short placket, ribbed cuff',  colour:'Sabbia',         hex:'#d8c9ae', c1:'#e7dbc3', c2:'#bfae8d', tone:'light', price:820,  occ:['lunch','travel'],           pal:['warm'],        wt:['light']},
+    {id:'lino',      kind:'knit',  role:'Knitwear',    shape:'g-shirt',     name:'Camicia Sera',       fabric:'Cashmere-linen, soft collar',       colour:'Bianco Latte',   hex:'#f0ebe0', c1:'#f7f3ea', c2:'#ddd5c5', tone:'light', price:690,  occ:['lunch','office','travel'],  pal:['cool','warm'], wt:['light']},
+    {id:'bordo',     kind:'knit',  role:'Knitwear',    shape:'g-knit',      name:'Maglia Bordo',       fabric:'4-ply saddle shoulder, brushed',    colour:'Bordeaux Scuro', hex:'#6d3a3c', c1:'#7d4547', c2:'#4e2729', tone:'dark',  price:940,  occ:['evening','lunch'],          pal:['deep','warm'], wt:['mid','heavy']},
+
+    /* --- lower --- */
+    {id:'riposo',    kind:'lower', role:'Trouser',     shape:'g-trouser',   name:'Pantalone Riposo',   fabric:'4-ply knitted wide leg, drawcord',  colour:'Grigio Fumo',    hex:'#8d8b86', c1:'#a5a39d', c2:'#6f6d69', tone:'light', price:1120, occ:['lunch','office','travel'],  pal:['cool'],        wt:['mid']},
+    {id:'cammello',  kind:'lower', role:'Trouser',     shape:'g-trouser',   name:'Pantalone Cammello', fabric:'3-ply tapered, single pleat',       colour:'Cammello',       hex:'#c39a68', c1:'#d2ad80', c2:'#a37b4c', tone:'light', price:1180, occ:['lunch','office','evening'], pal:['warm'],        wt:['mid','light']},
+    {id:'viaggio',   kind:'lower', role:'Trouser',     shape:'g-trouser',   name:'Pantalone Viaggio',  fabric:'2-ply jersey, flat waist',          colour:'Avena Chiara',   hex:'#e6dcc9', c1:'#f0e8d8', c2:'#cfc2a8', tone:'light', price:890,  occ:['travel'],                   pal:['warm','cool'], wt:['light']},
+    {id:'serale',    kind:'lower', role:'Skirt',       shape:'g-skirt',     name:'Gonna Serale',       fabric:'4-ply bias, weighted hem',          colour:'Verde Bosco',    hex:'#3f4a40', c1:'#4c5a4c', c2:'#2b332c', tone:'dark',  price:1240, occ:['evening','office'],         pal:['deep'],        wt:['mid','heavy']},
+
+    /* --- accessory --- */
+    {id:'nebbia',    kind:'accessory', role:'Accessory', shape:'g-scarf',   name:'Sciarpa Nebbia',     fabric:'6-ply brushed, 210cm',              colour:'Nebbia',         hex:'#d9d2c4', c1:'#e6ded0', c2:'#bdb4a2', tone:'light', price:480,  occ:['travel','lunch','office'],  pal:['cool','warm'], wt:['heavy','mid']},
+    {id:'stola',     kind:'accessory', role:'Accessory', shape:'g-scarf',   name:'Stola Marengo',      fabric:'2-ply gauze stole, hand-rolled',    colour:'Cipria',         hex:'#e0cfc0', c1:'#ecdfd2', c2:'#c9b4a2', tone:'light', price:390,  occ:['evening','lunch'],          pal:['warm'],        wt:['light']},
+    {id:'inchio',    kind:'accessory', role:'Accessory', shape:'g-scarf',   name:'Sciarpa Inchiostro', fabric:'4-ply ribbed, 190cm',               colour:'Inchiostro',     hex:'#2f333a', c1:'#3d424a', c2:'#1d2026', tone:'dark',  price:440,  occ:['evening','office'],         pal:['deep'],        wt:['mid','heavy']},
+    {id:'berretto',  kind:'accessory', role:'Accessory', shape:'g-hat',     name:'Berretto Colle',     fabric:'6-ply rib, turned brim',            colour:'Grigio Pietra',  hex:'#a3a09a', c1:'#b6b3ad', c2:'#847f79', tone:'light', price:280,  occ:['travel','evening'],         pal:['cool','deep'], wt:['heavy','mid']}
+  ];
+
+  var COPY = {
+    occasion: {
+      lunch:   {label:'A long lunch',  note:'Ease that reads as intention.'},
+      office:  {label:'The office',    note:'Structure without stiffness.'},
+      travel:  {label:'Travelling',    note:'Folds small, creases little.'},
+      evening: {label:'An evening',    note:'Depth in place of decoration.'}
+    },
+    palette: {
+      warm: {label:'warm neutrals', note:'Oat, sand and camel, held close in tone.'},
+      cool: {label:'cool stone',    note:'Chalk and grey, temperature pulled down.'},
+      deep: {label:'deep tones',    note:'Ink, bordeaux and forest, weighted low.'}
+    },
+    weight: {
+      light: {label:'featherweight', note:'Two-ply and gauze, for warm rooms.'},
+      mid:   {label:'mid-weight',    note:'Three and four-ply — the year-round register.'},
+      heavy: {label:'heavy',         note:'Six-ply and brushed, built for cold air.'}
+    }
+  };
+
+  var euro = function (n) {
+    try { return '€ ' + new Intl.NumberFormat('it-IT', {useGrouping: true}).format(n); }
+    catch (e) { return '€ ' + n; }
+  };
+
+  /* ---------------------------------------------------------------
+     STYLIST STATE MACHINE
+     --------------------------------------------------------------- */
+  var state = {occasion:null, palette:null, weight:null};
+  var ORDER = ['q1','q2','q3','composing','look'];
+
+  var stage    = document.getElementById('stage');
+  var progress = document.getElementById('progress');
+  if (!stage) return;
+
+  var panels = {};
+  Array.prototype.forEach.call(stage.querySelectorAll('[data-panel]'), function (p) {
+    panels[p.dataset.panel] = p;
+  });
+
+  var current = 'q1';
+  var busy = false;
+  var compTimer = null;
+
+  function setProgress() {
+    if (!progress) return;
+    var keys = ['occasion','palette','weight'];
+    var activeIndex = current === 'q1' ? 0 : current === 'q2' ? 1 : 2;
+    Array.prototype.forEach.call(progress.children, function (li, i) {
+      var done = state[keys[i]] !== null;
+      var isCurrent = (current === 'q1' || current === 'q2' || current === 'q3') && i === activeIndex;
+      li.setAttribute('data-state', isCurrent ? 'current' : (done ? 'done' : ''));
+    });
+  }
+
+  function reveal(el) {
+    el.hidden = false;
+    if (!ANIM || !hasGSAP) return;
+    var kids = el.querySelectorAll('.opt, .card, .q-head, .look-head, .look-foot, .q-foot, .composing > *');
+    gsap.fromTo(el, {opacity:0, y:16}, {opacity:1, y:0, duration:.5, ease:'power3.out'});
+    if (kids.length) {
+      gsap.fromTo(kids, {opacity:0, y:14}, {opacity:1, y:0, duration:.55, ease:'power3.out', stagger:.055, delay:.06, clearProps:'opacity,transform'});
+    }
+  }
+
+  function go(next) {
+    if (busy || next === current) return;
+    var from = panels[current];
+    var to = panels[next];
+    if (!to) return;
+
+    var finish = function () {
+      from.hidden = true;
+      current = next;
+      setProgress();
+      reveal(to);
+      busy = false;
+      if (next === 'composing') startComposing();
+    };
+
+    if (!ANIM || !hasGSAP) { finish(); return; }
+    busy = true;
+    gsap.to(from, {opacity:0, y:-12, duration:.28, ease:'power2.in', onComplete:function () {
+      gsap.set(from, {clearProps:'opacity,transform'});
+      finish();
+    }});
+  }
+
+  function startComposing() {
+    var bar = document.querySelector('#compBar i');
+    var wait = ANIM ? 820 : 0;
+    if (bar && ANIM && hasGSAP) {
+      gsap.fromTo(bar, {scaleX:0}, {scaleX:1, duration:wait / 1000, ease:'power1.inOut'});
+    }
+    clearTimeout(compTimer);
+    compTimer = setTimeout(function () {
+      renderLook();
+      go('look');
+    }, wait);
+  }
+
+  /* ---------- composition ---------- */
+  function score(g) {
+    var s = 0;
+    if (g.occ.indexOf(state.occasion) > -1) s += 4;
+    if (g.pal.indexOf(state.palette) > -1) s += 4;
+    if (g.wt.indexOf(state.weight) > -1) s += 3;
+    return s;
+  }
+
+  function pick(kind, taken) {
+    var best = null, bestScore = -1;
+    for (var i = 0; i < CATALOGUE.length; i++) {
+      var g = CATALOGUE[i];
+      if (g.kind !== kind) continue;
+      if (taken.indexOf(g.id) > -1) continue;
+      var s = score(g);
+      if (s > bestScore) { bestScore = s; best = g; }
+    }
+    return best;
+  }
+
+  function compose() {
+    var taken = [], look = [];
+    ['outer','knit','lower','accessory'].forEach(function (k) {
+      var g = pick(k, taken);
+      if (g) { taken.push(g.id); look.push(g); }
+    });
+    return look;
+  }
+
+  function cardHTML(g) {
+    return '' +
+      '<article class="card">' +
+        '<div class="tile" data-tone="' + g.tone + '" style="--c1:' + g.c1 + ';--c2:' + g.c2 + '">' +
+          '<svg viewBox="0 0 120 160" role="img" aria-label="Line drawing of ' + g.name + '"><use href="#' + g.shape + '"></use></svg>' +
+        '</div>' +
+        '<div class="meta">' +
+          '<span class="role">' + g.role + '</span>' +
+          '<span class="name">' + g.name + '</span>' +
+          '<span class="fab">' + g.fabric + '</span>' +
+          '<span class="row">' +
+            '<span class="col"><i style="background:' + g.hex + '"></i><span>' + g.colour + '</span></span>' +
+            '<span class="price">' + euro(g.price) + '</span>' +
+          '</span>' +
+        '</div>' +
+      '</article>';
+  }
+
+  function renderLook() {
+    var look = compose();
+    var grid = document.getElementById('lookGrid');
+    var title = document.getElementById('lookTitle');
+    var note = document.getElementById('lookNote');
+    var total = document.getElementById('lookTotal');
+
+    var o = COPY.occasion[state.occasion];
+    var p = COPY.palette[state.palette];
+    var w = COPY.weight[state.weight];
+
+    title.textContent = o.label + ', in ' + p.label + '.';
+    note.textContent = o.note + ' ' + p.note + ' ' + w.note;
+    grid.innerHTML = look.map(cardHTML).join('');
+
+    var sum = look.reduce(function (a, g) { return a + g.price; }, 0);
+    total.textContent = euro(sum);
+  }
+
+  /* ---------- interaction ---------- */
+  stage.addEventListener('click', function (e) {
+    var opt = e.target.closest ? e.target.closest('.opt') : null;
+    if (opt) {
+      var step = opt.dataset.step, val = opt.dataset.value;
+      state[step] = val;
+      var siblings = opt.parentNode.querySelectorAll('.opt');
+      Array.prototype.forEach.call(siblings, function (s) {
+        s.setAttribute('aria-pressed', String(s === opt));
+      });
+      setProgress();
+      var nextMap = {occasion:'q2', palette:'q3', weight:'composing'};
+      var next = nextMap[step];
+      setTimeout(function () { go(next); }, ANIM ? 170 : 0);
+      return;
+    }
+
+    var back = e.target.closest ? e.target.closest('[data-back]') : null;
+    if (back) {
+      clearTimeout(compTimer);
+      var backMap = {q2:'q1', q3:'q2', composing:'q3', look:'q3'};
+      var dest = backMap[current];
+      if (dest) {
+        if (current === 'q3' || current === 'look') state.weight = null;
+        if (current === 'q2') state.palette = null;
+        if (current === 'look') {
+          var opts = panels.q3.querySelectorAll('.opt');
+          Array.prototype.forEach.call(opts, function (s) { s.setAttribute('aria-pressed','false'); });
+        }
+        go(dest);
+      }
+    }
+  });
+
+  var again = document.getElementById('again');
+  if (again) {
+    again.addEventListener('click', function () {
+      clearTimeout(compTimer);
+      state.occasion = state.palette = state.weight = null;
+      Array.prototype.forEach.call(stage.querySelectorAll('.opt'), function (s) {
+        s.setAttribute('aria-pressed', 'false');
+      });
+      go('q1');
+    });
+  }
+
+  setProgress();
+
+  /* ---------------------------------------------------------------
+     MOTION
+     --------------------------------------------------------------- */
+  var head = document.getElementById('head');
+  var onScroll = function () {
+    if (!head) return;
+    head.classList.toggle('is-stuck', window.scrollY > 24);
+  };
+  window.addEventListener('scroll', onScroll, {passive:true});
+  onScroll();
+
+  if (ANIM && hasGSAP) {
+    try {
+      gsap.registerPlugin(ScrollTrigger);
+
+      // hero, on load
+      var tl = gsap.timeline({defaults:{ease:'power3.out'}});
+      tl.to('.hero .eyebrow', {opacity:1, y:0, duration:.7}, 0)
+        .to('.hero .ln-i',    {opacity:1, y:0, duration:1.05, stagger:.09}, .06)
+        .to('.hero .lede',    {opacity:1, y:0, duration:.9}, .42)
+        .to('.hero-actions',  {opacity:1, y:0, duration:.9}, .52)
+        .to('.plate',         {opacity:1, y:0, duration:1.1}, .2)
+        .to('.hero-meta',     {opacity:1, y:0, duration:.9}, .62);
+
+      // grouped reveals
+      document.querySelectorAll('[data-rev-group]').forEach(function (g) {
+        var kids = g.querySelectorAll('.rev');
+        if (!kids.length) return;
+        gsap.to(kids, {
+          opacity:1, y:0, duration:.95, ease:'power3.out', stagger:.08,
+          scrollTrigger:{trigger:g, start:'top 86%', once:true}
+        });
+      });
+
+      // standalone reveals
+      document.querySelectorAll('.rev').forEach(function (el) {
+        if (el.closest('.hero')) return;
+        if (el.closest('[data-rev-group]')) return;
+        gsap.to(el, {
+          opacity:1, y:0, duration:.95, ease:'power3.out',
+          scrollTrigger:{trigger:el, start:'top 88%', once:true}
+        });
+      });
+
+      window.addEventListener('load', function () { ScrollTrigger.refresh(); });
+      if (document.fonts && document.fonts.ready) {
+        document.fonts.ready.then(function () { ScrollTrigger.refresh(); });
+      }
+
+      // safety net: if anything stalls, show everything
+      setTimeout(function () {
+        document.querySelectorAll('.rev, .ln-i').forEach(function (el) {
+          if (getComputedStyle(el).opacity === '0') {
+            el.style.opacity = '1';
+            el.style.transform = 'none';
+          }
+        });
+      }, 4000);
+    } catch (err) {
+      root.classList.remove('js-anim');
+    }
+  }
+})();
+</script>
+</body>
+</html>

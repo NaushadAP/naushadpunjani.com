@@ -1,0 +1,451 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Kestrel Motors — Lightweight Electric Sports Cars</title>
+<meta name="description" content="Kestrel Motors is a concept site for a lightweight electric sports car marque. Built by Naushad Punjani." />
+<meta name="robots" content="noindex" />
+<style>
+@font-face{font-family:'Familjen Grotesk';font-style:normal;font-weight:400;font-display:swap;src:url('fonts/ke-FamiljenGrotesk-400-normal.woff2') format('woff2')}
+@font-face{font-family:'Familjen Grotesk';font-style:normal;font-weight:500;font-display:swap;src:url('fonts/ke-FamiljenGrotesk-500-normal.woff2') format('woff2')}
+@font-face{font-family:'Familjen Grotesk';font-style:normal;font-weight:700;font-display:swap;src:url('fonts/ke-FamiljenGrotesk-700-normal.woff2') format('woff2')}
+@font-face{font-family:'Space Mono';font-style:normal;font-weight:400;font-display:swap;src:url('fonts/ke-SpaceMono-400-normal.woff2') format('woff2')}
+@font-face{font-family:'Space Mono';font-style:normal;font-weight:700;font-display:swap;src:url('fonts/ke-SpaceMono-700-normal.woff2') format('woff2')}
+
+:root{
+  --paper:#eceae5;
+  --paper-2:#e2dfd8;
+  --ink:#121212;
+  --ink-55:rgba(18,18,18,.55);
+  --ink-15:rgba(18,18,18,.14);
+  --signal:#c8362a;
+  --sans:'Familjen Grotesk',Helvetica,Arial,sans-serif;
+  --mono:'Space Mono',ui-monospace,monospace;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  background:var(--paper);color:var(--ink);
+  font-family:var(--sans);font-weight:400;line-height:1.6;
+  -webkit-font-smoothing:antialiased;overflow-x:hidden;
+}
+::selection{background:var(--ink);color:var(--paper)}
+.wrap{max-width:1340px;margin:0 auto;padding:0 clamp(20px,4vw,56px)}
+.mono{font-family:var(--mono)}
+.eyebrow{font-family:var(--mono);font-size:10.5px;letter-spacing:.28em;text-transform:uppercase;color:var(--ink-55)}
+/* Reveal targets are visible by default and only pre-hidden once JS has
+   confirmed it will animate them — so a failed script never blanks a section. */
+.js-anim .rev{opacity:0;transform:translateY(26px)}
+.js-anim .bar i{transform:scaleX(0)}
+.bar i{transform:scaleX(1)}
+
+/* header */
+header{position:fixed;inset:0 0 auto 0;z-index:60;display:flex;justify-content:space-between;align-items:center;padding:20px clamp(20px,4vw,56px);mix-blend-mode:multiply}
+.logo{font-weight:700;font-size:17px;letter-spacing:.18em;text-transform:uppercase;color:var(--ink);text-decoration:none}
+.logo span{color:var(--signal)}
+nav{display:flex;gap:30px;align-items:center}
+nav a{font-family:var(--mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink);text-decoration:none;opacity:.7;transition:opacity .3s}
+nav a:hover{opacity:1}
+.reserve{border:1px solid var(--ink);padding:8px 16px;opacity:1 !important}
+.reserve:hover{background:var(--ink);color:var(--paper)}
+@media(max-width:760px){nav a:not(.reserve){display:none}}
+
+/* hero */
+.hero{min-height:100svh;display:grid;grid-template-rows:1fr auto;position:relative;padding-top:96px}
+/* Two real columns: type left, frame right — so the 3D can never land on
+   the headline. Collapses to stacked on narrow screens. */
+.hero-main{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.04fr);gap:clamp(16px,3vw,48px);align-items:center;width:100%}
+.frame-holder{position:relative;height:min(64vh,580px)}
+#frame-canvas{position:absolute;inset:0;width:100%;height:100%}
+.hero-copy{pointer-events:none}
+@media(max-width:900px){
+  .hero-main{grid-template-columns:1fr}
+  .frame-holder{height:38vh;order:2}
+}
+.hero h1{
+  font-weight:400;font-size:clamp(46px,6.6vw,104px);line-height:.92;letter-spacing:-.035em;
+  max-width:11ch;
+}
+.hero h1 em{font-style:normal;color:var(--signal)}
+.hero h1 .ln{display:block;overflow:hidden}
+.hero h1 .ln>span{display:inline-block;transform:translateY(110%);animation:rise 1.05s cubic-bezier(.16,1,.3,1) forwards}
+.hero h1 .ln:nth-child(2)>span{animation-delay:.1s}
+@keyframes rise{to{transform:none}}
+.hero-sub{max-width:40ch;margin-top:26px;font-size:16px;color:var(--ink-55);opacity:0;animation:fade .9s .75s forwards}
+@keyframes fade{to{opacity:1}}
+.hero-bar{
+  position:relative;z-index:2;display:flex;justify-content:space-between;align-items:flex-end;gap:20px;
+  flex-wrap:wrap;padding:22px 0 30px;border-top:1px solid var(--ink-15);
+  opacity:0;animation:fade .9s .95s forwards;
+}
+.kpi{display:flex;gap:clamp(18px,4vw,64px)}
+.kpi div b{display:block;font-family:var(--mono);font-weight:700;font-size:clamp(20px,2.4vw,30px);letter-spacing:-.02em}
+.kpi div span{font-family:var(--mono);font-size:9.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--ink-55)}
+.hint{font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-55)}
+
+/* mass ledger */
+.mass{padding:15vh 0 12vh;border-top:1px solid var(--ink-15)}
+.mass-head{display:grid;grid-template-columns:minmax(0,4fr) minmax(0,6fr);gap:clamp(24px,5vw,90px);margin-bottom:8vh}
+.mass-head h2{font-size:clamp(32px,4.6vw,62px);line-height:1.02;letter-spacing:-.03em;font-weight:400}
+.mass-head h2 em{font-style:normal;color:var(--signal)}
+.mass-head p{color:var(--ink-55);font-size:16px;max-width:52ch}
+.ledger{border-top:1px solid var(--ink)}
+.row{
+  display:grid;grid-template-columns:66px minmax(0,1fr) 130px 1fr 96px;gap:18px;align-items:center;
+  padding:18px 6px;border-bottom:1px solid var(--ink-15);transition:background .3s;
+}
+.row:hover{background:var(--paper-2)}
+.row .n,.row .kg,.row .pct{font-family:var(--mono);font-size:12px}
+.row .n{color:var(--ink-55)}
+.row .part{font-size:17px;letter-spacing:-.01em}
+.row .kg{font-weight:700}
+.row .pct{text-align:right;color:var(--ink-55)}
+.bar{height:5px;background:var(--ink-15);position:relative;overflow:hidden}
+.bar i{position:absolute;inset:0;transform-origin:left;transform:scaleX(0);background:var(--signal)}
+.row.total{border-bottom:none;border-top:1px solid var(--ink);margin-top:2px}
+.row.total .part,.row.total .kg{font-weight:700}
+@media(max-width:860px){.mass-head{grid-template-columns:1fr}.row{grid-template-columns:44px 1fr 92px;gap:12px}.row .bar,.row .pct{display:none}}
+
+/* principles */
+.principles{background:var(--ink);color:var(--paper);padding:14vh 0}
+.principles .eyebrow{color:rgba(236,234,229,.5)}
+.principles h2{font-size:clamp(30px,4.2vw,56px);line-height:1.04;letter-spacing:-.03em;font-weight:400;margin:16px 0 9vh;max-width:18ch}
+.principles h2 em{font-style:normal;color:var(--signal)}
+.p-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:rgba(236,234,229,.2);border:1px solid rgba(236,234,229,.2)}
+.p{background:var(--ink);padding:32px 26px 46px;transition:background .4s}
+.p:hover{background:#1c1c1c}
+.p .num{font-family:var(--mono);font-size:11px;color:var(--signal);letter-spacing:.2em}
+.p h3{font-size:23px;font-weight:500;letter-spacing:-.01em;margin:40px 0 10px}
+.p p{font-size:14px;line-height:1.7;color:rgba(236,234,229,.6)}
+@media(max-width:860px){.p-grid{grid-template-columns:1fr}}
+
+/* models */
+.models{padding:14vh 0}
+.m-head{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:6vh;flex-wrap:wrap;gap:14px}
+.m-head h2{font-size:clamp(30px,4.2vw,56px);letter-spacing:-.03em;font-weight:400}
+.m-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:24px}
+.model{
+  border:1px solid var(--ink);padding:26px 24px 24px;position:relative;overflow:hidden;
+  text-decoration:none;color:inherit;display:block;transition:transform .5s cubic-bezier(.16,1,.3,1);
+}
+.model:hover{transform:translateY(-6px)}
+.model::after{content:"";position:absolute;left:0;bottom:0;height:3px;width:100%;background:var(--signal);transform:scaleX(0);transform-origin:left;transition:transform .5s cubic-bezier(.16,1,.3,1)}
+.model:hover::after{transform:scaleX(1)}
+.model .badge{font-family:var(--mono);font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--signal)}
+.model h3{font-size:clamp(30px,3.6vw,46px);letter-spacing:-.03em;font-weight:400;margin:8px 0 4px}
+.model .price{font-family:var(--mono);font-size:13px;color:var(--ink-55)}
+.silhouette{margin:22px 0 20px;width:100%;height:auto;display:block}
+.silhouette path,.silhouette circle{vector-effect:non-scaling-stroke}
+.spec-row{display:flex;justify-content:space-between;gap:10px;border-top:1px solid var(--ink-15);padding-top:14px;font-family:var(--mono);font-size:11px;letter-spacing:.04em;color:var(--ink-55);flex-wrap:wrap}
+.spec-row b{color:var(--ink);font-weight:700}
+@media(max-width:860px){.m-grid{grid-template-columns:1fr}}
+
+/* footer */
+footer{border-top:1px solid var(--ink);padding:13vh 0 5vh}
+.cta{font-size:clamp(34px,6vw,92px);line-height:1;letter-spacing:-.035em;font-weight:400;max-width:16ch}
+.cta a{color:var(--signal);text-decoration:none;border-bottom:2px solid transparent;transition:border-color .35s}
+.cta a:hover{border-color:var(--signal)}
+.f-meta{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-top:11vh;padding-top:20px;border-top:1px solid var(--ink-15);font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-55)}
+@media(prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{animation-duration:.01ms !important;animation-delay:0s !important;transition-duration:.01ms !important}
+  .rev{opacity:1;transform:none}
+  .hero h1 .ln>span{transform:none}
+  .hero-sub,.hero-bar{opacity:1}
+  .bar i{transform:scaleX(1)}
+}
+</style>
+</head>
+<body>
+<script>
+  // Gate the pre-hidden animation states on JS + motion preference.
+  if (!matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    document.documentElement.classList.add('js-anim');
+  }
+</script>
+
+<header>
+  <a class="logo" href="#top">Kestrel<span>.</span></a>
+  <nav>
+    <a href="#mass">Mass</a>
+    <a href="#principles">Principles</a>
+    <a href="#models">Models</a>
+    <a class="reserve" href="#reserve">Reserve +</a>
+  </nav>
+</header>
+
+<section class="hero" id="top">
+  <div class="wrap hero-main">
+    <div class="hero-copy">
+      <h1>
+        <span class="ln"><span>Lightness is</span></span>
+        <span class="ln"><span>the <em>engine</em>.</span></span>
+      </h1>
+      <p class="hero-sub">
+        A hand-built electric sports car weighing 895 kg. We didn't add power —
+        we spent four years taking things away.
+      </p>
+    </div>
+    <div class="frame-holder">
+      <canvas id="frame-canvas" aria-hidden="true"></canvas>
+    </div>
+  </div>
+  <div class="wrap hero-bar">
+    <div class="kpi">
+      <div><b>895</b><span>kg dry</span></div>
+      <div><b>3.4</b><span>sec 0–100</span></div>
+      <div><b>1,412</b><span>parts total</span></div>
+    </div>
+    <span class="hint">drag the frame ↔</span>
+  </div>
+</section>
+
+<section class="mass" id="mass">
+  <div class="wrap">
+    <div class="mass-head">
+      <h2 class="rev">The <em>mass</em> ledger.</h2>
+      <p class="rev">
+        Every gram on this car had to argue for its place. Published in full, because a
+        weight figure without a breakdown is a marketing number, not an engineering one.
+      </p>
+    </div>
+    <div class="ledger">
+      <div class="row rev"><span class="n">01</span><span class="part">Bonded aluminium tub</span><span class="kg">168 kg</span><span class="bar"><i data-fill="0.19"></i></span><span class="pct">18.8%</span></div>
+      <div class="row rev"><span class="n">02</span><span class="part">Battery pack &amp; cells</span><span class="kg">254 kg</span><span class="bar"><i data-fill="0.28"></i></span><span class="pct">28.4%</span></div>
+      <div class="row rev"><span class="n">03</span><span class="part">Motor, inverter, driveline</span><span class="kg">121 kg</span><span class="bar"><i data-fill="0.135"></i></span><span class="pct">13.5%</span></div>
+      <div class="row rev"><span class="n">04</span><span class="part">Suspension &amp; uprights</span><span class="kg">96 kg</span><span class="bar"><i data-fill="0.107"></i></span><span class="pct">10.7%</span></div>
+      <div class="row rev"><span class="n">05</span><span class="part">Body panels (composite)</span><span class="kg">61 kg</span><span class="bar"><i data-fill="0.068"></i></span><span class="pct">6.8%</span></div>
+      <div class="row rev"><span class="n">06</span><span class="part">Wheels &amp; tyres</span><span class="kg">58 kg</span><span class="bar"><i data-fill="0.065"></i></span><span class="pct">6.5%</span></div>
+      <div class="row rev"><span class="n">07</span><span class="part">Interior, seats, harness</span><span class="kg">74 kg</span><span class="bar"><i data-fill="0.083"></i></span><span class="pct">8.3%</span></div>
+      <div class="row rev"><span class="n">08</span><span class="part">Everything else</span><span class="kg">63 kg</span><span class="bar"><i data-fill="0.07"></i></span><span class="pct">7.0%</span></div>
+      <div class="row total rev"><span class="n">—</span><span class="part">Dry weight</span><span class="kg">895 kg</span><span class="bar"></span><span class="pct">100%</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="principles" id="principles">
+  <div class="wrap">
+    <div class="eyebrow rev">Three rules</div>
+    <h2 class="rev">We are allowed to say <em>no</em> to anything heavy.</h2>
+    <div class="p-grid">
+      <div class="p rev"><span class="num">i.</span><h3>Subtract first</h3><p>No component enters the car until we've failed to delete it twice. The lightest part is the one that isn't fitted.</p></div>
+      <div class="p rev"><span class="num">ii.</span><h3>One job each</h3><p>The tub is the crash structure, the battery floor and the seat mount. Parts that do three jobs replace three parts.</p></div>
+      <div class="p rev"><span class="num">iii.</span><h3>Range is weight</h3><p>A smaller battery in a lighter car goes as far as a big one in a heavy car — and it corners like something alive.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="models" id="models">
+  <div class="wrap">
+    <div class="m-head">
+      <h2 class="rev">Two cars.</h2>
+      <span class="eyebrow rev">Hand-built in Malvern · 120 per year</span>
+    </div>
+    <div class="m-grid">
+      <a class="model rev" href="#reserve">
+        <span class="badge">Model 01 · open</span>
+        <h3>Speedster</h3>
+        <span class="price">from £118,000 · deliveries Q3 2027</span>
+        <svg class="silhouette" viewBox="0 0 420 120" fill="none" stroke="#121212" stroke-width="1.4" aria-hidden="true">
+          <path d="M14 88h392M60 88a26 26 0 1 1 52 0M308 88a26 26 0 1 1 52 0"/>
+          <path d="M26 88c0-16 10-26 28-30 22-5 40-22 62-27 30-7 78-7 112 2 26 7 44 22 76 27 22 3 32 13 32 28"/>
+          <path d="M132 31c-10 8-16 16-19 23h96c-6-9-16-17-30-23-14-6-33-6-47 0Z"/>
+          <circle cx="86" cy="88" r="9"/><circle cx="334" cy="88" r="9"/>
+        </svg>
+        <div class="spec-row"><span>895 kg</span><span><b>3.4s</b> 0–100</span><span><b>384</b> km</span><span>rear drive</span></div>
+      </a>
+      <a class="model rev" href="#reserve">
+        <span class="badge">Model 02 · coupé</span>
+        <h3>Harrier</h3>
+        <span class="price">from £134,000 · deliveries Q1 2028</span>
+        <svg class="silhouette" viewBox="0 0 420 120" fill="none" stroke="#121212" stroke-width="1.4" aria-hidden="true">
+          <path d="M14 88h392M60 88a26 26 0 1 1 52 0M308 88a26 26 0 1 1 52 0"/>
+          <path d="M26 88c0-16 10-26 28-30 20-4 34-14 52-20 34-12 84-12 122 0 24 8 40 18 64 22 22 4 32 12 32 28"/>
+          <path d="M120 38c14-16 30-24 52-26 30-3 54 6 72 26H120Z"/>
+          <circle cx="86" cy="88" r="9"/><circle cx="334" cy="88" r="9"/>
+        </svg>
+        <div class="spec-row"><span>932 kg</span><span><b>3.1s</b> 0–100</span><span><b>410</b> km</span><span>rear drive</span></div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<footer id="reserve">
+  <div class="wrap">
+    <p class="cta rev">Build slots open twice a year. <a href="mailto:build@kestrelmotors.example">Reserve one →</a></p>
+    <div class="f-meta">
+      <span>Kestrel Motors © 2026</span>
+      <span>Malvern, England</span>
+      <span>Concept site — portfolio demonstration</span>
+    </div>
+  </div>
+</footer>
+
+<script src="/demos/_vendor/gsap/gsap.min.js"></script>
+<script src="/demos/_vendor/gsap/ScrollTrigger.min.js"></script>
+<script type="module">
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* ── GSAP: scroll reveals + mass-bar fills ───────────────────────────── */
+  if (window.gsap) {
+    gsap.registerPlugin(ScrollTrigger);
+    gsap.ticker.lagSmoothing(0);
+
+    // Deep links land mid-page before ScrollTrigger measures; re-measure once
+    // images and fonts have settled so already-passed triggers fire.
+    addEventListener('load', () => ScrollTrigger.refresh());
+
+    if (reduce) {
+      gsap.set('.rev', { opacity: 1, y: 0 });
+      gsap.set('.bar i', { scaleX: 1 });
+    } else {
+      document.querySelectorAll('section, footer').forEach((sec) => {
+        const items = sec.querySelectorAll('.rev');
+        if (!items.length) return;
+        gsap.to(items, {
+          opacity: 1, y: 0, duration: 0.85, ease: 'power3.out', stagger: 0.07,
+          scrollTrigger: { trigger: sec, start: 'top 76%', once: true }
+        });
+      });
+      document.querySelectorAll('.bar i').forEach((bar) => {
+        gsap.to(bar, {
+          scaleX: parseFloat(bar.dataset.fill), duration: 1.1, ease: 'power2.out',
+          scrollTrigger: { trigger: bar, start: 'top 92%', once: true }
+        });
+      });
+    }
+  }
+
+  /* ── Three.js: the spaceframe the car is built around ────────────────── */
+  const canvas = document.getElementById('frame-canvas');
+  try {
+    const THREE = await import('/demos/_vendor/three/three.module.min.js');
+
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(36, 1, 0.1, 100);
+    camera.position.set(0, 0.55, 7.5);
+
+    const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
+    renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
+
+    // Node lattice of a two-seat chassis: rails, hoops, bulkheads, diagonals.
+    const N = {
+      // front                     x     y      z
+      fl: [-0.85, -0.45, 2.55], fr: [0.85, -0.45, 2.55],
+      flu: [-0.72, 0.25, 2.15], fru: [0.72, 0.25, 2.15],
+      // cabin front bulkhead
+      bl: [-0.98, -0.5, 0.75], br: [0.98, -0.5, 0.75],
+      blu: [-0.92, 0.5, 0.55], bru: [0.92, 0.5, 0.55],
+      // roll hoop
+      hl: [-0.9, -0.5, -0.55], hr: [0.9, -0.5, -0.55],
+      hlu: [-0.78, 0.95, -0.7], hru: [0.78, 0.95, -0.7],
+      // rear
+      rl: [-0.8, -0.45, -2.5], rr: [0.8, -0.45, -2.5],
+      rlu: [-0.66, 0.3, -2.15], rru: [0.66, 0.3, -2.15]
+    };
+    const EDGES = [
+      ['fl','fr'],['flu','fru'],['fl','flu'],['fr','fru'],
+      ['fl','bl'],['fr','br'],['flu','blu'],['fru','bru'],
+      ['bl','br'],['blu','bru'],['bl','blu'],['br','bru'],
+      ['bl','hl'],['br','hr'],['blu','hlu'],['bru','hru'],
+      ['hl','hr'],['hlu','hru'],['hl','hlu'],['hr','hru'],
+      ['hl','rl'],['hr','rr'],['hlu','rlu'],['hru','rru'],
+      ['rl','rr'],['rlu','rru'],['rl','rlu'],['rr','rru'],
+      // diagonals — the bits that actually make it stiff
+      ['fl','fru'],['fr','flu'],['bl','hlu'],['br','hru'],
+      ['hl','rlu'],['hr','rru'],['blu','hr'],['bru','hl'],
+      ['fl','bru'],['fr','blu']
+    ];
+
+    const frame = new THREE.Group();
+    const tube = new THREE.MeshBasicMaterial({ color: 0x121212 });
+    const accent = new THREE.MeshBasicMaterial({ color: 0xc8362a });
+    const up = new THREE.Vector3(0, 1, 0);
+
+    EDGES.forEach(([a, b], i) => {
+      const va = new THREE.Vector3(...N[a]), vb = new THREE.Vector3(...N[b]);
+      const dir = new THREE.Vector3().subVectors(vb, va);
+      const len = dir.length();
+      const geo = new THREE.CylinderGeometry(0.018, 0.018, len, 6);
+      const mesh = new THREE.Mesh(geo, i >= EDGES.length - 10 ? accent : tube);
+      mesh.position.copy(va).addScaledVector(dir, 0.5);
+      mesh.quaternion.setFromUnitVectors(up, dir.normalize());
+      frame.add(mesh);
+    });
+
+    // Nodes where tubes meet
+    const nodeGeo = new THREE.SphereGeometry(0.036, 10, 8);
+    Object.values(N).forEach((p) => {
+      const s = new THREE.Mesh(nodeGeo, tube);
+      s.position.set(...p);
+      frame.add(s);
+    });
+
+    // Wheels, as thin rings — they read as the car without drawing one.
+    const ringGeo = new THREE.TorusGeometry(0.52, 0.022, 8, 40);
+    [[-1.06, -0.5, 1.72], [1.06, -0.5, 1.72], [-1.06, -0.5, -1.72], [1.06, -0.5, -1.72]].forEach((p) => {
+      const w = new THREE.Mesh(ringGeo, tube);
+      w.position.set(...p);
+      w.rotation.y = Math.PI / 2;
+      frame.add(w);
+    });
+
+    scene.add(frame);
+
+    function resize() {
+      const w = canvas.clientWidth, h = canvas.clientHeight;
+      if (!w || !h) return;
+      renderer.setSize(w, h, false);
+      camera.aspect = w / h;
+      camera.fov = w < 700 ? 48 : 36;
+      camera.updateProjectionMatrix();
+    }
+    resize();
+    addEventListener('resize', resize);
+
+    // Pointer drag to spin; gentle auto-rotation otherwise.
+    let targetY = -0.5, targetX = 0.06, curY = -0.5, curX = 0.06;
+    let dragging = false, lastX = 0, lastY = 0, idle = true;
+    const hero = document.getElementById('top');
+    hero.style.touchAction = 'pan-y';
+    hero.addEventListener('pointerdown', (e) => { dragging = true; idle = false; lastX = e.clientX; lastY = e.clientY; });
+    addEventListener('pointerup', () => { dragging = false; });
+    addEventListener('pointermove', (e) => {
+      if (!dragging) return;
+      targetY += (e.clientX - lastX) * 0.006;
+      targetX = Math.max(-0.5, Math.min(0.5, targetX + (e.clientY - lastY) * 0.004));
+      lastX = e.clientX; lastY = e.clientY;
+    });
+
+    let visible = true;
+    new IntersectionObserver(([e]) => { visible = e.isIntersecting; }, { threshold: 0.02 }).observe(hero);
+
+    renderer.setAnimationLoop(() => {
+      if (!visible) return;
+      if (idle && !reduce) targetY += 0.0022;
+      curY += (targetY - curY) * 0.07;
+      curX += (targetX - curX) * 0.07;
+      frame.rotation.y = curY;
+      frame.rotation.x = curX;
+      renderer.render(scene, camera);
+    });
+
+    // Entrance: the frame assembles itself.
+    if (window.gsap && !reduce) {
+      gsap.from(frame.scale, { x: 0.82, y: 0.82, z: 0.82, duration: 1.6, ease: 'power3.out' });
+      gsap.fromTo(canvas, { opacity: 0 }, { opacity: 1, duration: 1.2, ease: 'power2.out' });
+      gsap.to(frame.position, {
+        y: 0.5,
+        ease: 'none',
+        scrollTrigger: { trigger: hero, start: 'top top', end: 'bottom top', scrub: 1 }
+      });
+    }
+  } catch (err) {
+    // No WebGL (or module blocked) — the layout stands on its own.
+    if (canvas) canvas.style.display = 'none';
+    console.warn('spaceframe unavailable:', err);
+  }
+</script>
+</body>
+</html>

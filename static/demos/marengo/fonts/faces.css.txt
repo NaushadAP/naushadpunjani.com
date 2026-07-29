@@ -1,0 +1,7 @@
+﻿@font-face{font-family:'Cormorant Garamond';font-style:italic;font-weight:400;font-display:swap;src:url('fonts/ma-CormorantGaramond-400-italic.woff2') format('woff2')}
+@font-face{font-family:'Cormorant Garamond';font-style:normal;font-weight:300;font-display:swap;src:url('fonts/ma-CormorantGaramond-300-normal.woff2') format('woff2')}
+@font-face{font-family:'Cormorant Garamond';font-style:normal;font-weight:400;font-display:swap;src:url('fonts/ma-CormorantGaramond-400-normal.woff2') format('woff2')}
+@font-face{font-family:'Cormorant Garamond';font-style:normal;font-weight:600;font-display:swap;src:url('fonts/ma-CormorantGaramond-600-normal.woff2') format('woff2')}
+@font-face{font-family:'Manrope';font-style:normal;font-weight:300;font-display:swap;src:url('fonts/ma-Manrope-300-normal.woff2') format('woff2')}
+@font-face{font-family:'Manrope';font-style:normal;font-weight:400;font-display:swap;src:url('fonts/ma-Manrope-400-normal.woff2') format('woff2')}
+@font-face{font-family:'Manrope';font-style:normal;font-weight:600;font-display:swap;src:url('fonts/ma-Manrope-600-normal.woff2') format('woff2')}

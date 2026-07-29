@@ -73,6 +73,76 @@
              schedule set like a fight card.`,
       stack: ['HTML/CSS', 'Type-driven', 'Micro-interactions'],
       annot: 'outline type, red hook on hover'
+    },
+    {
+      fig: '06',
+      name: 'Kestrel Motors — Electric Sports Cars',
+      domain: 'concept · automotive',
+      href: '/demos/kestrel',
+      kicker: 'PRODUCT · AUTOMOTIVE',
+      shot: '/showcase/kestrel.png',
+      shotAlt: 'Homepage of a lightweight electric sports car concept site',
+      desc: `Marque page for a hand-built 895 kg electric sports car. The hero is a
+             <b>Three.js spaceframe</b> you can drag and spin, backed by a published
+             mass ledger that animates as you read it.`,
+      stack: ['Three.js', 'GSAP ScrollTrigger', 'WebGL'],
+      annot: 'drag the chassis — it spins'
+    },
+    {
+      fig: '07',
+      name: 'Marengo — Cashmere House',
+      domain: 'concept · luxury fashion',
+      href: '/demos/marengo',
+      kicker: 'BRAND · LUXURY FASHION',
+      shot: '/showcase/marengo.png',
+      shotAlt: 'Homepage of a luxury cashmere house concept site',
+      desc: `Quiet-luxury editorial for an Umbrian cashmere house, built around a
+             concept <b>AI stylist</b> — a three-question flow that composes a look
+             from the collection, entirely client-side.`,
+      stack: ['GSAP', 'Interactive flow', 'CSS/SVG garments'],
+      annot: 'answer three questions, get a look'
+    },
+    {
+      fig: '08',
+      name: 'Thorn — Electric Enduro',
+      domain: 'concept · motorcycles',
+      href: '/demos/thorn',
+      kicker: 'PRODUCT · MOTORCYCLES',
+      shot: '/showcase/thorn.png',
+      shotAlt: 'Homepage of an electric enduro motorcycle concept site',
+      desc: `Launch page for an electric enduro machine. The hero is a <b>Three.js
+             procedural trail</b> — low-poly terrain generated and scrolled toward the
+             camera — under hi-vis condensed type.`,
+      stack: ['Three.js', 'Procedural terrain', 'GSAP'],
+      annot: 'the trail is generated, not filmed'
+    },
+    {
+      fig: '09',
+      name: 'Slow Play Society — Golf Goods',
+      domain: 'concept · apparel',
+      href: '/demos/slowplay',
+      kicker: 'BRAND · APPAREL',
+      shot: '/showcase/slowplay.png',
+      shotAlt: 'Homepage of a boutique golf apparel concept site',
+      desc: `Small-batch golf apparel brand with a hand-drawn <b>SVG crest</b>, a
+             clubhouse palette and a scorecard section where every hole carries a
+             house rule instead of a yardage.`,
+      stack: ['HTML/CSS', 'SVG crest', 'GSAP carousel'],
+      annot: 'slow play isn’t a penalty here'
+    },
+    {
+      fig: '10',
+      name: 'Longbow Motors — Recreation Study',
+      domain: 'front-end study · credited',
+      href: '/demos/longbow-study',
+      kicker: 'STUDY · NOT MY DESIGN',
+      shot: '/showcase/longbow-study.png',
+      shotAlt: 'A front-end recreation study of the Longbow Motors site layout',
+      desc: `A technical exercise, not a client build: the layout and scroll
+             choreography of <b>Longbow Motors</b>' site rebuilt from an empty file.
+             Their design and brand — my code. All artwork original, nothing copied.`,
+      stack: ['GSAP', 'Lenis smooth scroll', 'SVG'],
+      annot: 'credited study — design not mine'
     }
   ];
 </script>
