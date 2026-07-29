@@ -1,0 +1,416 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Pulseboard — Analytics for Small Teams</title>
+<meta name="description" content="Pulseboard is a concept SaaS analytics landing page. See your product's heartbeat." />
+<meta name="robots" content="noindex" />
+<style>
+@font-face{font-family:'Bricolage Grotesque';font-style:normal;font-weight:400;font-display:swap;src:url('fonts/pu-BricolageGrotesque-400-normal.woff2') format('woff2')}
+@font-face{font-family:'Bricolage Grotesque';font-style:normal;font-weight:600;font-display:swap;src:url('fonts/pu-BricolageGrotesque-600-normal.woff2') format('woff2')}
+@font-face{font-family:'Bricolage Grotesque';font-style:normal;font-weight:800;font-display:swap;src:url('fonts/pu-BricolageGrotesque-800-normal.woff2') format('woff2')}
+@font-face{font-family:'JetBrains Mono';font-style:normal;font-weight:400;font-display:swap;src:url('fonts/pu-JetBrainsMono-400-normal.woff2') format('woff2')}
+@font-face{font-family:'JetBrains Mono';font-style:normal;font-weight:700;font-display:swap;src:url('fonts/pu-JetBrainsMono-700-normal.woff2') format('woff2')}
+
+:root{
+  --bg:#0a0d16;
+  --panel:#111624;
+  --panel-2:#161d30;
+  --line:rgba(148,166,210,.14);
+  --ink:#e8edf8;
+  --ink-60:rgba(232,237,248,.6);
+  --ink-35:rgba(232,237,248,.35);
+  --sky:#2e94c6;        /* series A — validated */
+  --amber:#c07b23;      /* series B — validated */
+  --sky-soft:rgba(46,148,198,.16);
+  --disp:'Bricolage Grotesque',Helvetica,sans-serif;
+  --mono:'JetBrains Mono',ui-monospace,monospace;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  background:var(--bg);color:var(--ink);
+  font-family:var(--disp);font-weight:400;line-height:1.6;
+  -webkit-font-smoothing:antialiased;overflow-x:hidden;
+}
+body::before{
+  content:"";position:fixed;inset:0;pointer-events:none;z-index:0;
+  background:
+    radial-gradient(60% 42% at 72% -6%, rgba(46,148,198,.16), transparent 66%),
+    radial-gradient(38% 30% at 8% 110%, rgba(192,123,35,.1), transparent 70%);
+}
+::selection{background:var(--sky);color:#04121c}
+.wrap{max-width:1220px;margin:0 auto;padding:0 clamp(20px,4vw,48px);position:relative;z-index:1}
+.rev{opacity:0;transform:translateY(26px);transition:opacity .8s cubic-bezier(.16,1,.3,1),transform .8s cubic-bezier(.16,1,.3,1)}
+.rev.in{opacity:1;transform:none}
+
+/* header */
+header{position:sticky;top:0;z-index:50;background:rgba(10,13,22,.82);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.head-in{display:flex;justify-content:space-between;align-items:center;padding:15px clamp(20px,4vw,48px);max-width:1220px;margin:0 auto}
+.logo{display:flex;align-items:center;gap:9px;font-weight:800;font-size:18px;color:var(--ink);text-decoration:none;letter-spacing:-.01em}
+.logo svg{width:20px;height:20px}
+nav{display:flex;gap:26px;align-items:center}
+nav a{font-size:13.5px;color:var(--ink-60);text-decoration:none;transition:color .25s}
+nav a:hover{color:var(--ink)}
+.btn{
+  display:inline-block;padding:11px 20px;border-radius:10px;font-size:13.5px;font-weight:600;
+  text-decoration:none;transition:transform .3s cubic-bezier(.16,1,.3,1),background .25s,border-color .25s;
+}
+.btn:hover{transform:translateY(-2px)}
+.btn-fill{background:var(--sky);color:#04121c}
+.btn-fill:hover{background:#3fa7d8}
+.btn-ghost{border:1px solid var(--line);color:var(--ink)}
+.btn-ghost:hover{border-color:var(--sky)}
+@media(max-width:760px){nav a{display:none}}
+
+/* hero */
+.hero{padding:11vh 0 9vh;text-align:center}
+.badge{
+  display:inline-flex;align-items:center;gap:8px;padding:6px 14px;border-radius:999px;
+  border:1px solid var(--line);background:var(--panel);
+  font-family:var(--mono);font-size:11px;letter-spacing:.08em;color:var(--ink-60);
+}
+.badge i{width:7px;height:7px;border-radius:50%;background:var(--sky);animation:blink 2s infinite}
+@keyframes blink{50%{opacity:.3}}
+.hero h1{
+  font-size:clamp(40px,6.6vw,84px);font-weight:800;line-height:1.02;letter-spacing:-.03em;
+  margin:26px auto 0;max-width:17ch;
+}
+.hero h1 .grad{background:linear-gradient(100deg,var(--sky),#7cc4e8);-webkit-background-clip:text;background-clip:text;color:transparent}
+.hero .sub{max-width:52ch;margin:22px auto 0;color:var(--ink-60);font-size:clamp(15px,1.35vw,18px)}
+.hero .cta-row{margin:34px 0 0;display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
+.hero .note{font-family:var(--mono);font-size:11px;color:var(--ink-35);margin-top:14px}
+
+/* dashboard mock */
+.dash{
+  margin:7vh auto 0;max-width:1040px;text-align:left;
+  background:var(--panel);border:1px solid var(--line);border-radius:16px;
+  box-shadow:0 30px 80px -30px rgba(0,0,0,.7);overflow:hidden;
+}
+.dash-bar{display:flex;align-items:center;gap:8px;padding:12px 16px;border-bottom:1px solid var(--line)}
+.dash-bar i{width:10px;height:10px;border-radius:50%;background:var(--line)}
+.dash-bar span{font-family:var(--mono);font-size:11px;color:var(--ink-35);margin-left:8px}
+.dash-grid{display:grid;grid-template-columns:2fr 1fr;gap:1px;background:var(--line)}
+.panel{background:var(--panel);padding:20px 22px}
+.panel h4{font-size:13px;font-weight:600;color:var(--ink-60);margin-bottom:2px}
+.panel .big{font-family:var(--mono);font-weight:700;font-size:30px;letter-spacing:-.02em}
+.panel .delta{font-family:var(--mono);font-size:11.5px;color:var(--sky)}
+.chart-box{position:relative}
+.chart-box svg{width:100%;height:auto;display:block}
+.gridline{stroke:var(--line);stroke-width:1}
+.axis-t{font-family:var(--mono);font-size:9.5px;fill:var(--ink-35)}
+.tip{
+  position:absolute;pointer-events:none;opacity:0;transition:opacity .15s;
+  background:var(--panel-2);border:1px solid var(--line);border-radius:8px;
+  padding:7px 10px;font-family:var(--mono);font-size:11px;line-height:1.5;white-space:nowrap;
+  transform:translate(-50%,-110%);
+}
+.tip b{color:var(--sky)}
+.stat-stack{display:grid;grid-template-rows:auto 1fr;gap:1px;background:var(--line)}
+.bars{display:flex;align-items:flex-end;gap:6px;height:92px;margin-top:14px}
+.bars i{
+  flex:1;background:var(--amber);border-radius:4px 4px 0 0;min-height:4px;
+  transform:scaleY(0);transform-origin:bottom;transition:transform .8s cubic-bezier(.16,1,.3,1),opacity .2s;
+}
+.dash.in .bars i{transform:scaleY(1)}
+.bars i:hover{opacity:.75}
+.bars-cap{font-family:var(--mono);font-size:10px;color:var(--ink-35);margin-top:8px;display:flex;justify-content:space-between}
+@media(max-width:760px){.dash-grid{grid-template-columns:1fr}}
+
+/* logos */
+.logos{padding:8vh 0 2vh;text-align:center}
+.logos p{font-family:var(--mono);font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--ink-35);margin-bottom:22px}
+.logo-row{display:flex;justify-content:center;gap:clamp(20px,4vw,54px);flex-wrap:wrap;font-weight:600;font-size:15px;color:var(--ink-35)}
+.logo-row span:hover{color:var(--ink-60);transition:color .3s}
+
+/* features */
+.features{padding:12vh 0}
+.features h2{font-size:clamp(30px,4vw,52px);font-weight:800;letter-spacing:-.02em;line-height:1.05;max-width:20ch}
+.features h2 em{font-style:normal;color:var(--sky)}
+.feat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:7vh}
+.feat{
+  background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:26px 24px;
+  transition:transform .45s cubic-bezier(.16,1,.3,1),border-color .35s;
+}
+.feat:hover{transform:translateY(-6px);border-color:rgba(46,148,198,.5)}
+.feat .ic{
+  width:38px;height:38px;border-radius:10px;background:var(--sky-soft);
+  display:grid;place-items:center;margin-bottom:18px;
+}
+.feat .ic svg{width:19px;height:19px;stroke:var(--sky)}
+.feat h3{font-size:18px;font-weight:600;margin-bottom:8px}
+.feat p{font-size:14px;color:var(--ink-60)}
+.feat code{font-family:var(--mono);font-size:12px;color:var(--sky)}
+@media(max-width:860px){.feat-grid{grid-template-columns:1fr}}
+
+/* metrics band */
+.metrics{border-top:1px solid var(--line);border-bottom:1px solid var(--line);background:var(--panel)}
+.met-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line)}
+.met{background:var(--bg);padding:36px 24px;text-align:center}
+.met b{display:block;font-family:var(--mono);font-weight:700;font-size:clamp(26px,3vw,40px);letter-spacing:-.02em}
+.met span{font-size:12.5px;color:var(--ink-60)}
+@media(max-width:760px){.met-grid{grid-template-columns:repeat(2,1fr)}}
+
+/* pricing */
+.pricing{padding:12vh 0}
+.pricing h2{font-size:clamp(30px,4vw,52px);font-weight:800;letter-spacing:-.02em;text-align:center}
+.pricing .sub{text-align:center;color:var(--ink-60);margin-top:10px}
+.tiers{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:6vh;align-items:stretch}
+.tier{
+  background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:30px 26px;
+  display:flex;flex-direction:column;transition:transform .45s cubic-bezier(.16,1,.3,1),border-color .35s;
+}
+.tier:hover{transform:translateY(-6px)}
+.tier.hot{border-color:var(--sky);position:relative;overflow:hidden}
+.tier.hot::before{content:"MOST TEAMS";position:absolute;top:14px;right:-34px;transform:rotate(38deg);background:var(--sky);color:#04121c;font-family:var(--mono);font-size:9px;font-weight:700;letter-spacing:.1em;padding:4px 38px}
+.tier h3{font-size:16px;font-weight:600;color:var(--ink-60)}
+.tier .price{font-family:var(--mono);font-weight:700;font-size:40px;margin:12px 0 2px}
+.tier .price small{font-size:13px;color:var(--ink-35);font-weight:400}
+.tier ul{list-style:none;margin:22px 0 28px;display:grid;gap:10px}
+.tier li{font-size:13.5px;color:var(--ink-60);padding-left:22px;position:relative}
+.tier li::before{content:"→";position:absolute;left:0;color:var(--sky);font-family:var(--mono)}
+.tier .btn{margin-top:auto;text-align:center}
+@media(max-width:860px){.tiers{grid-template-columns:1fr}}
+
+/* footer */
+footer{border-top:1px solid var(--line);padding:11vh 0 5vh;text-align:center}
+footer h2{font-size:clamp(32px,4.6vw,58px);font-weight:800;letter-spacing:-.02em;max-width:22ch;margin:0 auto}
+footer h2 em{font-style:normal;color:var(--sky)}
+footer .sub{color:var(--ink-60);margin:16px 0 32px}
+.foot-meta{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-top:10vh;padding-top:22px;border-top:1px solid var(--line);font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-35)}
+@media(prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01ms !important;transition-duration:.01ms !important}
+  .rev{opacity:1;transform:none}
+  .dash .bars i{transform:scaleY(1)}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="head-in">
+    <a class="logo" href="#top">
+      <svg viewBox="0 0 20 20" fill="none"><path d="M1 12h4l2.5-7 4 11L14 8l1.5 4H19" stroke="#2e94c6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      Pulseboard
+    </a>
+    <nav>
+      <a href="#features">Features</a>
+      <a href="#pricing">Pricing</a>
+      <a href="#docs" onclick="return false">Docs</a>
+      <a class="btn btn-fill" href="#pricing">Start free</a>
+    </nav>
+  </div>
+</header>
+
+<section class="hero" id="top">
+  <div class="wrap">
+    <span class="badge rev"><i></i> LIVE — 4,182 events/sec across the fleet</span>
+    <h1 class="rev">See your product's <span class="grad">heartbeat</span>, not a wall of charts.</h1>
+    <p class="sub rev">Pulseboard turns raw product events into the eight numbers your team actually argues about — shipped to Slack before standup.</p>
+    <div class="cta-row rev">
+      <a class="btn btn-fill" href="#pricing">Start free — no card</a>
+      <a class="btn btn-ghost" href="#features">Watch the tour</a>
+    </div>
+    <p class="note rev">$ npm install @pulseboard/sdk — 2 lines to first event</p>
+
+    <div class="dash rev" id="dash">
+      <div class="dash-bar"><i></i><i></i><i></i><span>pulseboard.app/acme — Week 30</span></div>
+      <div class="dash-grid">
+        <div class="panel chart-box">
+          <h4>Weekly active users</h4>
+          <div class="big">48,210 <span class="delta">▲ 12.4%</span></div>
+          <svg id="wau" viewBox="0 0 560 190" aria-label="Weekly active users, last 12 weeks, trending up">
+            <line class="gridline" x1="36" y1="30"  x2="548" y2="30"/>
+            <line class="gridline" x1="36" y1="80"  x2="548" y2="80"/>
+            <line class="gridline" x1="36" y1="130" x2="548" y2="130"/>
+            <line class="gridline" x1="36" y1="168" x2="548" y2="168"/>
+            <text class="axis-t" x="6"  y="33">50k</text>
+            <text class="axis-t" x="6"  y="83">35k</text>
+            <text class="axis-t" x="6"  y="133">20k</text>
+            <text class="axis-t" x="30" y="184">W19</text>
+            <text class="axis-t" x="270" y="184">W24</text>
+            <text class="axis-t" x="516" y="184">W30</text>
+            <path id="wau-area" fill="rgba(46,148,198,.16)" d=""/>
+            <path id="wau-line" fill="none" stroke="#2e94c6" stroke-width="2" stroke-linecap="round" d=""/>
+            <circle id="wau-dot" r="4.5" fill="#2e94c6" stroke="#111624" stroke-width="2" opacity="0"/>
+            <rect id="wau-hit" x="36" y="10" width="512" height="160" fill="transparent"/>
+          </svg>
+          <div class="tip" id="wau-tip"></div>
+        </div>
+        <div class="stat-stack">
+          <div class="panel">
+            <h4>North-star: weekly retained</h4>
+            <div class="big">71.3%</div>
+            <span class="delta">▲ 2.1 pts vs W29</span>
+          </div>
+          <div class="panel">
+            <h4>Deploys shipped / day</h4>
+            <div class="bars" id="deploy-bars" aria-label="Deploys per day, last 10 days"></div>
+            <div class="bars-cap"><span>Jul 19</span><span>Jul 28</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="logos">
+  <div class="wrap rev">
+    <p>Trusted by teams who ship</p>
+    <div class="logo-row">
+      <span>Fathomly</span><span>Kite&amp;Co</span><span>Driftless</span><span>Mono Labs</span><span>Beacon HQ</span><span>Tinderbox</span>
+    </div>
+  </div>
+</section>
+
+<section class="features" id="features">
+  <div class="wrap">
+    <h2 class="rev">Eight numbers. <em>Zero dashboards</em> nobody opens.</h2>
+    <div class="feat-grid">
+      <div class="feat rev">
+        <div class="ic"><svg viewBox="0 0 20 20" fill="none" stroke-width="1.8"><path d="M3 16V8m7 8V4m7 12v-6" stroke-linecap="round"/></svg></div>
+        <h3>Metrics that argue back</h3>
+        <p>Every number carries its own why: the segments, releases and campaigns that moved it — one click deep.</p>
+      </div>
+      <div class="feat rev">
+        <div class="ic"><svg viewBox="0 0 20 20" fill="none" stroke-width="1.8"><path d="M3 10h4l2-5 3 10 2-5h3" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <h3>Anomaly pings, not noise</h3>
+        <p>Seasonal-aware detection that learns your weekly rhythm. If Tuesday always dips, we stay quiet about Tuesday.</p>
+      </div>
+      <div class="feat rev">
+        <div class="ic"><svg viewBox="0 0 20 20" fill="none" stroke-width="1.8"><rect x="3" y="3" width="14" height="14" rx="3"/><path d="M7 10l2 2 4-4" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <h3>Standup digest</h3>
+        <p>The eight numbers, deltas and one sentence of context in Slack at 8:55 — <code>/pulse mute</code> when you're on holiday.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="metrics">
+  <div class="met-grid">
+    <div class="met rev"><b data-count="212">0</b><span>ms p95 query time</span></div>
+    <div class="met rev"><b data-count="4100">0</b><span>teams on Pulseboard</span></div>
+    <div class="met rev"><b data-count="99.98" data-dec="2">0</b><span>% uptime, trailing year</span></div>
+    <div class="met rev"><b data-count="2">0</b><span>lines of code to install</span></div>
+  </div>
+</section>
+
+<section class="pricing" id="pricing">
+  <div class="wrap">
+    <h2 class="rev">Pricing that doesn't need a sales call</h2>
+    <p class="sub rev">Per team, flat. Events are never metered — count your users, not our invoices.</p>
+    <div class="tiers">
+      <div class="tier rev">
+        <h3>Seed</h3>
+        <div class="price">$0 <small>/ forever</small></div>
+        <ul>
+          <li>Up to 3 seats</li>
+          <li>8 core metrics</li>
+          <li>30-day history</li>
+          <li>Slack digest</li>
+        </ul>
+        <a class="btn btn-ghost" href="#top">Start free</a>
+      </div>
+      <div class="tier hot rev">
+        <h3>Scale</h3>
+        <div class="price">$49 <small>/ team / mo</small></div>
+        <ul>
+          <li>Unlimited seats</li>
+          <li>Custom metrics &amp; funnels</li>
+          <li>13-month history</li>
+          <li>Anomaly pings</li>
+          <li>API &amp; exports</li>
+        </ul>
+        <a class="btn btn-fill" href="#top">Start 14-day trial</a>
+      </div>
+      <div class="tier rev">
+        <h3>Fleet</h3>
+        <div class="price">$199 <small>/ org / mo</small></div>
+        <ul>
+          <li>Multi-product rollups</li>
+          <li>SSO &amp; audit log</li>
+          <li>Unlimited history</li>
+          <li>Priority humans</li>
+        </ul>
+        <a class="btn btn-ghost" href="#top">Talk to us</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <h2 class="rev">Your product has a pulse. <em>Start listening.</em></h2>
+    <p class="sub rev">Free for small teams. Two lines of code. First insight in four minutes.</p>
+    <a class="btn btn-fill rev" href="#top">Create your board</a>
+    <div class="foot-meta">
+      <span>Pulseboard © 2026</span>
+      <span>Status: all systems nominal</span>
+      <span>Concept site — portfolio demonstration</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // scroll reveals
+  const io = new IntersectionObserver((entries) => {
+    for (const e of entries) if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+  }, { threshold: 0.12 });
+  document.querySelectorAll('.rev, .dash').forEach((el) => io.observe(el));
+
+  // WAU line chart — 12 weekly points, plot area x:36-548 y:10-168
+  const wau = [24.1, 25.9, 25.2, 28.4, 30.6, 33.8, 32.9, 36.4, 39.8, 42.5, 45.1, 48.2]; // thousands
+  const X0 = 36, X1 = 548, Y0 = 168, Y1 = 10, VMIN = 15, VMAX = 52;
+  const px = (i) => X0 + (i / (wau.length - 1)) * (X1 - X0);
+  const py = (v) => Y0 - ((v - VMIN) / (VMAX - VMIN)) * (Y0 - Y1);
+  const pts = wau.map((v, i) => [px(i), py(v)]);
+  const line = pts.map(([x, y], i) => (i ? 'L' : 'M') + x.toFixed(1) + ' ' + y.toFixed(1)).join(' ');
+  document.getElementById('wau-line').setAttribute('d', line);
+  document.getElementById('wau-area').setAttribute('d', line + ` L${X1} ${Y0} L${X0} ${Y0} Z`);
+
+  // crosshair tooltip
+  const svg = document.getElementById('wau'), dot = document.getElementById('wau-dot'),
+        tip = document.getElementById('wau-tip'), hit = document.getElementById('wau-hit');
+  hit.addEventListener('mousemove', (e) => {
+    const r = svg.getBoundingClientRect();
+    const sx = ((e.clientX - r.left) / r.width) * 560;
+    const i = Math.max(0, Math.min(wau.length - 1, Math.round(((sx - X0) / (X1 - X0)) * (wau.length - 1))));
+    const [cx, cy] = pts[i];
+    dot.setAttribute('cx', cx); dot.setAttribute('cy', cy); dot.setAttribute('opacity', 1);
+    tip.style.left = (cx / 560) * r.width + 'px';
+    tip.style.top = (cy / 190) * r.height + 36 + 'px';
+    tip.innerHTML = 'W' + (19 + i) + ' — <b>' + wau[i].toFixed(1) + 'k</b> users';
+    tip.style.opacity = 1;
+  });
+  hit.addEventListener('mouseleave', () => { dot.setAttribute('opacity', 0); tip.style.opacity = 0; });
+
+  // deploy bars — 10 days
+  const deploys = [3, 5, 4, 7, 6, 2, 1, 8, 6, 9];
+  const barBox = document.getElementById('deploy-bars');
+  deploys.forEach((d, i) => {
+    const b = document.createElement('i');
+    b.style.height = (d / 9) * 100 + '%';
+    b.style.transitionDelay = (i * 45) + 'ms';
+    b.title = 'Jul ' + (19 + i) + ' — ' + d + ' deploys';
+    barBox.appendChild(b);
+  });
+
+  // count-up metrics
+  const cio = new IntersectionObserver((entries) => {
+    for (const e of entries) {
+      if (!e.isIntersecting) continue;
+      cio.unobserve(e.target);
+      const el = e.target, target = parseFloat(el.dataset.count), dec = +(el.dataset.dec || 0);
+      const t0 = performance.now();
+      (function tick(t) {
+        const p = Math.min(1, (t - t0) / 1200), ease = 1 - Math.pow(1 - p, 3);
+        el.textContent = (target * ease).toFixed(dec).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+        if (p < 1) requestAnimationFrame(tick);
+      })(t0);
+    }
+  }, { threshold: 0.6 });
+  document.querySelectorAll('[data-count]').forEach((el) => cio.observe(el));
+</script>
+</body>
+</html>

@@ -1,0 +1,320 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Southpaw Boxing Club — Train Loud</title>
+<meta name="description" content="Southpaw is a concept boxing gym site. Twelve rounds, zero excuses." />
+<meta name="robots" content="noindex" />
+<style>
+@font-face{font-family:'Anton';font-style:normal;font-weight:400;font-display:swap;src:url('fonts/sp-Anton-400-normal.woff2') format('woff2')}
+@font-face{font-family:'Barlow';font-style:normal;font-weight:400;font-display:swap;src:url('fonts/sp-Barlow-400-normal.woff2') format('woff2')}
+@font-face{font-family:'Barlow';font-style:normal;font-weight:600;font-display:swap;src:url('fonts/sp-Barlow-600-normal.woff2') format('woff2')}
+@font-face{font-family:'Barlow Condensed';font-style:normal;font-weight:500;font-display:swap;src:url('fonts/sp-BarlowCondensed-500-normal.woff2') format('woff2')}
+@font-face{font-family:'Barlow Condensed';font-style:normal;font-weight:700;font-display:swap;src:url('fonts/sp-BarlowCondensed-700-normal.woff2') format('woff2')}
+
+:root{
+  --black:#0e0d0b;
+  --black-2:#171512;
+  --chalk:#f2ede3;
+  --chalk-60:rgba(242,237,227,.62);
+  --chalk-15:rgba(242,237,227,.14);
+  --red:#e33d24;
+  --gold:#d9a521;
+  --disp:'Anton',Impact,sans-serif;
+  --cond:'Barlow Condensed',Arial Narrow,sans-serif;
+  --body:'Barlow',Helvetica,sans-serif;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  background:var(--black);color:var(--chalk);
+  font-family:var(--body);line-height:1.6;
+  -webkit-font-smoothing:antialiased;overflow-x:hidden;
+}
+::selection{background:var(--red);color:var(--chalk)}
+.wrap{max-width:1280px;margin:0 auto;padding:0 clamp(20px,4vw,52px)}
+.rev{opacity:0;transform:translateY(30px);transition:opacity .8s cubic-bezier(.16,1,.3,1),transform .8s cubic-bezier(.16,1,.3,1)}
+.rev.in{opacity:1;transform:none}
+
+/* header */
+header{position:fixed;inset:0 0 auto 0;z-index:50;display:flex;justify-content:space-between;align-items:center;padding:16px clamp(20px,4vw,52px);mix-blend-mode:difference}
+.logo{font-family:var(--disp);font-size:22px;color:var(--chalk);text-decoration:none;letter-spacing:.04em}
+.logo span{color:var(--red)}
+nav{display:flex;gap:26px}
+nav a{font-family:var(--cond);font-weight:700;font-size:15px;letter-spacing:.14em;text-transform:uppercase;color:var(--chalk);text-decoration:none;position:relative}
+nav a::after{content:"";position:absolute;left:0;bottom:-3px;width:100%;height:2px;background:var(--red);transform:scaleX(0);transform-origin:right;transition:transform .35s}
+nav a:hover::after{transform:scaleX(1);transform-origin:left}
+@media(max-width:700px){nav{display:none}}
+
+/* hero */
+.hero{min-height:100svh;display:flex;flex-direction:column;justify-content:center;position:relative;overflow:hidden;padding:100px 0 120px}
+.hero::before{ /* diagonal floor */
+  content:"";position:absolute;inset:auto -10% -18% -10%;height:46%;
+  background:repeating-linear-gradient(-8deg,var(--black-2) 0 46px,transparent 46px 92px);
+  transform:rotate(-4deg);opacity:.8;
+}
+.hero h1{
+  font-family:var(--disp);font-size:clamp(72px,15.5vw,264px);
+  line-height:.85;letter-spacing:.005em;text-transform:uppercase;position:relative;
+}
+.hero h1 .row{display:block;overflow:hidden}
+.hero h1 .row>span{display:inline-block;transform:translateY(112%);animation:rise .9s cubic-bezier(.16,1,.3,1) forwards}
+.hero h1 .row:nth-child(2)>span{animation-delay:.1s}
+@keyframes rise{to{transform:none}}
+.hero h1 .out{
+  color:transparent;-webkit-text-stroke:2px var(--chalk);
+}
+.hero h1 .hit{color:var(--red);display:inline-block;animation:jab 5s 1.6s ease-in-out infinite}
+@keyframes jab{0%,92%,100%{transform:none}94%{transform:translateX(-8px) rotate(-1.2deg)}96%{transform:translateX(4px)}}
+.hero .tag{
+  display:flex;gap:26px;align-items:center;margin-top:34px;flex-wrap:wrap;
+  font-family:var(--cond);font-weight:500;font-size:17px;letter-spacing:.1em;text-transform:uppercase;color:var(--chalk-60);
+  opacity:0;animation:fade .9s .8s forwards;
+}
+@keyframes fade{to{opacity:1}}
+.hero .tag b{color:var(--gold);font-weight:700}
+.hero .cta-row{margin-top:36px;display:flex;gap:14px;flex-wrap:wrap;opacity:0;animation:fade .9s 1s forwards}
+.btn{
+  font-family:var(--cond);font-weight:700;font-size:16px;letter-spacing:.14em;text-transform:uppercase;
+  padding:16px 32px;text-decoration:none;display:inline-block;
+  transition:transform .3s cubic-bezier(.16,1,.3,1),background .25s,color .25s;
+  clip-path:polygon(8px 0,100% 0,calc(100% - 8px) 100%,0 100%);
+}
+.btn:hover{transform:translateY(-3px) skewX(-2deg)}
+.btn-red{background:var(--red);color:var(--chalk)}
+.btn-red:hover{background:var(--gold);color:var(--black)}
+.btn-line{border:2px solid var(--chalk);color:var(--chalk);clip-path:none}
+.btn-line:hover{border-color:var(--red);color:var(--red)}
+.bell{position:absolute;right:clamp(16px,4vw,60px);bottom:26px;font-family:var(--cond);font-size:13px;letter-spacing:.2em;text-transform:uppercase;color:var(--chalk-60);writing-mode:vertical-rl;opacity:.7}
+
+/* marquee */
+.marq{background:var(--red);overflow:hidden;white-space:nowrap;padding:12px 0;transform:rotate(-1.2deg);margin:-14px -2% 0;width:104%}
+.marq-track{display:inline-block;animation:marq 18s linear infinite}
+.marq span{font-family:var(--disp);font-size:clamp(18px,2.4vw,30px);text-transform:uppercase;letter-spacing:.06em;color:var(--chalk);padding:0 22px}
+.marq i{font-style:normal;color:var(--black)}
+@keyframes marq{to{transform:translateX(-50%)}}
+
+/* programs */
+.programs{padding:16vh 0 12vh}
+.sec-head{display:flex;align-items:baseline;gap:22px;margin-bottom:7vh}
+.sec-head .no{font-family:var(--cond);font-weight:700;font-size:16px;color:var(--red);letter-spacing:.2em}
+.sec-head h2{font-family:var(--disp);font-size:clamp(38px,6vw,84px);text-transform:uppercase;letter-spacing:.01em;line-height:.95}
+.prog-list{border-top:2px solid var(--chalk)}
+.prog{
+  display:grid;grid-template-columns:110px 1fr auto auto;gap:26px;align-items:center;
+  padding:30px 10px;border-bottom:2px solid var(--chalk);text-decoration:none;color:inherit;
+  position:relative;overflow:hidden;transition:padding-left .35s;
+}
+.prog::before{content:"";position:absolute;inset:0;background:var(--red);transform:translateX(-101%);transition:transform .45s cubic-bezier(.16,1,.3,1);z-index:0}
+.prog:hover::before{transform:none}
+.prog>*{position:relative;z-index:1}
+.prog:hover{padding-left:26px}
+.prog .lvl{font-family:var(--cond);font-weight:700;font-size:13px;letter-spacing:.18em;text-transform:uppercase;color:var(--gold)}
+.prog:hover .lvl{color:var(--black)}
+.prog h3{font-family:var(--disp);font-size:clamp(26px,3.6vw,52px);text-transform:uppercase;letter-spacing:.01em}
+.prog .meta{font-family:var(--cond);font-weight:500;font-size:15px;letter-spacing:.1em;text-transform:uppercase;color:var(--chalk-60)}
+.prog:hover .meta{color:rgba(14,13,11,.75)}
+.prog .arw{font-family:var(--disp);font-size:30px;transform:translateX(-6px);opacity:0;transition:transform .35s,opacity .35s}
+.prog:hover .arw{transform:none;opacity:1;color:var(--black)}
+@media(max-width:760px){.prog{grid-template-columns:1fr auto}.prog .lvl,.prog .meta{display:none}}
+
+/* coaches */
+.coaches{background:var(--chalk);color:var(--black);padding:14vh 0;clip-path:polygon(0 3vw,100% 0,100% 100%,0 100%)}
+.coaches .sec-head .no{color:var(--red)}
+.coach-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+.coach{border:2px solid var(--black);padding:26px 22px;position:relative;transition:transform .4s cubic-bezier(.16,1,.3,1),box-shadow .4s}
+.coach:hover{transform:translate(-4px,-4px);box-shadow:8px 8px 0 var(--red)}
+.coach .ring{width:74px;height:74px;border-radius:50%;border:2px solid var(--black);display:grid;place-items:center;font-family:var(--disp);font-size:24px;margin-bottom:20px;background:var(--gold)}
+.coach h3{font-family:var(--disp);font-size:26px;text-transform:uppercase}
+.coach .rec{font-family:var(--cond);font-weight:700;font-size:14px;letter-spacing:.14em;text-transform:uppercase;color:var(--red);margin:4px 0 12px}
+.coach p{font-size:14.5px;color:rgba(14,13,11,.72)}
+@media(max-width:860px){.coach-grid{grid-template-columns:1fr}}
+
+/* schedule strip */
+.sched{padding:14vh 0}
+.sched-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:2px;background:var(--chalk-15);border:2px solid var(--chalk-15)}
+.day{background:var(--black);padding:24px 20px 30px}
+.day h4{font-family:var(--disp);font-size:19px;text-transform:uppercase;color:var(--gold);margin-bottom:14px}
+.day ul{list-style:none;display:grid;gap:9px}
+.day li{font-family:var(--cond);font-weight:500;font-size:15.5px;letter-spacing:.05em;display:flex;justify-content:space-between;gap:10px;color:var(--chalk-60)}
+.day li b{color:var(--chalk);font-weight:700}
+.day li:hover b{color:var(--red)}
+@media(max-width:860px){.sched-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:520px){.sched-grid{grid-template-columns:1fr}}
+
+/* footer */
+footer{padding:6vh 0 5vh;position:relative;overflow:hidden}
+.foot-shout{
+  font-family:var(--disp);font-size:clamp(54px,10.5vw,180px);line-height:.9;text-transform:uppercase;
+  letter-spacing:.005em;
+}
+.foot-shout .out{color:transparent;-webkit-text-stroke:2px var(--chalk)}
+.foot-shout .red{color:var(--red)}
+footer .sub{font-family:var(--cond);font-weight:500;font-size:17px;letter-spacing:.08em;text-transform:uppercase;color:var(--chalk-60);margin:26px 0 34px;max-width:52ch}
+.foot-meta{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-top:9vh;padding-top:20px;border-top:2px solid var(--chalk-15);font-family:var(--cond);font-weight:500;font-size:13px;letter-spacing:.16em;text-transform:uppercase;color:var(--chalk-60)}
+@media(prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01ms !important;animation-delay:0s !important;transition-duration:.01ms !important}
+  .rev{opacity:1;transform:none}
+  .hero h1 .row>span{transform:none}
+  .hero .tag,.hero .cta-row{opacity:1}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <a class="logo" href="#top">SOUTH<span>PAW</span></a>
+  <nav>
+    <a href="#programs">Programs</a>
+    <a href="#coaches">Coaches</a>
+    <a href="#schedule">Schedule</a>
+  </nav>
+</header>
+
+<section class="hero" id="top">
+  <div class="wrap">
+    <h1>
+      <span class="row"><span class="out">TRAIN</span></span>
+      <span class="row"><span><span class="hit">LOUD.</span></span></span>
+    </h1>
+    <div class="tag">
+      <span><b>EST. 1998</b> — RIVERSIDE ARCHES, MCR</span>
+      <span>12 ROUNDS · <b>ZERO</b> EXCUSES</span>
+    </div>
+    <div class="cta-row">
+      <a class="btn btn-red" href="#schedule">First session free</a>
+      <a class="btn btn-line" href="#programs">See programs</a>
+    </div>
+  </div>
+  <span class="bell">— ROUND ONE, SECONDS OUT —</span>
+</section>
+
+<div class="marq" aria-hidden="true">
+  <div class="marq-track">
+    <span>HANDS UP</span><span><i>★</i></span><span>CHIN DOWN</span><span><i>★</i></span><span>FEET FIRST</span><span><i>★</i></span><span>BREATHE</span><span><i>★</i></span>
+    <span>HANDS UP</span><span><i>★</i></span><span>CHIN DOWN</span><span><i>★</i></span><span>FEET FIRST</span><span><i>★</i></span><span>BREATHE</span><span><i>★</i></span>
+  </div>
+</div>
+
+<section class="programs" id="programs">
+  <div class="wrap">
+    <div class="sec-head rev"><span class="no">01</span><h2>Pick your fight</h2></div>
+    <div class="prog-list">
+      <a class="prog rev" href="#schedule">
+        <span class="lvl">All levels</span>
+        <h3>Fundamentals</h3>
+        <span class="meta">Mon / Wed / Fri — 60 min</span>
+        <span class="arw">→</span>
+      </a>
+      <a class="prog rev" href="#schedule">
+        <span class="lvl">Intermediate</span>
+        <h3>Sparring School</h3>
+        <span class="meta">Tue / Thu — 90 min</span>
+        <span class="arw">→</span>
+      </a>
+      <a class="prog rev" href="#schedule">
+        <span class="lvl">High burn</span>
+        <h3>Bagwork Circuits</h3>
+        <span class="meta">Daily — 45 min</span>
+        <span class="arw">→</span>
+      </a>
+      <a class="prog rev" href="#schedule">
+        <span class="lvl">Competitive</span>
+        <h3>Fight Camp</h3>
+        <span class="meta">Invite only — 12 weeks</span>
+        <span class="arw">→</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<section class="coaches" id="coaches">
+  <div class="wrap">
+    <div class="sec-head rev"><span class="no">02</span><h2>The corner</h2></div>
+    <div class="coach-grid">
+      <div class="coach rev">
+        <div class="ring">RD</div>
+        <h3>Rosa "Deadbolt" Delgado</h3>
+        <div class="rec">24–2 · Flyweight · Head coach</div>
+        <p>Two decades in the ring, ten in the corner. Teaches defence like a locksmith — nothing gets in.</p>
+      </div>
+      <div class="coach rev">
+        <div class="ring">EO</div>
+        <h3>Emeka "The Metronome" Obi</h3>
+        <div class="rec">18–4 · Middleweight · Footwork</div>
+        <p>Rhythm first, power second. His footwork drills are famous, feared, and mildly musical.</p>
+      </div>
+      <div class="coach rev">
+        <div class="ring">JK</div>
+        <h3>June "Southpaw" Kaneko</h3>
+        <div class="rec">31–0 · Lightweight · Sparring</div>
+        <p>Undefeated, unbothered, unreasonably patient with beginners. The club is named after her stance.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="sched" id="schedule">
+  <div class="wrap">
+    <div class="sec-head rev"><span class="no">03</span><h2>This week</h2></div>
+    <div class="sched-grid">
+      <div class="day rev">
+        <h4>Mon</h4>
+        <ul>
+          <li><b>06:30</b> Bagwork</li>
+          <li><b>12:15</b> Fundamentals</li>
+          <li><b>18:30</b> Fundamentals</li>
+          <li><b>20:00</b> Open ring</li>
+        </ul>
+      </div>
+      <div class="day rev">
+        <h4>Tue</h4>
+        <ul>
+          <li><b>06:30</b> Bagwork</li>
+          <li><b>18:00</b> Sparring school</li>
+          <li><b>19:30</b> Fight camp</li>
+        </ul>
+      </div>
+      <div class="day rev">
+        <h4>Wed</h4>
+        <ul>
+          <li><b>06:30</b> Bagwork</li>
+          <li><b>12:15</b> Fundamentals</li>
+          <li><b>18:30</b> Fundamentals</li>
+        </ul>
+      </div>
+      <div class="day rev">
+        <h4>Thu–Sun</h4>
+        <ul>
+          <li><b>THU</b> Sparring 18:00</li>
+          <li><b>FRI</b> Fundamentals 18:30</li>
+          <li><b>SAT</b> Circuits 09:00</li>
+          <li><b>SUN</b> Closed. Rest.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <p class="foot-shout rev"><span class="out">NO BELL</span> <span class="red">SAVES YOU.</span></p>
+    <p class="sub rev">First session free. Wraps provided, excuses confiscated at the door. Riverside Arches 9–11, Manchester.</p>
+    <a class="btn btn-red rev" href="mailto:ring@southpaw.example">Claim the free round</a>
+    <div class="foot-meta">
+      <span>Southpaw Boxing Club © 2026</span>
+      <span>MCR — Riverside Arches</span>
+      <span>Concept site — portfolio demonstration</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  const io = new IntersectionObserver((entries) => {
+    for (const e of entries) if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+  }, { threshold: 0.12 });
+  document.querySelectorAll('.rev').forEach((el) => io.observe(el));
+</script>
+</body>
+</html>
