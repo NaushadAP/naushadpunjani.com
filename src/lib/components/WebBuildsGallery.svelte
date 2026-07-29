@@ -17,6 +17,62 @@
              layout, and per-city location cards.`,
       stack: ['Next.js', 'Image Optimization', 'Responsive'],
       annot: 'hero → ingredients → locations → order'
+    },
+    {
+      fig: '02',
+      name: 'Atelier Nord — Architecture Studio',
+      domain: 'concept · architecture',
+      href: '/demos/atelier',
+      kicker: 'EDITORIAL · ARCHITECTURE',
+      shot: '/showcase/atelier.png',
+      shotAlt: 'Homepage of a Nordic architecture studio concept site',
+      desc: `Editorial one-pager for a Nordic architecture studio. Hand-drawn <b>SVG floor
+             plans</b> that sketch themselves in, a works index with hover drawing plates,
+             and a print-inspired grid over bone-white paper.`,
+      stack: ['HTML/CSS', 'SVG line art', 'Scroll reveals'],
+      annot: 'plans draw in as you arrive'
+    },
+    {
+      fig: '03',
+      name: 'Ember & Husk — Coffee Roastery',
+      domain: 'concept · specialty coffee',
+      href: '/demos/roastery',
+      kicker: 'BRAND · SPECIALTY COFFEE',
+      shot: '/showcase/roastery.png',
+      shotAlt: 'Homepage of a small-batch coffee roastery concept site',
+      desc: `Small-batch roastery brand site in dark-roast tones. CSS-only <b>steam and
+             film grain</b>, three bean cards with roast-level dots, and a six-step brew
+             ritual on a crema-coloured spread.`,
+      stack: ['HTML/CSS', 'CSS grain & steam', 'Wonky serif type'],
+      annot: 'steam → beans → six-step ritual'
+    },
+    {
+      fig: '04',
+      name: 'Pulseboard — SaaS Analytics',
+      domain: 'concept · saas product',
+      href: '/demos/pulse',
+      kicker: 'PRODUCT · SAAS LANDING',
+      shot: '/showcase/pulse.png',
+      shotAlt: 'Homepage of a SaaS analytics product concept site',
+      desc: `Dark product landing with a working dashboard mock: an <b>interactive SVG
+             chart</b> with crosshair tooltip, count-up metrics, and a chart palette
+             validated for colour-vision deficiency.`,
+      stack: ['HTML/CSS/JS', 'SVG charts', 'CVD-safe palette'],
+      annot: 'hover the chart — it answers'
+    },
+    {
+      fig: '05',
+      name: 'Southpaw Boxing Club',
+      domain: 'concept · fitness brand',
+      href: '/demos/southpaw',
+      kicker: 'BRAND · FITNESS',
+      shot: '/showcase/southpaw.png',
+      shotAlt: 'Homepage of a boxing gym concept site',
+      desc: `Loud type-driven site for a boxing gym. Outline display type with a
+             <b>jab animation</b>, program rows that flood red on hover, and a weekly
+             schedule set like a fight card.`,
+      stack: ['HTML/CSS', 'Type-driven', 'Micro-interactions'],
+      annot: 'outline type, red hook on hover'
     }
   ];
 </script>
